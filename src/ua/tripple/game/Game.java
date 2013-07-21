@@ -1,4 +1,6 @@
 package ua.tripple.game;
 
-public class Game {
+import java.awt.*;
+
+public class Game extends Canvas {
 }
