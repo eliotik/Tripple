@@ -1,4 +1,4 @@
-ua.tripple.game.Tripple
+ua.triple.game.*
 =======
 
-tripple town clone
+triple town clone
