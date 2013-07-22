@@ -9,7 +9,6 @@ import org.xml.sax.*;
 import static java.lang.String.format;
 
 class Element {
-
     private static final String xmlFilePath = "/someDir";
 
     private boolean joinable;
