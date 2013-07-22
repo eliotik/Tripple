@@ -8,7 +8,7 @@ import org.xml.sax.*;
 
 import static java.lang.String.format;
 
-public class Element {
+class Element {
 
     private static final String xmlFilePath = "/someDir";
 
