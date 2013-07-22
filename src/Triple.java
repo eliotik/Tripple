@@ -1,7 +1,7 @@
 import javax.swing.*;
 import ua.tripple.game.Game;
 
-public class Tripple {
+public class Triple {
 
     public static void main(String[] args) {
         Game game = new Game();
