@@ -1,8 +1,6 @@
 package ua.triple.game;
 
 public class Element {
-<<<<<<< HEAD
-=======
 
     private boolean joinable;
     private String type;
@@ -22,5 +20,4 @@ public class Element {
     public void setType(String type) {
         this.type = type;
     }
->>>>>>> origin/master
 }
