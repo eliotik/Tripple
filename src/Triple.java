@@ -1,5 +1,5 @@
 import javax.swing.*;
-import ua.tripple.game.Game;
+import ua.triple.game.*;
 
 public class Triple {
 
