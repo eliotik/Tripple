@@ -2,14 +2,8 @@ package ua.triple.game;
 
 public class Element {
 
-    public static ElementType baseType = new ElementType();
-
     private boolean joinable;
     private String type;
-
-    public Element() {
-
-    }
 
     public boolean isJoinable() {
         return joinable;
