@@ -6,7 +6,6 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
-
 import static java.lang.String.format;
 
 class Element {

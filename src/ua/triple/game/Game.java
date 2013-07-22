@@ -3,11 +3,18 @@ package ua.triple.game;
 import java.awt.*;
 
 public class Game extends Canvas implements Runnable {
-    public static Dimension size = new Dimension(800, 600);
+
+    private static int pixelSize = 2;
+
+    public static Dimension size = new Dimension(640, 640);
+    public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
+
     public static String name = "Triple Town";
     public static boolean isRunning = false;
 
     public static Grid grid;
+
+    private Image screen;
 
     public Game(int height, int width) {
         Dimension d = new Dimension(height, width);
@@ -19,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 
     public void start() {
         isRunning = true;
+        ElementType.loadTiles();
         grid = new Grid();
 
 
@@ -31,6 +39,8 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        screen = createVolatileImage(pixel.width, pixel.height);
+
         while (isRunning) {
             tick();
             render();
@@ -40,7 +50,17 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void render() {
+        Graphics g = screen.getGraphics();
 
+        g.setColor(new Color(100,100,100));
+        g.fillRect(0, 0, pixel.width, pixel.height);
+
+        grid.render(g);
+
+        g = getGraphics();
+        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
+
+        g.dispose();
     }
 
     public void tick() {
