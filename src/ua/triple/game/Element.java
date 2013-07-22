@@ -32,7 +32,7 @@ class Element {
         }
     }
 
-    public NodeList xmlRead(){
+    private NodeList xmlRead(){
         NodeList listOfElements = null;
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
