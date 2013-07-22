@@ -72,7 +72,6 @@ public class Element {
                 elementMap.put(elemj.getElementsByTagName("type").toString(), new Element(elemj.getElementsByTagName("type").toString(), joinable, elemj.getElementsByTagName("background").toString() ));
             }
         }
-
         return elementMap;
     }
 }
