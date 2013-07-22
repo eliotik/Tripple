@@ -1,5 +1,3 @@
-package ua.tripple.game;
-
 import javax.swing.*;
 import ua.tripple.game.Game;
 
