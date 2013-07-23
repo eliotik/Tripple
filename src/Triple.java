@@ -2,8 +2,6 @@ import javax.swing.*;
 import ua.triple.game.*;
 
 public class Triple {
-    private static final long serialVersionUID = 1L;
-
     public static void main(String[] args) {
         Game game = new Game();
 

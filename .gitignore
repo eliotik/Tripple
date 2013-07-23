@@ -1,2 +1,5 @@
 Triple.iml
 .idea
+/bin
+.project
+.classpath

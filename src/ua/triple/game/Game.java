@@ -2,9 +2,15 @@ package ua.triple.game;
 
 import java.awt.*;
 
+import ua.triple.game.configs.Tiles;
+import ua.triple.game.elements.ElementTypesCollection;
+import ua.triple.game.grid.Grid;
+
 public class Game extends Canvas implements Runnable {
 
-    private static int pixelSize = 2;
+	private static final long serialVersionUID = 1L;
+
+	private static int pixelSize = 2;
 
     public static Dimension size = new Dimension(640, 640);
     public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
@@ -26,7 +32,8 @@ public class Game extends Canvas implements Runnable {
 
     public void start() {
         isRunning = true;
-        ElementType.loadTiles();
+        Tiles.loadTiles();
+        ElementTypesCollection.loadElements();
         grid = new Grid();
 
 
@@ -37,7 +44,6 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    @Override
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
 

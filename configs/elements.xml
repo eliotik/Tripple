@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elements>
+	<element name="Green" joinable="1" type="green_base" background="" />
+	<element name="Bush " joinable="1" type="bush_base" background="" />
+	<element name="Berry bush" joinable="1" type="bush_multi" background="" />
+</elements>
