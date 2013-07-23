@@ -28,6 +28,8 @@ public class Cell extends Rectangle{
 	}
 
 	public void render(Graphics g) {
+		if (element == null) return;
+			
 		int tile_x = element.getType().getTile_x(),
 			tile_y = element.getType().getTile_y(),
 			cell_size = Config.cellSize,
@@ -46,7 +48,7 @@ public class Cell extends Rectangle{
 //		System.out.println("("+(x * cell_size)+","+(y * cell_size)+")-("+(x * cell_size + cell_size)+","+(y * cell_size + cell_size)+")");
 //		System.out.println("("+(tile_x * tile_size + tile_border_width)+","+(tile_y * tile_size + tile_border_width)+")-("+(tile_x * tile_size + tile_size - tile_border_width)+","+(tile_y * tile_size + tile_size - tile_border_width)+")");
 //		System.out.println("("+(tile_x * tile_size)+","+(tile_y * tile_size)+")-("+(tile_x * tile_size + tile_size)+","+(tile_y * tile_size + tile_size)+")");
-        g.drawImage(Tiles.getTilesAssets(), 
+		g.drawImage(Tiles.getTilesAssets(), 
         			x_width, 
         			y_width, 
         			x_width + width, 
