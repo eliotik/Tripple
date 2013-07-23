@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <elements>
-	<element name="Green" joinable="1" type="green_base" background="" />
-	<element name="Bush " joinable="1" type="bush_base" background="" />
-	<element name="Berry bush" joinable="1" type="bush_multi" background="" />
+	<element name="Green" id="green_base" joinable="1" type="base" background="" tile_x="0" tile_y="0" />
+	<element name="Bush" id="bush_base" joinable="1" type="base" background="" tile_x="1" tile_y="0" />
+	<element name="Berry bush" id="bush_multi" joinable="1" type="base" background="" tile_x="2" tile_y="0" />
 </elements>

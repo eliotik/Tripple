@@ -4,12 +4,18 @@ public class ElementType {
 
 	private String type;
 	private String background;
+	private Boolean joinable;
+	private String id;
+	private int tile_x = 0;
+	private int tile_y = 0;
 	
+	public String getId() {
+		return id;
+	}
+
 	public String getBackground() {
 		return background;
 	}
-
-	private Boolean joinable;
 
     public Boolean getJoinable() {
 		return joinable;
@@ -33,5 +39,30 @@ public class ElementType {
 
 	public String getType() {
 		return type;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setTile(int tile_x, int tile_y) {
+		setTile_x(tile_x);
+		setTile_y(tile_y);
+	}
+
+	public int getTile_x() {
+		return tile_x;
+	}
+
+	public void setTile_x(int x) {
+		tile_x = x;
+	}
+
+	public int getTile_y() {
+		return tile_y;
+	}
+
+	public void setTile_y(int y) {
+		tile_y = y;
 	}
 }

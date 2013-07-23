@@ -1,6 +1,7 @@
 package ua.triple.game.elements;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,33 +11,40 @@ import ua.triple.game.configs.XmlReader;
 
 public class ElementTypesCollection {
 	
-	private static HashMap<String, Element> elementMap = new HashMap<String, Element>();
+	private static HashMap<String, HashMap<String, ElementType>> elementMap = new HashMap<String, HashMap<String, ElementType>>();
 	
-	public static ElementType getType(String string) {
-		return new ElementType();
+	public static ElementType getRandomByType(String type) {
+		HashMap<String, ElementType> hm = elementMap.get(type);
+		if (hm == null) return new ElementType();
+		Random generator = new Random();
+		Object[] values = hm.values().toArray();
+		return (ElementType) values[generator.nextInt(values.length)];		
 	}
 
     public static void loadElements() {
         XmlReader.getStreamFromFile(Config.elementsFile);
         NodeList listOfElements = XmlReader.read();
         
-        Boolean joinable = false;
-        
         for( int j=0; j < listOfElements.getLength(); ++j ) {
             Node firstNode=listOfElements.item(j);
             if( firstNode.getNodeType() == Node.ELEMENT_NODE ) {
                 org.w3c.dom.Element elemj = (org.w3c.dom.Element) firstNode;
                 
-                joinable = false;
-                if (elemj.getAttribute("joinable").equals("1")) joinable = true;
-                
                 ElementType elementType = new ElementType();
                 
+                elementType.setId(elemj.getAttribute("id").toString());
                 elementType.setType(elemj.getAttribute("type").toString());
+                elementType.setTile(Integer.parseInt(elemj.getAttribute("tile_x").toString()), Integer.parseInt(elemj.getAttribute("tile_y").toString()));
                 elementType.setBackground(elemj.getAttribute("background").toString());
-                elementType.setJoinable(joinable);
+                elementType.setJoinable((elemj.getAttribute("joinable").equals("1")) ? true : false);
                 
-                elementMap.put(elementType.getType(), new Element( elementType ));
+                HashMap<String, ElementType> hm = elementMap.get(elementType.getType());
+                if (hm == null)
+                {
+                	hm = new HashMap<String, ElementType>();
+                }
+                hm.put(elementType.getId(), elementType);
+                elementMap.put(elementType.getType(), hm);
             }
         }
     }	
