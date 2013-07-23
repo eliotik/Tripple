@@ -19,6 +19,7 @@ public class ElementTypesCollection {
 		Random generator = new Random();
 		Object[] values = hm.values().toArray();
 		return (ElementType) values[generator.nextInt(values.length)];		
+		//return (ElementType) values[0];		
 	}
 
     public static void loadElements() {

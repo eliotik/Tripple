@@ -3,3 +3,4 @@ Triple.iml
 /bin
 .project
 .classpath
+.checkstyle

@@ -10,9 +10,9 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int pixelSize = 2;
+	public static int pixelSize = 2;
 
-    public static Dimension size = new Dimension(640, 640);
+    public static Dimension size = new Dimension(320, 320);
     public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
     public static String name = "Triple Town";
