@@ -48,6 +48,14 @@ public class ElementTypesCollection {
                 elementMap.put(elementType.getType(), hm);
             }
         }
-    }	
+    }
+
+	public static ElementType getTypeById(String type, String id) {
+		HashMap<String, ElementType> hmByType = elementMap.get(type);
+		if (hmByType == null) return new ElementType();
+		ElementType elT = hmByType.get(id);
+		if (elT == null) return new ElementType();
+		return elT;
+	}	
 	
 }

@@ -4,10 +4,10 @@ public class ElementType {
 
 	private String type;
 	private String background;
-	private Boolean joinable;
+	private Boolean joinable = false;
 	private String id;
-	private int tile_x = 0;
-	private int tile_y = 0;
+	private int tile_x = -1;
+	private int tile_y = -1;
 	
 	public String getId() {
 		return id;
