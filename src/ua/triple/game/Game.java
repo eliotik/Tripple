@@ -3,6 +3,7 @@ package ua.triple.game;
 import java.awt.*;
 
 import ua.triple.game.configs.Tiles;
+import ua.triple.game.configs.Utils;
 import ua.triple.game.elements.ElementTypesCollection;
 import ua.triple.game.grid.Grid;
 
@@ -21,6 +22,7 @@ public class Game extends Canvas implements Runnable {
     public static Grid grid;
 
     private Image screen;
+    private Player player;
 
     public Game(int height, int width) {
         Dimension d = new Dimension(height, width);
@@ -35,7 +37,7 @@ public class Game extends Canvas implements Runnable {
         Tiles.loadTiles();
         ElementTypesCollection.loadElements();
         grid = new Grid();
-
+        player = new Player("Player", ElementTypesCollection.getRandom());
 
         new Thread(this).start();
     }
@@ -47,9 +49,32 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
 
+        long lastTime = System.nanoTime();
+        final double numTicks = 60.0;
+        double n = 1000000000 / numTicks;
+        double delta = 0;
+        int updates = 0;
+        int frames = 0;
+        long timer = System.currentTimeMillis();
+        
         while (isRunning) {
-            tick();
+        	long now = System.nanoTime();
+        	delta += (now - lastTime) / n;
+        	lastTime = now;
+        	if (delta >= 1) {
+        		tick();
+        		++updates;
+        		--delta;
+        	}
+            
             render();
+            ++frames;
+            if (System.currentTimeMillis() - timer > 1000) {
+            	timer += 1000;
+            	Utils.print(updates + " ticks, fps: " + frames);
+            }
+            updates = 0;
+            frames = 0;
             try { Thread.sleep(5); } catch (Exception e) {}
         }
             
@@ -72,4 +97,10 @@ public class Game extends Canvas implements Runnable {
     public void tick() {
 
     }
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 }

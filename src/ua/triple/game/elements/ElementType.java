@@ -5,6 +5,7 @@ public class ElementType {
 	private String type;
 	private String background;
 	private Boolean joinable = false;
+	private Boolean playable = false;
 	private String id;
 	private int tile_x = -1;
 	private int tile_y = -1;
@@ -64,5 +65,13 @@ public class ElementType {
 
 	public void setTile_y(int y) {
 		tile_y = y;
+	}
+
+	public Boolean getPlayable() {
+		return playable;
+	}
+
+	public void setPlayable(Boolean playable) {
+		this.playable = playable;
 	}
 }

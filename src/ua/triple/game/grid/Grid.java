@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import ua.triple.game.configs.Config;
-import ua.triple.game.configs.Utils;
 import ua.triple.game.elements.Element;
 import ua.triple.game.elements.ElementTypesCollection;
 
