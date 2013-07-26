@@ -1,4 +1,6 @@
+
 import javax.swing.*;
+
 import ua.triple.game.*;
 
 public class Triple {
@@ -6,6 +8,7 @@ public class Triple {
         Game game = new Game();
 
         JFrame frame = new JFrame();
+        
         frame.add(game);
         frame.pack();
         frame.setTitle(Game.name);

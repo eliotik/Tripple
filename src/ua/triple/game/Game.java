@@ -13,7 +13,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static int pixelSize = 2;
 
-    public static Dimension size = new Dimension(320, 320);
+    public static Dimension size = new Dimension(460, 320);
     public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
     public static String name = "Triple Town";
@@ -22,12 +22,13 @@ public class Game extends Canvas implements Runnable {
     public static Grid grid;
 
     private Image screen;
-    private Player player;
+    private PlayerPanel playerPanel;
 
     public Game(int height, int width) {
         Dimension d = new Dimension(height, width);
         setPreferredSize(d);
     }
+    
     public Game() {
         setPreferredSize(size);
     }
@@ -37,7 +38,7 @@ public class Game extends Canvas implements Runnable {
         Tiles.loadTiles();
         ElementTypesCollection.loadElements();
         grid = new Grid();
-        player = new Player("Player", ElementTypesCollection.getRandom());
+        playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
 
         new Thread(this).start();
     }
@@ -48,7 +49,7 @@ public class Game extends Canvas implements Runnable {
 
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
-
+        
         long lastTime = System.nanoTime();
         final double numTicks = 60.0;
         double n = 1000000000 / numTicks;
@@ -68,6 +69,7 @@ public class Game extends Canvas implements Runnable {
         	}
             
             render();
+            
             ++frames;
             if (System.currentTimeMillis() - timer > 1000) {
             	timer += 1000;
@@ -75,6 +77,7 @@ public class Game extends Canvas implements Runnable {
             }
             updates = 0;
             frames = 0;
+            
             try { Thread.sleep(5); } catch (Exception e) {}
         }
             
@@ -85,10 +88,15 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(new Color(100,100,100));
         g.fillRect(0, 0, pixel.width, pixel.height);
-
+        g.setFont(new Font("Arial", Font.PLAIN, 24));
+        
         grid.render(g);
-
+        
+        
         g = getGraphics();
+        
+        playerPanel.render(g);
+        
         g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 
         g.dispose();
@@ -97,10 +105,4 @@ public class Game extends Canvas implements Runnable {
     public void tick() {
 
     }
-	public Player getPlayer() {
-		return player;
-	}
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
 }

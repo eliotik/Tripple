@@ -4,7 +4,7 @@ import ua.triple.game.elements.Element;
 
 public class Player {
 
-	private String name;
+	private String name = "";
 	private Element hand;
 	private int score;
 	

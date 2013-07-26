@@ -14,18 +14,17 @@ public class Cell extends Rectangle{
     private int y;
 
     private static final long serialVersionUID = 1L;
-
-    public Element getElement() {
-        return element;
-    }
-
     private Element element;
-    
+
     public Cell(Rectangle size, int x, int y) {
     	setBounds(size);
     	this.x = x;
     	this.y = y;
-	}
+	}    
+    
+    public Element getElement() {
+        return element;
+    }
 
 	public void render(Graphics g) {
 		if (element == null) return;
@@ -42,12 +41,7 @@ public class Cell extends Rectangle{
 			tile_y_width = tile_y * tile_size,
 			tile_x_border_pixelized = tile_x * tile_border_width_pixelized,
 			tile_y_border_pixelized = tile_y * tile_border_width_pixelized;
-		//Utils.print("{"+x+","+y+"}{"+tile_x+","+tile_y+"}("+(x * cell_size)+","+(y * cell_size)+")("+(x * cell_size + cell_size)+","+(y * cell_size + cell_size)+")["+(tile_x * tile_size)+","+(tile_y * tile_size)+"]["+(tile_x * tile_size + tile_size)+","+(tile_y * tile_size + tile_size)+"]");
-//		System.out.println("------------------");
-//		System.out.println("("+x+","+y+")-("+tile_x+","+tile_y+")");
-//		System.out.println("("+(x * cell_size)+","+(y * cell_size)+")-("+(x * cell_size + cell_size)+","+(y * cell_size + cell_size)+")");
-//		System.out.println("("+(tile_x * tile_size + tile_border_width)+","+(tile_y * tile_size + tile_border_width)+")-("+(tile_x * tile_size + tile_size - tile_border_width)+","+(tile_y * tile_size + tile_size - tile_border_width)+")");
-//		System.out.println("("+(tile_x * tile_size)+","+(tile_y * tile_size)+")-("+(tile_x * tile_size + tile_size)+","+(tile_y * tile_size + tile_size)+")");
+		
 		g.drawImage(Tiles.getTilesAssets(), 
         			x_width, 
         			y_width, 
