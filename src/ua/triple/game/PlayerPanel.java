@@ -1,11 +1,10 @@
 package ua.triple.game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
 import ua.triple.game.configs.Config;
 import ua.triple.game.configs.Tiles;
 import ua.triple.game.elements.Element;
@@ -34,10 +33,11 @@ public class PlayerPanel {
 		if(player.getName() != "" && g instanceof Graphics2D)
 		{
 			Graphics2D g2 = (Graphics2D)g;
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			Font font = new Font("Serif", Font.PLAIN, 16);
-	        g2.setFont(font);			
-			g2.drawString("Player: " + player.getName(), (Grid.cellsAmount + 1) * Config.cellSize, 10); 
+			//g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	        g2.setFont(new Font("Arial", Font.PLAIN, 10));			
+	        g2.setColor(Color.BLACK);
+	        g2.drawString(player.getName(), (Grid.cellsAmount + 1) * Config.cellSize, 18);
 		}
     	
 		if (player.getHand() != null) {

@@ -74,9 +74,9 @@ public class Game extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000) {
             	timer += 1000;
             	Utils.print(updates + " ticks, fps: " + frames);
+            	updates = 0;
+                frames = 0;
             }
-            updates = 0;
-            frames = 0;
             
             try { Thread.sleep(5); } catch (Exception e) {}
         }
@@ -91,14 +91,10 @@ public class Game extends Canvas implements Runnable {
         g.setFont(new Font("Arial", Font.PLAIN, 24));
         
         grid.render(g);
-        
-        
-        g = getGraphics();
-        
         playerPanel.render(g);
-        
-        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 
+        g = getGraphics();
+        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
         g.dispose();
     }
 
