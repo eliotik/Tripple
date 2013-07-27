@@ -38,6 +38,7 @@ public class PlayerPanel {
 	        g2.setFont(new Font("Arial", Font.PLAIN, 10));			
 	        g2.setColor(Color.BLACK);
 	        g2.drawString(player.getName(), (Grid.cellsAmount + 1) * Config.cellSize, 18);
+	        
 		}
     	
 		if (player.getHand() != null) {

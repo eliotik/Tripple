@@ -2,8 +2,8 @@ package ua.triple.game;
 
 import java.awt.*;
 
+import ua.triple.game.configs.Config;
 import ua.triple.game.configs.Tiles;
-import ua.triple.game.configs.Utils;
 import ua.triple.game.elements.ElementTypesCollection;
 import ua.triple.game.grid.Grid;
 
@@ -21,6 +21,12 @@ public class Game extends Canvas implements Runnable {
 
     public static Grid grid;
 
+    private int screenUpdates;
+    private int screenFrames;
+    private long screenTimer;
+    private int screenShowUpdates;
+    private int screenShowFrames;    
+    
     private Image screen;
     private PlayerPanel playerPanel;
 
@@ -54,9 +60,7 @@ public class Game extends Canvas implements Runnable {
         final double numTicks = 60.0;
         double n = 1000000000 / numTicks;
         double delta = 0;
-        int updates = 0;
-        int frames = 0;
-        long timer = System.currentTimeMillis();
+        screenTimer = System.currentTimeMillis();
         
         while (isRunning) {
         	long now = System.nanoTime();
@@ -64,19 +68,11 @@ public class Game extends Canvas implements Runnable {
         	lastTime = now;
         	if (delta >= 1) {
         		tick();
-        		++updates;
+        		++screenUpdates;
         		--delta;
         	}
             
             render();
-            
-            ++frames;
-            if (System.currentTimeMillis() - timer > 1000) {
-            	timer += 1000;
-            	Utils.print(updates + " ticks, fps: " + frames);
-            	updates = 0;
-                frames = 0;
-            }
             
             try { Thread.sleep(5); } catch (Exception e) {}
         }
@@ -93,6 +89,20 @@ public class Game extends Canvas implements Runnable {
         grid.render(g);
         playerPanel.render(g);
 
+        ++screenFrames;
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setFont(new Font("Arial", Font.PLAIN, 9));			
+        g2.setColor(Color.BLACK);
+        g2.drawString("fps="+screenShowUpdates+":"+screenShowFrames, (Grid.cellsAmount + 1) * Config.cellSize, (Grid.cellsAmount) * Config.cellSize - 5);
+
+        if (System.currentTimeMillis() - screenTimer > 1000) {
+        	screenTimer += 1000;
+        	screenShowUpdates = screenUpdates;
+        	screenShowFrames = screenFrames;
+        	screenUpdates = 0;
+        	screenFrames = 0;
+        }        
+        
         g = getGraphics();
         g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
         g.dispose();
