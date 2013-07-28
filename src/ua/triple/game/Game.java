@@ -2,7 +2,9 @@ package ua.triple.game;
 
 import java.awt.*;
 
-import ua.triple.game.configs.Config;
+import javax.swing.JFrame;
+
+import ua.triple.game.configs.Fps;
 import ua.triple.game.configs.Tiles;
 import ua.triple.game.elements.ElementTypesCollection;
 import ua.triple.game.grid.Grid;
@@ -11,35 +13,42 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static int pixelSize = 2;
+	public static final int pixelSize = 2;
 
-    public static Dimension size = new Dimension(460, 320);
-    public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
+    public static final Dimension size = new Dimension(460, 320);
+    public static final Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
-    public static String name = "Triple Town";
+    public static final String name = "Triple Town";
     public static boolean isRunning = false;
 
     public static Grid grid;
 
-    private int screenUpdates;
-    private int screenFrames;
-    private long screenTimer;
-    private int screenShowUpdates;
-    private int screenShowFrames;    
-    
     private Image screen;
     private PlayerPanel playerPanel;
+    private JFrame frame;
 
-    public Game(int height, int width) {
-        Dimension d = new Dimension(height, width);
-        setPreferredSize(d);
-    }
-    
+    public static void main(String[] args) {
+        new Game().start();
+    }    
+  
     public Game() {
-        setPreferredSize(size);
+    	setMinimumSize(size);
+    	setMaximumSize(size);
+    	setPreferredSize(size);
+    	
+        frame = new JFrame(name);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(this, BorderLayout.CENTER);
+        frame.pack();
+        
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    public void start() {
+    public synchronized void start() {
         isRunning = true;
         Tiles.loadTiles();
         ElementTypesCollection.loadElements();
@@ -50,31 +59,20 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void stop() {
-
+    	isRunning = false;
     }
 
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
         
-        long lastTime = System.nanoTime();
-        final double numTicks = 60.0;
-        double n = 1000000000 / numTicks;
-        double delta = 0;
-        screenTimer = System.currentTimeMillis();
+        Fps.init();
         
         while (isRunning) {
-        	long now = System.nanoTime();
-        	delta += (now - lastTime) / n;
-        	lastTime = now;
-        	if (delta >= 1) {
+        	if (Fps.doTick() == true) {
         		tick();
-        		++screenUpdates;
-        		--delta;
         	}
-            
             render();
-            
-            try { Thread.sleep(5); } catch (Exception e) {}
+            try { Thread.sleep(2); } catch (Exception e) {}
         }
             
     }
@@ -88,20 +86,7 @@ public class Game extends Canvas implements Runnable {
         
         grid.render(g);
         playerPanel.render(g);
-
-        ++screenFrames;
-        Graphics2D g2 = (Graphics2D)g;
-        g2.setFont(new Font("Arial", Font.PLAIN, 9));			
-        g2.setColor(Color.BLACK);
-        g2.drawString("fps="+screenShowUpdates+":"+screenShowFrames, (Grid.cellsAmount + 1) * Config.cellSize, (Grid.cellsAmount) * Config.cellSize - 5);
-
-        if (System.currentTimeMillis() - screenTimer > 1000) {
-        	screenTimer += 1000;
-        	screenShowUpdates = screenUpdates;
-        	screenShowFrames = screenFrames;
-        	screenUpdates = 0;
-        	screenFrames = 0;
-        }        
+        Fps.render(g);
         
         g = getGraphics();
         g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
