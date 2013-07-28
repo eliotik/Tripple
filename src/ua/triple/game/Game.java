@@ -64,15 +64,26 @@ public class Game extends Canvas implements Runnable {
 
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
-        
+        boolean doRender = false;
         Fps.init();
         
         while (isRunning) {
-        	if (Fps.doTick() == true) {
+        	Fps.doTick();
+        	
+        	while(Fps.getDelta() >= 1) {
         		tick();
+        		Fps.doTickUpdate();
+        		doRender = true;
         	}
-            render();
-            try { Thread.sleep(2); } catch (Exception e) {}
+        	
+        	try { Thread.sleep(2); } catch (Exception e) { e.printStackTrace(); }
+        	
+        	if (doRender) {
+	        	Fps.increaseFrames();
+	            render();
+        	}
+        	
+            Fps.doUpdate();
         }
             
     }
