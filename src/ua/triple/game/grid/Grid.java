@@ -1,13 +1,13 @@
 package ua.triple.game.grid;
 
+import ua.triple.game.configs.Config;
+import ua.triple.game.elements.Element;
+import ua.triple.game.elements.ElementTypesCollection;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import ua.triple.game.configs.Config;
-import ua.triple.game.elements.Element;
-import ua.triple.game.elements.ElementTypesCollection;
 
 public class Grid {
 
@@ -17,7 +17,7 @@ public class Grid {
     public Grid() {
         for (int x = 0; x < cells.length; ++x) {
             for (int y = 0; y < cells[0].length; ++y) {
-                 cells[x][y] = new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+                cells[x][y] = new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
           }
         }
         generateGrid();
