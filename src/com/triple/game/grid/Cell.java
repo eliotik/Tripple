@@ -1,12 +1,12 @@
-package ua.triple.game.grid;
+package com.triple.game.grid;
 
 
 import java.awt.*;
 
-import ua.triple.game.Game;
-import ua.triple.game.configs.Config;
-import ua.triple.game.configs.Tiles;
-import ua.triple.game.elements.*;
+import com.triple.game.Game;
+import com.triple.game.configs.Config;
+import com.triple.game.configs.Tiles;
+import com.triple.game.elements.*;
 
 public class Cell extends Rectangle{
 

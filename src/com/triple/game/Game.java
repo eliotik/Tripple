@@ -1,12 +1,14 @@
-package ua.triple.game;
-
-import ua.triple.game.configs.Fps;
-import ua.triple.game.configs.Tiles;
-import ua.triple.game.elements.ElementTypesCollection;
-import ua.triple.game.grid.*;
-import ua.triple.game.grid.Event;
+package com.triple.game;
 
 import javax.swing.*;
+
+import com.triple.game.configs.Fps;
+import com.triple.game.configs.Tiles;
+import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.grid.*;
+import com.triple.game.grid.Event;
+import com.triple.game.player.Player;
+import com.triple.game.player.PlayerPanel;
 
 import java.awt.*;
 

@@ -1,9 +1,10 @@
-package ua.triple.game.grid;
+package com.triple.game.grid;
 
-import ua.triple.game.Game;
-import ua.triple.game.configs.Config;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import com.triple.game.Game;
+import com.triple.game.configs.Config;
 
 public class Event implements MouseListener {
     private Grid grid;
@@ -24,7 +25,11 @@ public class Event implements MouseListener {
     	{
 	    	System.out.println( e.getX()/Game.pixelSize/Config.cellSize + " " + e.getY()/Game.pixelSize/Config.cellSize );
 	        Cell cell = grid.getCell(x, y);
-	        System.out.println(cell.getElement().toString());
+	        if (cell.getElement() == null) {
+	        	System.out.println("Empty cell!");
+	        } else {
+	        	System.out.println(cell.getElement().getType().getName());
+	        }
 	        System.out.println("Test mousePressed");
     	}
     }

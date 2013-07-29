@@ -1,4 +1,4 @@
-package ua.triple.game.configs;
+package com.triple.game.configs;
 
 public class Config {
 	

@@ -1,4 +1,4 @@
-package ua.triple.game.elements;
+package com.triple.game.elements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +10,9 @@ import org.hamcrest.Matchers;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import ua.triple.game.configs.Config;
-import ua.triple.game.configs.XmlReader;
+import com.triple.game.configs.Config;
+import com.triple.game.configs.XmlReader;
+
 import static ch.lambdaj.Lambda.*;
 
 public class ElementTypesCollection {
@@ -45,6 +46,7 @@ public class ElementTypesCollection {
                 
                 ElementType elementType = new ElementType();
                 
+                elementType.setName(elemj.getAttribute("name").toString());
                 elementType.setId(elemj.getAttribute("id").toString());
                 elementType.setType(elemj.getAttribute("type").toString());
                 elementType.setTile(Integer.parseInt(elemj.getAttribute("tile_x").toString()), Integer.parseInt(elemj.getAttribute("tile_y").toString()));

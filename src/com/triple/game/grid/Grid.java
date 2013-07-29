@@ -1,13 +1,13 @@
-package ua.triple.game.grid;
-
-import ua.triple.game.configs.Config;
-import ua.triple.game.elements.Element;
-import ua.triple.game.elements.ElementTypesCollection;
+package com.triple.game.grid;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.triple.game.configs.Config;
+import com.triple.game.elements.Element;
+import com.triple.game.elements.ElementTypesCollection;
 
 public class Grid {
 

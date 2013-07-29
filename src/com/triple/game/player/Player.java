@@ -1,16 +1,16 @@
-package ua.triple.game;
+package com.triple.game.player;
 
-import ua.triple.game.elements.Element;
+import com.triple.game.elements.Element;
 
 public class Player {
 
 	private String name = "";
-	private Element hand;
+	private PlayerHand hand = new PlayerHand();
 	private int score;
 	
-	public Player(String name, Element hand) {
+	public Player(String name, Element element) {
 		this.name = name;
-		this.hand = hand;
+		hand.setElement(element);
 	}
 	
 	public Player(String name) {
@@ -25,11 +25,11 @@ public class Player {
 		this.name = name;
 	}
 
-	public Element getHand() {
+	public PlayerHand getHand() {
 		return hand;
 	}
 
-	public void setHand(Element hand) {
+	public void setHand(PlayerHand hand) {
 		this.hand = hand;
 	}
 

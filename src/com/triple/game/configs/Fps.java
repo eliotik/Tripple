@@ -1,11 +1,11 @@
-package ua.triple.game.configs;
+package com.triple.game.configs;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import ua.triple.game.grid.Grid;
+import com.triple.game.grid.Grid;
 
 public class Fps {
     private static int frames;

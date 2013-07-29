@@ -1,7 +1,8 @@
-package ua.triple.game.elements;
+package com.triple.game.elements;
 
 public class ElementType {
 
+	private String name;
 	private String type;
 	private String background;
 	private Boolean joinable = false;
@@ -73,5 +74,13 @@ public class ElementType {
 
 	public void setPlayable(Boolean playable) {
 		this.playable = playable;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

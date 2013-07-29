@@ -1,4 +1,4 @@
-package ua.triple.game.configs;
+package com.triple.game.configs;
 
 import static java.lang.String.format;
 

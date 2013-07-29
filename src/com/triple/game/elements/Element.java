@@ -1,4 +1,4 @@
-package ua.triple.game.elements;
+package com.triple.game.elements;
 
 public class Element {
 

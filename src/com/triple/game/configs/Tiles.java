@@ -1,4 +1,4 @@
-package ua.triple.game.configs;
+package com.triple.game.configs;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
