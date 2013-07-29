@@ -1,38 +1,32 @@
 package ua.triple.game.grid;
 
-import ua.triple.game.elements.Element;
-
+import ua.triple.game.Game;
+import ua.triple.game.configs.Config;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Event implements MouseListener {
-    private Element element;
     private Grid grid;
-    private Element hand;
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
 
-    public Event(Element el, Grid grid){
-        //this.hand = hand;
+    public Event(Grid grid){
         this.grid = grid;
-        this.element = el;
     }
     public void mouseClicked(MouseEvent e) {
         //System.out.println("Test mouseClicked");
-
     }
 
     public void mousePressed(MouseEvent e) {
-        Cell newCell = grid.getCell(0,0);
-        System.out.println(grid.getCell(0,0).toString());
-        //System.out.println( "Get element" + cells[0][0].getElement().toString() );
-        System.out.println( e.getX() + " " + e.getY() );
-        //cells[0][0].setElement( this.element );
-
-
-        //System.out.println( "Get element" + cells[e.getX()][e.getY()].getElement().toString() );
-        //cells[1][1].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
-        System.out.println("Test mousePressed");
+    	int x = e.getX()/Game.pixelSize/Config.cellSize,
+			y = e.getY()/Game.pixelSize/Config.cellSize;
+    	if (x < Grid.cellsAmount && y < Grid.cellsAmount)
+    	{
+	    	System.out.println( e.getX()/Game.pixelSize/Config.cellSize + " " + e.getY()/Game.pixelSize/Config.cellSize );
+	        Cell cell = grid.getCell(x, y);
+	        System.out.println(cell.getElement().toString());
+	        System.out.println("Test mousePressed");
+    	}
     }
 
     public void mouseReleased(MouseEvent e) {

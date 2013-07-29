@@ -4,8 +4,10 @@ import ua.triple.game.configs.Fps;
 import ua.triple.game.configs.Tiles;
 import ua.triple.game.elements.ElementTypesCollection;
 import ua.triple.game.grid.*;
+import ua.triple.game.grid.Event;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 public class Game extends Canvas implements Runnable {
@@ -55,7 +57,7 @@ public class Game extends Canvas implements Runnable {
         playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
 
         new Thread(this).start();
-        addMouseListener(new ua.triple.game.grid.Event(ElementTypesCollection.getRandom(), grid));
+        addMouseListener(new Event(grid));
     }
 
     public void stop() {
