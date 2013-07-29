@@ -1,40 +1,54 @@
 package ua.triple.game;
 
-import ua.triple.game.configs.Tiles;
-import ua.triple.game.configs.Utils;
-import ua.triple.game.elements.ElementTypesCollection;
-import ua.triple.game.grid.*;
-import ua.triple.game.grid.Event;
-
 import java.awt.*;
+
+import javax.swing.JFrame;
+
+import ua.triple.game.configs.Fps;
+import ua.triple.game.configs.Tiles;
+import ua.triple.game.elements.ElementTypesCollection;
+import ua.triple.game.grid.Grid;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static int pixelSize = 2;
+	public static final int pixelSize = 2;
 
-    public static Dimension size = new Dimension(460, 320);
-    public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
+    public static final Dimension size = new Dimension(460, 320);
+    public static final Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
-    public static String name = "Triple Town";
+    public static final String name = "Triple Town";
     public static boolean isRunning = false;
 
     public static Grid grid;
 
     private Image screen;
     private PlayerPanel playerPanel;
+    private JFrame frame;
 
-    public Game(int height, int width) {
-        Dimension d = new Dimension(height, width);
-        setPreferredSize(d);
-    }
-    
+    public static void main(String[] args) {
+        new Game().start();
+    }    
+  
     public Game() {
-        setPreferredSize(size);
+    	setMinimumSize(size);
+    	setMaximumSize(size);
+    	setPreferredSize(size);
+    	
+        frame = new JFrame(name);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(this, BorderLayout.CENTER);
+        frame.pack();
+        
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    public void start() {
+    public synchronized void start() {
         isRunning = true;
         Tiles.loadTiles();
         ElementTypesCollection.loadElements();
@@ -45,41 +59,31 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void stop() {
-
+    	isRunning = false;
     }
 
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
-        
-        long lastTime = System.nanoTime();
-        final double numTicks = 60.0;
-        double n = 1000000000 / numTicks;
-        double delta = 0;
-        int updates = 0;
-        int frames = 0;
-        long timer = System.currentTimeMillis();
+        boolean doRender = false;
+        Fps.init();
         
         while (isRunning) {
-        	long now = System.nanoTime();
-        	delta += (now - lastTime) / n;
-        	lastTime = now;
-        	if (delta >= 1) {
+        	Fps.doTick();
+        	
+        	while(Fps.getDelta() >= 1) {
         		tick();
-        		++updates;
-        		--delta;
+        		Fps.doTickUpdate();
+        		doRender = true;
         	}
-            
-            render();
-            
-            ++frames;
-            if (System.currentTimeMillis() - timer > 1000) {
-            	timer += 1000;
-            	Utils.print(updates + " ticks, fps: " + frames);
-            	updates = 0;
-                frames = 0;
-            }
-            
-            try { Thread.sleep(5); } catch (Exception e) {}
+        	
+        	try { Thread.sleep(2); } catch (Exception e) { e.printStackTrace(); }
+        	
+        	if (doRender) {
+	        	Fps.increaseFrames();
+	            render();
+        	}
+        	
+            Fps.doUpdate();
         }
             
     }
@@ -93,11 +97,11 @@ public class Game extends Canvas implements Runnable {
         
         grid.render(g);
         playerPanel.render(g);
-
+        Fps.render(g);
+        
         g = getGraphics();
         g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
         g.dispose();
-        addMouseListener(new Event());
     }
 
     public void tick() {
