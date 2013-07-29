@@ -7,9 +7,12 @@ import java.awt.event.MouseListener;
 
 public class Event implements MouseListener {
     private Element element;
+    private Element hand;
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
+
     public Event( Element el){
+        //this.hand = hand;
         this.element = el;
     }
     public void mouseClicked(MouseEvent e) {
@@ -24,8 +27,8 @@ public class Event implements MouseListener {
 
 
         //System.out.println( "Get element" + cells[e.getX()][e.getY()].getElement().toString() );
+        //cells[1][1].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
         System.out.println("Test mousePressed");
-       // cells[1][1].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
     }
 
     public void mouseReleased(MouseEvent e) {
