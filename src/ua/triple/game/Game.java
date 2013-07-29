@@ -54,9 +54,8 @@ public class Game extends Canvas implements Runnable {
         grid = new Grid();
         playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
 
-
         new Thread(this).start();
-        addMouseListener(new ua.triple.game.grid.Event(ElementTypesCollection.getRandom()));
+        addMouseListener(new ua.triple.game.grid.Event(ElementTypesCollection.getRandom(), grid));
     }
 
     public void stop() {

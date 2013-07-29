@@ -69,6 +69,11 @@ public class Grid {
 
     }
 
+    public Cell getCell(int x, int y){
+        Cell cell = cells[x][y];
+        return cell;
+    }
+
     public void render(Graphics g) {
         for (int x = 0; x < cells.length; ++x ) {
             for (int y = 0; y < cells[0].length; ++y) {
