@@ -53,6 +53,7 @@ public class ElementTypesCollection {
                 elementType.setBackground(elemj.getAttribute("background").toString());
                 elementType.setJoinable((elemj.getAttribute("joinable").equals("1")) ? true : false);
                 elementType.setPlayable((elemj.getAttribute("playable").equals("1")) ? true : false);
+                elementType.setContainer((elemj.getAttribute("container").equals("1")) ? true : false);
                 
 //                HashMap<String, ElementType> hm = elementMap.get(elementType.getType());
 //                if (hm == null)

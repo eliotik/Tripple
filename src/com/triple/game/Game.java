@@ -25,9 +25,9 @@ public class Game extends Canvas implements Runnable {
     public static boolean isRunning = false;
 
     public static Grid grid;
-
+    public static PlayerPanel playerPanel;
+    
     private Image screen;
-    private PlayerPanel playerPanel;
     private JFrame frame;
 
     public static void main(String[] args) {
@@ -59,7 +59,8 @@ public class Game extends Canvas implements Runnable {
         playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
 
         new Thread(this).start();
-        addMouseListener(new Event(grid));
+        addMouseListener(new Event());
+        addMouseMotionListener(new Event());
     }
 
     public void stop() {

@@ -11,7 +11,7 @@ public class PlayerHand {
 	private Element element;
 	
 	public void render(Graphics g) {
-		element.render(g, (Grid.cellsAmount + 1), 1, Config.cellSize, Config.cellSize, true);
+		element.render(g, (Grid.cellsAmount + 1), 1, Config.cellSize, Config.cellSize, true, false);
 	}
 
 	public void setElement(Element element) {
