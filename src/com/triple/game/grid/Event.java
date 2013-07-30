@@ -1,13 +1,13 @@
 package com.triple.game.grid;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class Event implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
@@ -15,13 +15,12 @@ public class Event implements MouseListener, MouseMotionListener {
     private Cell focusedCell;
     
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Test mouseClicked");
+        //System.out.println("Test mouseClicked");
     }
 
     public void mousePressed(MouseEvent e) {
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
 			y = e.getY()/Game.pixelSize/Config.cellSize;
-    	System.out.println("Test mousePressed");
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell.getElement() == null) {
@@ -45,15 +44,15 @@ public class Event implements MouseListener, MouseMotionListener {
     }
 
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Test mouseReleased");
+        //System.out.println("Test mouseReleased");
     }
 
     public void mouseEntered(MouseEvent e) {
-        System.out.println("Test mouseEntered");
+        //System.out.println("Test mouseEntered");
     }
 
     public void mouseExited(MouseEvent e) {
-        System.out.println("Test mouseExited");
+        //System.out.println("Test mouseExited");
     }
     public void mouseMoved(MouseEvent e) {
     	int x = e.getX()/Game.pixelSize/Config.cellSize,

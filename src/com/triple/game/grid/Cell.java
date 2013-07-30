@@ -28,13 +28,13 @@ public class Cell extends Rectangle{
 	public void render(Graphics g) {
 		if (element != null)
 		{
-			element.render(g, x, y, width, height, false, showBorder, false);
+			element.render(g, x, y, width, height, false, showBorder, true);
 		} else if (showBorder) {
 			Element.renderBorder(g, x, y, width, height, false);
 		}
 		
 		if (temporaryElement != null)
-			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, 2, false, 0);
+			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
 		
     }
 

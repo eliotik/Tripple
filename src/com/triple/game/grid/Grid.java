@@ -2,11 +2,11 @@ package com.triple.game.grid;
 
 import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
-import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -27,20 +27,34 @@ public class Grid {
     public void generateGrid() {
     	Random generator = new Random();
     	int prefilledCellsAmount = generator.nextInt(  (int) Math.floor((cellsAmount * cellsAmount) / 3) ) - 1;//-1 - place for inventory
-    	int cellsTotal = cellsAmount * cellsAmount - 1;//-1 - place for inventory
+    	int countElements = prefilledCellsAmount;
+        int cellsTotal = cellsAmount * cellsAmount - 1;//-1 - place for inventory
     	List<Element> list = new ArrayList<Element>();
+        String elementTypeCount = "0";
+        int counter;
+        HashMap<String, String> chanceContainer = new HashMap<String, String>();
     	while(prefilledCellsAmount > 0)
     	{
-            ElementType elementTypesCollection = ElementTypesCollection.getRandomByType("base");
-
-            System.out.println( elementTypesCollection.getChance() );
             Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));
+            elementTypeCount = chanceContainer.get( newElement.getType().getName() );
+            if (elementTypeCount == null){
+                elementTypeCount = "0";
+            }
+            counter = Integer.parseInt( elementTypeCount );
+            if (counter < countElements * Double.parseDouble(newElement.getType().getChance())){
+                counter++;
+                elementTypeCount = Integer.toString( counter );
 
-            list.add(newElement);
-    		--prefilledCellsAmount;
-    	}
-    	
-    	cells[0][0].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
+                chanceContainer.put( newElement.getType().getName(), elementTypeCount );
+                list.add(newElement);
+                --prefilledCellsAmount;
+            }
+            else{
+                break;
+            }
+        }
+
+        cells[0][0].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
     	
     	for (int i = 0; i < cellsTotal; ++i) {
     		int randomX = generator.nextInt( cellsAmount );
@@ -61,6 +75,11 @@ public class Grid {
     }
 
     public Cell getCell(int x, int y){
+    	int x_s = cells.length;
+    	if (x >= x_s || x < 0) return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+    	int y_s = cells[x].length;
+    	if (y >= y_s || y < 0) return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+    	
         return cells[x][y];
     }
 
