@@ -32,8 +32,8 @@ public class Grid {
     	while(prefilledCellsAmount > 0)
     	{
             ElementType elementTypesCollection = ElementTypesCollection.getRandomByType("base");
-            int chance = Integer.parseInt( elementTypesCollection.getChance() );
-            int countElementType = prefilledCellsAmount * chance;
+//            int chance = Integer.parseInt( elementTypesCollection.getChance() );
+            //int countElementType = prefilledCellsAmount * chance;
 
             System.out.println( elementTypesCollection.getChance() );
             Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));

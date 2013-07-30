@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <elements>
 
-	<element name="Inventory" id="inventory" chance="0.1" joinable="0" playable="0" type="system" background="" tile_x="0" tile_y="0" />
+	<element name="Inventory" id="inventory" chance="0.1" joinable="0" container="1" playable="0" type="system" background="" tile_x="0" tile_y="0" />
 
-	<element name="Green" id="green_base" chance="0.6" joinable="1" playable="1" type="base" background="" tile_x="1" tile_y="0" />
-	<element name="Bush" id="bush_base" chance="0.5" joinable="1" playable="1" type="base" background="" tile_x="2" tile_y="0" />
-	<element name="Berry bush" id="bush_multi" chance="0.8" joinable="1" playable="1" type="base" background="" tile_x="3" tile_y="0" />
-	<element name="Stone" id="stone_base" chance="0.1" joinable="1" playable="0" type="base" background="" tile_x="4" tile_y="0" />
+	<element name="Green" id="green_base" chance="0.6" joinable="1" container="0" playable="1" type="base" background="" tile_x="1" tile_y="0" />
+	<element name="Bush" id="bush_base" chance="0.5" joinable="1" container="0" playable="1" type="base" background="" tile_x="2" tile_y="0" />
+	<element name="Berry bush" id="bush_multi" chance="0.8" container="0" joinable="1" playable="1" type="base" background="" tile_x="3" tile_y="0" />
+	<element name="Stone" id="stone_base" chance="0.1" container="0" joinable="1" playable="0" type="base" background="" tile_x="4" tile_y="0" />
 	
-	<element name="Tree" id="tree_base" chance="0.1" joinable="1" playable="1" type="extended" background="" tile_x="5" tile_y="0" />
+	<element name="Tree" id="tree_base" chance="0.1" container="0" joinable="1" playable="1" type="extended" background="" tile_x="5" tile_y="0" />
 	
 </elements>

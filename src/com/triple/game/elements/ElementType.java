@@ -7,6 +7,7 @@ public class ElementType {
 	private String background;
 	private Boolean joinable = false;
 	private Boolean playable = false;
+    private Boolean container = false;
 	private String id;
     private String chance;
 	private int tile_x = -1;
@@ -92,5 +93,13 @@ public class ElementType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public Boolean getContainer() {
+        return container;
+    }
+
+    public void setContainer(Boolean container) {
+        this.container = container;
+    }
 
 }
