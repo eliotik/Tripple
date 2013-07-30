@@ -13,7 +13,7 @@ public class Tiles {
     public static void loadTiles()
     {
         try {
-        	tilesAsset = ImageIO.read(new File("assets/tiles.png"));
+        	tilesAsset = ImageIO.read(new File("assets/tiles2.png"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -32,8 +32,6 @@ public class Grid {
     	while(prefilledCellsAmount > 0)
     	{
             ElementType elementTypesCollection = ElementTypesCollection.getRandomByType("base");
-//            int chance = Integer.parseInt( elementTypesCollection.getChance() );
-            //int countElementType = prefilledCellsAmount * chance;
 
             System.out.println( elementTypesCollection.getChance() );
             Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));
@@ -56,21 +54,6 @@ public class Grid {
         	if (cells[randomX][randomY].getElement() == null && leftItems > 0)
         		cells[randomX][randomY].setElement( list.remove( leftItems - 1 ) );
     	}
-    		
-    	
-    	/*
-        for (int x = 0; x < cells.length; ++x ) {
-            for (int y = 0; y < cells[0].length; ++y) {
-            	if ( x == 0 && y == 0 ) {
-            		cells[x][y].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
-            	} else {
-            		int leftItems = list.size();
-            		if( generator.nextInt( cellsTotal ) < (int)Math.floor(cellsTotal/(generator.nextInt(cellsAmount)+1) ) && leftItems > 0 ) {
-            			cells[x][y].setElement( list.remove( leftItems - 1 ) );
-            		}
-            	}
-            }
-        }*/
     }
 
     public void tick() {
@@ -78,8 +61,7 @@ public class Grid {
     }
 
     public Cell getCell(int x, int y){
-        Cell cell = cells[x][y];
-        return cell;
+        return cells[x][y];
     }
 
     public void render(Graphics g) {
