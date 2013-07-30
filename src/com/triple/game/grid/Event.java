@@ -15,30 +15,23 @@ public class Event implements MouseListener, MouseMotionListener {
     private Cell focusedCell;
     
     public void mouseClicked(MouseEvent e) {
-        //System.out.println("Test mouseClicked");
+        System.out.println("Test mouseClicked");
     }
 
     public void mousePressed(MouseEvent e) {
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
 			y = e.getY()/Game.pixelSize/Config.cellSize;
+    	System.out.println("Test mousePressed");
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell.getElement() == null) {
 	        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
 	        	Game.playerPanel.getPlayer().getHand().setElement(ElementTypesCollection.getRandom());
 	        } else {
-//	        	System.out.println(cell.getElement().getType().getId());
-//	        	System.out.println(cell.getTemporaryElement() == null);
-//	        	System.out.println((String)cell.getElement().getType().getId() == (String)"inventory");
-//	        	String cellId = cell.getElement().getType().getId();
-//	        	String str = "inventory";
-//	        	System.out.println("["+cellId+"]");
-//	        	System.out.println(str.toString() == cellId.toString());
-	        	if (cell.getElement().getType().getContainer())
+	        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 	        	{
 	        		if (cell.getTemporaryElement() == null)
 	        		{
-	//	        		System.out.println("[EQUAL]");
 		        		cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
 		        		Game.playerPanel.getPlayer().getHand().setElement(ElementTypesCollection.getRandom());
 	        		} else {
@@ -52,7 +45,7 @@ public class Event implements MouseListener, MouseMotionListener {
     }
 
     public void mouseReleased(MouseEvent e) {
-        //System.out.println("Test mouseReleased");
+        System.out.println("Test mouseReleased");
     }
 
     public void mouseEntered(MouseEvent e) {
