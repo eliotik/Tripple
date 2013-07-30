@@ -1,13 +1,14 @@
 package com.triple.game.grid;
 
+import com.triple.game.configs.Config;
+import com.triple.game.elements.Element;
+import com.triple.game.elements.ElementType;
+import com.triple.game.elements.ElementTypesCollection;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.triple.game.configs.Config;
-import com.triple.game.elements.Element;
-import com.triple.game.elements.ElementTypesCollection;
 
 public class Grid {
 
@@ -30,7 +31,14 @@ public class Grid {
     	List<Element> list = new ArrayList<Element>();
     	while(prefilledCellsAmount > 0)
     	{
-    		list.add(new Element(ElementTypesCollection.getRandomByType("base")));
+            ElementType elementTypesCollection = ElementTypesCollection.getRandomByType("base");
+            int chance = Integer.parseInt( elementTypesCollection.getChance() );
+            int countElementType = prefilledCellsAmount * chance;
+
+            System.out.println( elementTypesCollection.getChance() );
+            Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));
+
+            list.add(newElement);
     		--prefilledCellsAmount;
     	}
     	
