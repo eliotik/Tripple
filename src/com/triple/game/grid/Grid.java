@@ -36,8 +36,6 @@ public class Grid {
     	while(prefilledCellsAmount > 0)
     	{
             Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));
-            //ElementType elementTypesCollection = ElementTypesCollection.getRandomByType("base");
-
             elementTypeCount = chanceContainer.get( newElement.getType().getName() );
             if (elementTypeCount == null){
                 elementTypeCount = "0";
@@ -48,19 +46,13 @@ public class Grid {
                 elementTypeCount = Integer.toString( counter );
 
                 chanceContainer.put( newElement.getType().getName(), elementTypeCount );
-                //System.out.println(chanceContainer);
-
-
-                // его и проверяем newElement.getType().getName()
                 list.add(newElement);
                 --prefilledCellsAmount;
             }
             else{
                 break;
             }
-            System.out.println(newElement.getType().getName() + " - " + countElements * Double.parseDouble(newElement.getType().getChance()));
         }
-        System.out.println("Count elements " + countElements);
 
         cells[0][0].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
     	
