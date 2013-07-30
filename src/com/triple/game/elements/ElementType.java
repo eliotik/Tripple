@@ -7,8 +7,8 @@ public class ElementType {
 	private String background;
 	private Boolean joinable = false;
 	private Boolean playable = false;
-	private Boolean container = false;
 	private String id;
+    private String chance;
 	private int tile_x = -1;
 	private int tile_y = -1;
 	
@@ -48,6 +48,14 @@ public class ElementType {
 		this.id = id;
 	}
 
+    public void setChance(String chance){
+        this.chance = chance;
+    }
+
+    public String getChance(){
+        return chance;
+    }
+
 	public void setTile(int tile_x, int tile_y) {
 		setTile_x(tile_x);
 		setTile_y(tile_y);
@@ -85,11 +93,4 @@ public class ElementType {
 		this.name = name;
 	}
 
-	public Boolean getContainer() {
-		return container;
-	}
-
-	public void setContainer(Boolean container) {
-		this.container = container;
-	}
 }

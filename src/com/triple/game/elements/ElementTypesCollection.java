@@ -1,19 +1,19 @@
 package com.triple.game.elements;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-//import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-
+import com.triple.game.configs.Config;
+import com.triple.game.configs.XmlReader;
 import org.hamcrest.Matchers;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.triple.game.configs.Config;
-import com.triple.game.configs.XmlReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import static ch.lambdaj.Lambda.*;
+
+//import java.util.HashMap;
 
 public class ElementTypesCollection {
 	
@@ -49,6 +49,7 @@ public class ElementTypesCollection {
                 elementType.setName(elemj.getAttribute("name").toString());
                 elementType.setId(elemj.getAttribute("id").toString());
                 elementType.setType(elemj.getAttribute("type").toString());
+                elementType.setChance(elemj.getAttribute("chance").toString());
                 elementType.setTile(Integer.parseInt(elemj.getAttribute("tile_x").toString()), Integer.parseInt(elemj.getAttribute("tile_y").toString()));
                 elementType.setBackground(elemj.getAttribute("background").toString());
                 elementType.setJoinable((elemj.getAttribute("joinable").equals("1")) ? true : false);
