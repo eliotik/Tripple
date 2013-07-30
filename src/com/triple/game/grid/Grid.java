@@ -60,7 +60,7 @@ public class Grid {
             }
             System.out.println(newElement.getType().getName() + " - " + countElements * Double.parseDouble(newElement.getType().getChance()));
         }
-        System.out.println("Count of elements" + countElements);
+        System.out.println("Count elements " + countElements);
 
         cells[0][0].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
     	
