@@ -9,5 +9,6 @@
 	<element name="Stone" id="stone_base" subspecies="stone" join_result="stone" chance="0.1" container="0" joinable="1" playable="0" type="base" background="" tile_x="4" tile_y="0" />
 	
 	<element name="Tree" id="tree_base" subspecies="tree" join_result="tree" chance="0.1" container="0" joinable="1" playable="1" type="extended" background="" tile_x="5" tile_y="0" />
+	<element name="Fruit tree" id="tree_multi" subspecies="tree" join_result="tree" chance="0.09" container="0" joinable="1" playable="1" type="extended" background="" tile_x="6" tile_y="0" />
 	
 </elements>

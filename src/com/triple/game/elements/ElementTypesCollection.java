@@ -2,6 +2,7 @@ package com.triple.game.elements;
 
 import com.triple.game.configs.Config;
 import com.triple.game.configs.XmlReader;
+
 import org.hamcrest.Matchers;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -55,7 +56,6 @@ public class ElementTypesCollection {
     }
 
 	public static ElementType getTypeById(String type, String id) {
-		
 		List<ElementType> eTs = filter(having(on(ElementType.class).getId(), Matchers.equalTo(id))
 				.and(having(on(ElementType.class).getType(), Matchers.equalTo(type))),
 				elementMap);		
@@ -73,6 +73,12 @@ public class ElementTypesCollection {
 		Object[] types = eTs.toArray();
 		ElementType randomType = (ElementType) types[generator.nextInt(types.length)];
 		return new Element(randomType);
+	}
+
+	public static ElementType getTypeById(String id) {
+		List<ElementType> eTs = filter(having(on(ElementType.class).getId(), Matchers.equalTo(id)), elementMap);		
+		if (eTs == null || eTs.size() == 0) return new ElementType();
+		return eTs.get(0);		
 	}	
 	
 }

@@ -8,7 +8,7 @@ public class ElementType {
 	private Boolean joinable = false;
 	private Boolean playable = false;
     private Boolean container = false;
-	private String id;
+	private String id = "";
     private String chance;
 	private int tile_x = -1;
 	private int tile_y = -1;
