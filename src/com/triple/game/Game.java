@@ -24,6 +24,7 @@ public class Game extends Canvas implements Runnable {
 
     public static final String name = "Triple Town";
     public static boolean isRunning = false;
+    public static boolean isJoinning = false;
 
     public static Grid grid;
     public static PlayerPanel playerPanel;

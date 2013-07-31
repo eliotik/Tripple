@@ -19,13 +19,18 @@ public class Event implements MouseListener, MouseMotionListener {
     }
 
     public void mousePressed(MouseEvent e) {
+    	
+    	if (Game.isJoinning) return;
+    	
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
 			y = e.getY()/Game.pixelSize/Config.cellSize;
+    	
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell.getElement() == null) {
 	        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
 	        	Game.playerPanel.getPlayer().getHand().setElement(ElementTypesCollection.getRandom());
+	        	cell.checkJoinables();
 	        } else {
 	        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 	        	{

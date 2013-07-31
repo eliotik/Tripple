@@ -13,11 +13,8 @@ import java.util.Random;
 
 import static ch.lambdaj.Lambda.*;
 
-//import java.util.HashMap;
-
 public class ElementTypesCollection {
 	
-//	private static HashMap<String, HashMap<String, ElementType>> elementMap = new HashMap<String, HashMap<String, ElementType>>();
 	private static ArrayList<ElementType> elementMap = new ArrayList<ElementType>();
 	
 	public static ElementType getRandomByType(String type) {
@@ -27,12 +24,6 @@ public class ElementTypesCollection {
 		Random generator = new Random();
 		Object[] values = eTs.toArray();
 		return (ElementType) values[generator.nextInt(values.length)];
-		
-//		HashMap<String, ElementType> hm = elementMap.get(type);
-//		if (hm == null) return new ElementType();
-//		Random generator = new Random();
-//		Object[] values = hm.values().toArray();
-//		return (ElementType) values[generator.nextInt(values.length)];		
 	}
 
     public static void loadElements() {
@@ -55,14 +46,9 @@ public class ElementTypesCollection {
                 elementType.setJoinable((elemj.getAttribute("joinable").equals("1")) ? true : false);
                 elementType.setPlayable((elemj.getAttribute("playable").equals("1")) ? true : false);
                 elementType.setContainer((elemj.getAttribute("container").equals("1")) ? true : false);
+                elementType.setJoinResult(elemj.getAttribute("join_result").toString());
+                elementType.setSubspecies(elemj.getAttribute("subspecies").toString());
                 
-//                HashMap<String, ElementType> hm = elementMap.get(elementType.getType());
-//                if (hm == null)
-//                {
-//                	hm = new HashMap<String, ElementType>();
-//                }
-//                hm.put(elementType.getId(), elementType);
-//                elementMap.put(elementType.getType(), hm);
                 elementMap.add(elementType);
             }
         }
@@ -75,11 +61,6 @@ public class ElementTypesCollection {
 				elementMap);		
 		if (eTs == null || eTs.size() == 0) return new ElementType();
 		return eTs.get(0);
-//		HashMap<String, ElementType> hmByType = elementMap.get(type);
-//		if (hmByType == null) return new ElementType();
-//		ElementType elT = hmByType.get(id);
-//		if (elT == null) return new ElementType();
-//		return elT;
 	}
 
 	public static Element getRandom() {

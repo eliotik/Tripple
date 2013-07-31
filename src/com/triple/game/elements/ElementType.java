@@ -12,6 +12,8 @@ public class ElementType {
     private String chance;
 	private int tile_x = -1;
 	private int tile_y = -1;
+	private String joinResult;
+	private String subspecies;
 	
 	public String getId() {
 		return id;
@@ -101,5 +103,21 @@ public class ElementType {
     public void setContainer(Boolean container) {
         this.container = container;
     }
+
+    public void setJoinResult(String joinResult) {
+    	this.joinResult = joinResult;
+    }
+    
+	public String getJoinResult() {
+		return joinResult;
+	}
+	
+	public String getSubspecies() {
+		return this.subspecies;
+	}
+
+	public void setSubspecies(String subspecies) {
+		this.subspecies = subspecies;
+	}
 
 }
