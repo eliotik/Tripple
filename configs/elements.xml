@@ -1,14 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <elements>
 
-	<element name="Inventory" id="inventory" subspecies="inventory" join_result="inventory" chance="0.1" joinable="0" container="1" playable="0" type="system" background="" tile_x="0" tile_y="0" />
+	<element 
+		name="Inventory" 
+		id="inventory" 
+		subspecies="inventory" 
+		join_result="inventory" 
+		chance="0.1" 
+		joinable="0" 
+		container="1" 
+		playable="0" 
+		type="system" 
+		background="" 
+		tile_x="0" 
+		tile_y="0" />
 
-	<element name="Green" id="green_base" subspecies="green" join_result="bush" chance="0.6" joinable="1" container="0" playable="1" type="base" background="" tile_x="1" tile_y="0" />
-	<element name="Bush" id="bush_base" subspecies="bush" join_result="tree" chance="0.8" joinable="1" container="0" playable="1" type="base" background="" tile_x="2" tile_y="0" />
-	<element name="Berry bush" id="bush_multi" subspecies="bush" join_result="tree" chance="0.5" container="0" joinable="1" playable="1" type="base" background="" tile_x="3" tile_y="0" />
-	<element name="Stone" id="stone_base" subspecies="stone" join_result="stone" chance="0.1" container="0" joinable="1" playable="0" type="base" background="" tile_x="4" tile_y="0" />
+	<element 
+		name="Green" 
+		id="green_base" 
+		subspecies="green" 
+		join_result="bush" 
+		chance="0.6" 
+		joinable="1" 
+		container="0" 
+		playable="1" 
+		type="base" 
+		background="" 
+		tile_x="1" 
+		tile_y="0" />
+		
+	<element 
+		name="Bush" 
+		id="bush_base" 
+		subspecies="bush" 
+		join_result="tree" 
+		chance="0.8" 
+		joinable="1" 
+		container="0" 
+		playable="1" 
+		type="base" 
+		background="" 
+		tile_x="2" 
+		tile_y="0" />
+	<element 
+		name="Berry bush" 
+		id="bush_multi" 
+		subspecies="bush" 
+		join_result="tree" 
+		chance="0.5" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="base" 
+		background="" 
+		tile_x="3" 
+		tile_y="0" />
+		
+	<element 
+		name="Stone" 
+		id="stone_base" 
+		subspecies="stone" 
+		join_result="stone" 
+		chance="0.1"
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="base" 
+		background="" 
+		tile_x="4" 
+		tile_y="0" />
 	
-	<element name="Tree" id="tree_base" subspecies="tree" join_result="tree" chance="0.1" container="0" joinable="1" playable="1" type="extended" background="" tile_x="5" tile_y="0" />
-	<element name="Fruit tree" id="tree_multi" subspecies="tree" join_result="tree" chance="0.09" container="0" joinable="1" playable="1" type="extended" background="" tile_x="6" tile_y="0" />
-	
+	<element 
+		name="Tree" 
+		id="tree_base" 
+		subspecies="tree" 
+		join_result="woodhouse" 
+		chance="0.1" 
+		container="0" 
+		joinable="1" 
+		playable="1" 
+		type="extended" 
+		background="" 
+		tile_x="5" 
+		tile_y="0" />
+	<element 
+		name="Fruit tree" 
+		id="tree_multi" 
+		subspecies="tree" 
+		join_result="woodhouse" 
+		chance="0.09" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="6" 
+		tile_y="0" />
+		
+	<element 
+		name="Woodhouse" 
+		id="woodhouse_base" 
+		subspecies="woodhouse" 
+		join_result="stonehouse" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="7" 
+		tile_y="0" />
+	<element 
+		name="Woodhouse double" 
+		id="woodhouse_multi" 
+		subspecies="woodhouse" 
+		join_result="stonehouse" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="8" 
+		tile_y="0" />			
+
+	<element 
+		name="Stonehouse" 
+		id="stonehouse_base" 
+		subspecies="stonehouse" 
+		join_result="stonehouse" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="9" 
+		tile_y="0" />
+	<element 
+		name="Stonehouse lux" 
+		id="stonehouse_multi" 
+		subspecies="stonehouse" 
+		join_result="stonehouse" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="9" 
+		tile_y="1" />	
 </elements>
