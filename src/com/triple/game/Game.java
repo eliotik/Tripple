@@ -94,6 +94,15 @@ public class Game extends Canvas implements Runnable {
             
     }
 
+    private void drawScreenBackground(Graphics g) {
+		g.drawImage(Tiles.getScreenBackground(), 
+					0, 
+					0, 
+					size.width, 
+					size.height,
+					null);    	
+    }
+    
     public void render() {
         Graphics g = screen.getGraphics();
 
@@ -101,6 +110,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, pixel.width, pixel.height);
         g.setFont(new Font("Arial", Font.PLAIN, 24));
         
+        drawScreenBackground(g);
         grid.render(g);
         playerPanel.render(g);
         Fps.render(g);
