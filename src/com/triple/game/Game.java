@@ -19,7 +19,6 @@ public class Game extends Canvas implements Runnable {
 	public static final int pixelSize = 1;
 
     public static final Dimension size = new Dimension(800, 640);
-    //public static final Dimension size = new Dimension(460, 320);
     public static final Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
     public static final String name = "Triple Town";
@@ -58,6 +57,7 @@ public class Game extends Canvas implements Runnable {
         Tiles.loadTiles();
         ElementTypesCollection.loadElements();
         grid = new Grid();
+        grid.refreshJoinableCells();
         playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
 
         new Thread(this).start();
@@ -72,6 +72,7 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         screen = createVolatileImage(pixel.width, pixel.height);
         boolean doRender = false;
+        
         Fps.init();
         
         while (isRunning) {

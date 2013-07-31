@@ -70,6 +70,14 @@ public class Grid {
     	}
     }
 
+    public void refreshJoinableCells() {
+    	for (int x = 0, l = cells.length; x < l; ++x) {
+			for (int y = 0, c = cells[x].length; y < c; ++y) {
+				cells[x][y].checkJoinables();
+			}
+		}    	
+    }
+    
     public void tick() {
 
     }
