@@ -128,7 +128,7 @@
 		name="Stonehouse" 
 		id="stonehouse_base" 
 		subspecies="stonehouse" 
-		join_result="stonehouse" 
+		join_result="cottage" 
 		chance="0.00" 
 		container="0" 
 		joinable="1" 
@@ -141,7 +141,7 @@
 		name="Stonehouse lux" 
 		id="stonehouse_multi" 
 		subspecies="stonehouse" 
-		join_result="stonehouse" 
+		join_result="cottage" 
 		chance="0.00" 
 		container="0" 
 		joinable="1" 
@@ -150,4 +150,100 @@
 		background="" 
 		tile_x="9" 
 		tile_y="1" />	
+		
+	<element 
+		name="Cottage" 
+		id="cottage_base" 
+		subspecies="cottage" 
+		join_result="castle" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="8" 
+		tile_y="1" />
+	<element 
+		name="Cottage lux" 
+		id="cottage_multi" 
+		subspecies="cottage" 
+		join_result="castle" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="7" 
+		tile_y="1" />		
+		
+		
+	<element 
+		name="Castle" 
+		id="castle_base" 
+		subspecies="castle" 
+		join_result="flyingtower" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="6" 
+		tile_y="1" />		
+	<element 
+		name="Castle lux" 
+		id="castle_multi" 
+		subspecies="castle" 
+		join_result="flyingtower" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extended" 
+		background="" 
+		tile_x="6" 
+		tile_y="2" />
+		
+	<element 
+		name="Flying tower" 
+		id="flyingtower_base" 
+		subspecies="flyingtower" 
+		join_result="flyingcastle" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		background="" 
+		tile_x="5" 
+		tile_y="1" />		
+	<element 
+		name="Flying tower lux" 
+		id="flyingtower_multi" 
+		subspecies="flyingtower" 
+		join_result="flyingcastle" 
+		chance="0.00" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		background="" 
+		tile_x="4" 
+		tile_y="1" />
+		
+	<element 
+		name="Flying castle" 
+		id="flyingcastle_base" 
+		subspecies="flyingcastle" 
+		join_result="flyingcastle" 
+		chance="0.00" 
+		container="0" 
+		joinable="0" 
+		playable="0" 
+		type="extra" 
+		background="" 
+		tile_x="4" 
+		tile_y="1" />		
 </elements>
