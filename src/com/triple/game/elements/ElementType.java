@@ -4,7 +4,6 @@ public class ElementType {
 
 	private String name;
 	private String type;
-	private String background;
 	private Boolean joinable = false;
 	private Boolean playable = false;
     private Boolean container = false;
@@ -19,10 +18,6 @@ public class ElementType {
 		return id;
 	}
 
-	public String getBackground() {
-		return background;
-	}
-
     public Boolean getJoinable() {
 		return joinable;
 	}
@@ -33,10 +28,6 @@ public class ElementType {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public void setBackground(String bg) {
-		background = bg;
 	}
 
 	public void setJoinable(Boolean joinable) {

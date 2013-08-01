@@ -1,15 +1,14 @@
 package com.triple.game;
 
-import javax.swing.*;
-
 import com.triple.game.configs.Fps;
 import com.triple.game.configs.Tiles;
 import com.triple.game.elements.ElementTypesCollection;
-import com.triple.game.grid.*;
 import com.triple.game.grid.Event;
+import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
 import com.triple.game.player.PlayerPanel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Game extends Canvas implements Runnable {
@@ -27,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 
     public static Grid grid;
     public static PlayerPanel playerPanel;
+    public static ElementTypesCollection elementTypesCollection;
     
     private Image screen;
     private JFrame frame;
@@ -58,7 +58,8 @@ public class Game extends Canvas implements Runnable {
         ElementTypesCollection.loadElements();
         grid = new Grid();
         grid.refreshJoinableCells();
-        playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
+        elementTypesCollection = new ElementTypesCollection();
+        playerPanel = new PlayerPanel(new Player("Player", elementTypesCollection.getRandomForHand()));
 
         new Thread(this).start();
         addMouseListener(new Event());

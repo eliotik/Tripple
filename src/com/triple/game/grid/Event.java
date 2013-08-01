@@ -2,8 +2,6 @@ package com.triple.game.grid;
 
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
-import com.triple.game.elements.Element;
-import com.triple.game.elements.ElementTypesCollection;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,7 +11,6 @@ public class Event implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
-    
     public void mouseClicked(MouseEvent e) {
         //System.out.println("Test mouseClicked");
     }
@@ -29,21 +26,25 @@ public class Event implements MouseListener, MouseMotionListener {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell.getElement() == null) {
 	        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
-	        	Game.playerPanel.getPlayer().getHand().setElement(ElementTypesCollection.getRandom());
+	        	Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 	        	cell.checkJoinables();
 	        } else {
 	        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 	        	{
 	        		if (cell.getTemporaryElement() == null)
 	        		{
-		        		cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
-		        		Game.playerPanel.getPlayer().getHand().setElement(ElementTypesCollection.getRandom());
+                        cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
+		        		Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 	        		} else {
-	        			Element hand = Game.playerPanel.getPlayer().getHand().getElement();
 	        			Game.playerPanel.getPlayer().getHand().setElement(cell.getTemporaryElement());
-	        			cell.setTemporaryElement(hand);
+	        			cell.setTemporaryElement(Game.elementTypesCollection.getRandomForHand());
 	        		}
 	        	}
+
+                if (Game.playerPanel.getPlayer().getHand().getElement().getType().getId().equals("robot_base")){
+                    cell.setElement(null);
+                    Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+                }
 	        }
     	}
     }

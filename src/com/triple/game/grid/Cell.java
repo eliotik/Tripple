@@ -1,20 +1,27 @@
 package com.triple.game.grid;
 
 
+import com.triple.game.Game;
+import com.triple.game.elements.Element;
+import com.triple.game.elements.ElementType;
+import com.triple.game.elements.ElementTypesCollection;
+
 import java.awt.*;
 import java.util.ArrayList;
-import com.triple.game.Game;
-import com.triple.game.elements.*;
 
 public class Cell extends Rectangle{
 
 	private int x;
     private int y;
+    private int stepTick = 2;
 
     private static final long serialVersionUID = 1L;
     private Element element;
     private Element temporaryElement;
+    private Element offCellElement;
+    private Cell mainCell;
     private boolean showBorder = false;
+    private boolean flop = false;
 
     public Cell(Rectangle size, int x, int y) {
     	setBounds(size);
@@ -41,7 +48,7 @@ public class Cell extends Rectangle{
 		
 		if (temporaryElement != null)
 			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
-		
+
     }
 
     public void setElement(Element el) {
@@ -73,6 +80,7 @@ public class Cell extends Rectangle{
 		
 		if (neighbors.size() >= 2) {
 			for (int i = 0, l = neighbors.size(); i < l; ++i) {
+                //neighbors.get(i).animateFlop(neighbors.get(i), this);
 				neighbors.get(i).setElement(null);
 			}
 			String sufix = (neighbors.size() > 2) ? "_multi": "_base";
@@ -109,10 +117,14 @@ public class Cell extends Rectangle{
 				!cell.getElement().getType().getJoinResult().equals(cell.getElement().getType().getId()) )
 			{
 				outerNeighbors.add(cell);
-				findNeigbors(outerNeighbors, mainCell, cell);
+                findNeigbors(outerNeighbors, mainCell, cell);
 			}
 		}
 		cell = null;
 	}
+
+//    private void animateFlop(Cell offCell, Cell mainCell){
+//        System.out.println(offCell.getCoordinates()[0] + " " + offCell.getCoordinates()[1]);
+//    }
 
 }
