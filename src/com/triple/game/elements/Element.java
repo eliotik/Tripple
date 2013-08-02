@@ -13,7 +13,7 @@ public class Element {
 	private int stepAnimation = 0;
 	private int directionAnimation = 1;//0 -down; 1 - up
 	private int updateStepTick = 0;
-	private int stepTick = 20;
+	private int stepTick = 80;
     
     public Element(ElementType type) {
         this.setType(type);
@@ -76,122 +76,50 @@ public class Element {
 			cell_f = Game.grid.getCell(x, y+1),
 			cell_g = Game.grid.getCell(x-1, y+1),
 			cell_h = Game.grid.getCell(x-1, y);
-//		
-//		
-		if (cell_a != null || cell_b != null || cell_c != null || cell_d != null || 
-			cell_e != null || cell_f != null || cell_g != null || cell_h != null)
+		
+		
+		
+		
+		if (cell_a != null && cell_b != null && cell_c != null && cell_d != null && 
+			cell_e != null && cell_f != null && cell_g != null && cell_h != null)
 		{
 			if (cell_a.getElement() != null && cell_b.getElement() != null && cell_c.getElement() != null && cell_d.getElement() != null && 
 				cell_e.getElement() != null && cell_f.getElement() != null && cell_g.getElement() != null && cell_h.getElement() != null) {
 				tile_x = Config.bgFullRound[0];
 				tile_y = Config.bgFullRound[1];
 			}
+		} else if (cell_a == null && cell_b == null && cell_c == null && cell_d != null && 
+				cell_e != null && cell_f != null && cell_g == null && cell_h == null) {
+			if (cell_d.getElement() != null || cell_e.getElement() != null || cell_f.getElement() != null) {
+				
+				if (cell_d.getElement() != null && cell_e.getElement() == null && cell_f.getElement() == null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];					
+				} else if (cell_d.getElement() != null && cell_e.getElement() != null && cell_f.getElement() == null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];					
+				} else if (cell_d.getElement() != null && cell_e.getElement() != null && cell_f.getElement() != null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];
+				} else if (cell_d.getElement() == null && cell_e.getElement() != null && cell_f.getElement() != null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];					
+				} else if (cell_d.getElement() == null && cell_e.getElement() == null && cell_f.getElement() != null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];					
+				} else if (cell_d.getElement() != null && cell_e.getElement() == null && cell_f.getElement() != null) {
+					tile_x = Config.bgFullRound[0];
+					tile_y = Config.bgFullRound[1];					
+				} else if (cell_d.getElement() == null && cell_e.getElement() != null && cell_f.getElement() == null) {
+					tile_x = Config.bgCorner_e[0];
+					tile_y = Config.bgCorner_e[1];					
+				}
+			} else {
+				tile_x = Config.bgCorner_e[0];
+				tile_y = Config.bgCorner_e[1];
+			}
 		}
-//			if (cell_b.getElement() == null && cell_d.getElement() == null &&
-//				cell_f.getElement() == null && cell_h.getElement() == null) {
-//				/*
-//				---
-//				| |
-//				---
-//				*/
-//				angle = 0;
-//				tile_x = Config.bgCenter[0];
-//				tile_y = Config.bgCenter[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() != null &&
-//					cell_f.getElement() == null && cell_h.getElement() != null) {
-//				/*
-//				-----
-//				-----
-//				*/
-//				angle = 0;
-//				tile_x = Config.bgLine[0];
-//				tile_y = Config.bgLine[1];
-//			} else if (cell_b.getElement() != null && cell_d.getElement() == null &&
-//					cell_f.getElement() != null && cell_h.getElement() == null) {
-//				/*
-//				| |
-//				*/
-//				angle = 90;
-//				tile_x = Config.bgLine[0];
-//				tile_y = Config.bgLine[1];
-//			} else if (cell_b.getElement() != null && cell_d.getElement() == null &&
-//					cell_f.getElement() == null && cell_h.getElement() == null) {
-//				/*
-//				| |
-//				---
-//				*/
-//				angle = 0;
-//				tile_x = Config.bgOneSide[0];
-//				tile_y = Config.bgOneSide[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() != null &&
-//					cell_f.getElement() == null && cell_h.getElement() == null) {
-//				/*
-//				| |
-//				---
-//				*/
-//				angle = 90;
-//				tile_x = Config.bgOneSide[0];
-//				tile_y = Config.bgOneSide[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() == null &&
-//					cell_f.getElement() != null && cell_h.getElement() == null) {
-//				/*
-//				| |
-//				---
-//				*/
-//				angle = 180;
-//				tile_x = Config.bgOneSide[0];
-//				tile_y = Config.bgOneSide[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() == null &&
-//					cell_f.getElement() == null && cell_h.getElement() != null) {
-//				/*
-//				| |
-//				---
-//				*/
-//				angle = 270;
-//				tile_x = Config.bgOneSide[0];
-//				tile_y = Config.bgOneSide[1];
-//			} else if (cell_b.getElement() != null && cell_d.getElement() != null &&
-//					cell_f.getElement() == null && cell_h.getElement() == null) {
-//				/*
-//				| |__
-//				|  
-//				-----
-//				*/
-//				angle = 0;
-//				tile_x = Config.bgTwoSides[0];
-//				tile_y = Config.bgTwoSides[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() != null &&
-//					cell_f.getElement() != null && cell_h.getElement() == null) {
-//				/*
-//				| |__
-//				|  
-//				-----
-//				*/
-//				angle = 90;
-//				tile_x = Config.bgTwoSides[0];
-//				tile_y = Config.bgTwoSides[1];
-//			} else if (cell_b.getElement() == null && cell_d.getElement() == null &&
-//					cell_f.getElement() != null && cell_h.getElement() != null) {
-//				/*
-//				| |__
-//				|  
-//				-----
-//				*/
-//				angle = 180;
-//				tile_x = Config.bgTwoSides[0];
-//				tile_y = Config.bgTwoSides[1];
-//			} else if (cell_b.getElement() != null && cell_d.getElement() == null &&
-//					cell_f.getElement() == null && cell_h.getElement() != null) {
-//				/*
-//				| |__
-//				|  
-//				-----
-//				*/
-//				angle = 270;
-//				tile_x = Config.bgTwoSides[0];
-//				tile_y = Config.bgTwoSides[1];
-//			}
-//		}
+
 			
 		
 		int cell_size = width,
@@ -209,54 +137,17 @@ public class Element {
 			tile_x_to = tile_x_width + tile_x_border_pixelized + tile_size + tile_border_width,
 			tile_y_to = tile_y_width + tile_y_border_pixelized + tile_size + tile_border_width;
 		
-//		if(angle != 0)
-//		{
-//			BufferedImage image = new BufferedImage(Config.tileSize, Config.tileSize, Transparency.TRANSLUCENT);
-//	        Graphics2D g2d = image.createGraphics();
-//	        g2d.drawImage(Tiles.getTilesAssets(), 
-//		    			0, 
-//						0, 
-//						cell_size, 
-//						cell_size,
-//		    			tile_x_from,
-//	        			tile_y_from,
-//	        			tile_x_to,
-//	        			tile_y_to,
-//		    			null);
-//	        //g2d.rotate(Math.toRadians(angle));
-//	        g2d.dispose();
-//	        image = Utils.rotate(image, angle);	
-////	        java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis()); 
-////	        long tsi = ts.getTime();
-////	        try {
-////				ImageIO.write(image, "png", new File("bin/"+tsi+".png"));
-////			} catch (IOException e) {
-////				e.printStackTrace();
-////			}
-//	        
-//			g.drawImage(image,//Tiles.getTilesAssets(), 
-//	        			x_width, 
-//						y_width, 
-//						x_width + cell_size, 
-//						y_width + cell_size,
-//						0,
-//	        			0,
-//	        			Config.tileSize,
-//	        			Config.tileSize,
-//	        			null);
-//			image = null;
-//		} else {
-			g.drawImage(Tiles.getBackgroundsAssetsFile(), 
-        			x_width, 
-					y_width, 
-					x_width + cell_size, 
-					y_width + cell_size,
-					tile_x_from,
-        			tile_y_from,
-        			tile_x_to,
-        			tile_y_to,
-        			null);
-//		}
+
+		g.drawImage(Tiles.getBackgroundsAssetsFile(), 
+    			x_width, 
+				y_width, 
+				x_width + cell_size, 
+				y_width + cell_size,
+				tile_x_from,
+    			tile_y_from,
+    			tile_x_to,
+    			tile_y_to,
+    			null);
 	}
 
 	

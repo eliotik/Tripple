@@ -84,9 +84,9 @@ public class Grid {
 
     public Cell getCell(int x, int y){
     	int x_s = cells.length;
-    	if (x >= x_s || x < 0) return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+    	if (x >= x_s || x < 0) return null;//return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
     	int y_s = cells[x].length;
-    	if (y >= y_s || y < 0) return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+    	if (y >= y_s || y < 0) return null;//return new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
     	
         return cells[x][y];
     }

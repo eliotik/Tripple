@@ -59,27 +59,29 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     	
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
-	        if (cell.getElement() == null) {
-	        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
-	        	Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-	        	cell.checkJoinables();
-	        } else {
-	        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
-	        	{
-	        		if (cell.getTemporaryElement() == null)
-	        		{
-                        cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
-		        		Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-	        		} else {
-	        			Game.playerPanel.getPlayer().getHand().setElement(cell.getTemporaryElement());
-	        			cell.setTemporaryElement(Game.elementTypesCollection.getRandomForHand());
-	        		}
-	        	}
-
-                if (Game.playerPanel.getPlayer().getHand().getElement().getType().getId().equals("robot_base")){
-                    cell.setElement(null);
-                    Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-                }
+	        if (cell != null) {
+		        if (cell.getElement() == null) {
+		        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
+		        	Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+		        	cell.checkJoinables();
+		        } else {
+		        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
+		        	{
+		        		if (cell.getTemporaryElement() == null)
+		        		{
+	                        cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
+			        		Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+		        		} else {
+		        			Game.playerPanel.getPlayer().getHand().setElement(cell.getTemporaryElement());
+		        			cell.setTemporaryElement(Game.elementTypesCollection.getRandomForHand());
+		        		}
+		        	}
+	
+	                if (Game.playerPanel.getPlayer().getHand().getElement().getType().getId().equals("robot_base")){
+	                    cell.setElement(null);
+	                    Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+	                }
+		        }
 	        }
     	}
     }
@@ -106,8 +108,10 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	    			focusedCell.setShowBorder(false);
 	    		}
 	    		Cell cell = Game.grid.getCell(x, y);
-	    		cell.setShowBorder(true);
-	    		focusedCell = cell;
+	    		if (cell != null) {
+		    		cell.setShowBorder(true);
+		    		focusedCell = cell;
+	    		}
 	    	}
     	} else if (Game.getGameState() == 0) {
         	Menu menu = game.getMenu();
