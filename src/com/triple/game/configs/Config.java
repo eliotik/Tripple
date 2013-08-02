@@ -15,7 +15,7 @@ public class Config {
 	public static final int[] bgOneSide = {3, 2};
 	public static final int[] bgTwoSides = {1, 2};
 	public static final int[] bgLine = {2, 2};
-	public static final int[] bgFullRound = {1, 0};
+	public static final int[] bgFullRound = {1, 2};
 	
 	public static final Dimension screenSize = new Dimension(800, 640);
 	public static final String gameName = "Triple town";
