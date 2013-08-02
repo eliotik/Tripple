@@ -1,11 +1,11 @@
 package com.triple.menu;
 
-import java.awt.Graphics;
-import java.io.IOException;
-
 import com.triple.game.Game;
 import com.triple.sprites.GlobalTextures;
 import com.triple.sprites.Tiles;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class Menu {
 
@@ -35,9 +35,12 @@ public class Menu {
 	}
 
 	public Button getButton(String buttonName) {
-		switch(buttonName) {
-			case "play": return playButton;
-		}
+//		switch(buttonName) {
+//			case equals("play"): return playButton;
+//		}
+        if (buttonName.equals("play")){
+            return playButton;
+        }
 		return new Button("BAD", 0, 0, textures);
 	}
 }
