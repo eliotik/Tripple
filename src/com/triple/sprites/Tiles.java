@@ -14,10 +14,12 @@ public class Tiles {
     private static BufferedImage screenBackground;
     private static BufferedImage mainTitleBackground;
     private static BufferedImage buttonsAsset;
+    private static BufferedImage backgroundsAssetsFile;
 	
     public static void loadTiles() throws IOException {
     	setScreenBackground(ImageIO.read(new File(Config.screenBackgroundFile)));
     	setTilesAsset(ImageIO.read(new File(Config.tilesFile)));
+    	setBackgroundsAssetsFile(ImageIO.read(new File(Config.backgroundsAssetsFile)));
     }
 
     public static void loadMainScreen() throws IOException {
@@ -55,5 +57,13 @@ public class Tiles {
 
 	public static void setButtonsAsset(BufferedImage buttonsAsset) {
 		Tiles.buttonsAsset = buttonsAsset;
+	}
+
+	public static BufferedImage getBackgroundsAssetsFile() {
+		return backgroundsAssetsFile;
+	}
+
+	public static void setBackgroundsAssetsFile(BufferedImage backgroundsAssetsFile) {
+		Tiles.backgroundsAssetsFile = backgroundsAssetsFile;
 	}
 }

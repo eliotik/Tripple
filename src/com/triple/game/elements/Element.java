@@ -2,6 +2,7 @@ package com.triple.game.elements;
 
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
+import com.triple.game.grid.Cell;
 import com.triple.sprites.Tiles;
 import java.awt.*;
 
@@ -67,18 +68,25 @@ public class Element {
 		
 //		double angle = 0;
 //		
-//		Cell cell_a = Game.grid.getCell(x-1, y-1),
-//			cell_b = Game.grid.getCell(x, y-1),
-//			cell_c = Game.grid.getCell(x+1, y-1),
-//			cell_d = Game.grid.getCell(x+1, y),
-//			cell_e = Game.grid.getCell(x+1, y+1),
-//			cell_f = Game.grid.getCell(x, y+1),
-//			cell_g = Game.grid.getCell(x-1, y+1),
-//			cell_h = Game.grid.getCell(x-1, y);
+		Cell cell_a = Game.grid.getCell(x-1, y-1),
+			cell_b = Game.grid.getCell(x, y-1),
+			cell_c = Game.grid.getCell(x+1, y-1),
+			cell_d = Game.grid.getCell(x+1, y),
+			cell_e = Game.grid.getCell(x+1, y+1),
+			cell_f = Game.grid.getCell(x, y+1),
+			cell_g = Game.grid.getCell(x-1, y+1),
+			cell_h = Game.grid.getCell(x-1, y);
 //		
 //		
-//		if (cell_b != null || cell_d != null || cell_f != null || cell_g != null)
-//		{
+		if (cell_a != null || cell_b != null || cell_c != null || cell_d != null || 
+			cell_e != null || cell_f != null || cell_g != null || cell_h != null)
+		{
+			if (cell_a.getElement() != null && cell_b.getElement() != null && cell_c.getElement() != null && cell_d.getElement() != null && 
+				cell_e.getElement() != null && cell_f.getElement() != null && cell_g.getElement() != null && cell_h.getElement() != null) {
+				tile_x = Config.bgFullRound[0];
+				tile_y = Config.bgFullRound[1];
+			}
+		}
 //			if (cell_b.getElement() == null && cell_d.getElement() == null &&
 //				cell_f.getElement() == null && cell_h.getElement() == null) {
 //				/*
@@ -238,7 +246,7 @@ public class Element {
 //	        			null);
 //			image = null;
 //		} else {
-			g.drawImage(Tiles.getTilesAsset(), 
+			g.drawImage(Tiles.getBackgroundsAssetsFile(), 
         			x_width, 
 					y_width, 
 					x_width + cell_size, 
