@@ -4,7 +4,10 @@ import com.triple.game.Game;
 import com.triple.game.configs.Config;
 import com.triple.game.grid.Cell;
 import com.triple.game.grid.Grid;
+import com.triple.menu.Button;
+import com.triple.menu.Menu;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,11 +16,40 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
-    
-    public void mouseClicked(MouseEvent e) {
-        //System.out.println("Test mouseClicked");
-    }
 
+	private Game game;
+	private Button hoveredButton;
+    
+	public InputEvents(Game game) {
+		this.game = game;
+	}    
+    
+	public void mouseClicked(MouseEvent e) {
+		if (Game.getGameState() != 0) return;
+		Menu menu = game.getMenu();
+    	int mouse = e.getButton();
+    	Rectangle r = new Rectangle(e.getX(), e.getY(), 1, 1);
+    	switch(mouse) {
+    	case MouseEvent.BUTTON1:
+    		if (r.intersects(menu.getButton("play").getButtonBounds()))
+    			menu.getButton("play").setClicked(true);
+    			Game.setGameState(1);
+    		break;
+    	}
+	}
+	
+	private void setHoveredButton(Button button) {
+		hoveredButton = button;
+		hoveredButton.setHovered(true);
+	}
+	
+	private void checkHoveredButton(Rectangle r, Menu menu) {
+		if (r.intersects(menu.getButton("play").getButtonBounds()))
+		{
+			setHoveredButton(menu.getButton("play"));
+		}
+	}
+	
     public void mousePressed(MouseEvent e) {
     	if (Game.getGameState() != 1) return;
     	if (Game.isJoinning) return;
@@ -65,16 +97,31 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     }
     
     public void mouseMoved(MouseEvent e) {
-    	if (Game.getGameState() != 1) return;
-    	int x = e.getX()/Game.pixelSize/Config.cellSize,
-			y = e.getY()/Game.pixelSize/Config.cellSize;
-    	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
-    		if (focusedCell != null) {
-    			focusedCell.setShowBorder(false);
-    		}
-    		Cell cell = Game.grid.getCell(x, y);
-    		cell.setShowBorder(true);
-    		focusedCell = cell;
+    	if (Game.getGameState() == 1) {
+    	
+	    	int x = e.getX()/Game.pixelSize/Config.cellSize,
+				y = e.getY()/Game.pixelSize/Config.cellSize;
+	    	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
+	    		if (focusedCell != null) {
+	    			focusedCell.setShowBorder(false);
+	    		}
+	    		Cell cell = Game.grid.getCell(x, y);
+	    		cell.setShowBorder(true);
+	    		focusedCell = cell;
+	    	}
+    	} else if (Game.getGameState() == 0) {
+        	Menu menu = game.getMenu();
+        	Rectangle r = new Rectangle(e.getX(), e.getY(), 1, 1);
+        	if (hoveredButton != null) {
+        		if (!r.intersects(hoveredButton.getButtonBounds())) {
+        			hoveredButton.setHovered(false);
+        			checkHoveredButton(r, menu);
+        		} else {
+        			hoveredButton.setHovered(true);
+        		}
+        	} else {
+        		checkHoveredButton(r, menu);
+        	}
     	}
     }
 

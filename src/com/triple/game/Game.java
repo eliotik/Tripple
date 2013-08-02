@@ -7,7 +7,6 @@ import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
 import com.triple.game.player.PlayerPanel;
 import com.triple.handlers.InputEvents;
-import com.triple.handlers.MouseInput;
 import com.triple.menu.Menu;
 import com.triple.sprites.Tiles;
 
@@ -74,10 +73,8 @@ public class Game extends Canvas implements Runnable {
         grid = new Grid();
         grid.refreshJoinableCells();
         
-    	addMouseListener(new MouseInput(this));
-    	addMouseMotionListener(new MouseInput(this));
-		addMouseListener(new InputEvents());
-		addMouseMotionListener(new InputEvents());    	
+		addMouseListener(new InputEvents(this));
+		addMouseMotionListener(new InputEvents(this));    	
     }
     
     public synchronized void start() {
