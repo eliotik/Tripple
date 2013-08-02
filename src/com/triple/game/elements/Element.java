@@ -1,12 +1,9 @@
 package com.triple.game.elements;
 
-import java.awt.Graphics;
-//import java.awt.Graphics2D;
-//import java.awt.Transparency;
-//import java.awt.image.BufferedImage;
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
 import com.triple.sprites.Tiles;
+import java.awt.*;
 
 public class Element {
 
@@ -254,7 +251,6 @@ public class Element {
 //		}
 	}
 
-	
 	
 	public void renderContainer(Graphics g, int x, int y, int width, int height, int offsetX, int offsetY, boolean animate, int tickModifier) {
 		int tile_x = type.getTile_x(),

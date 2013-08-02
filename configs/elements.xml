@@ -11,8 +11,7 @@
 		container="1" 
 		playable="0" 
 		type="system" 
-		background="" 
-		tile_x="0" 
+		tile_x="0"
 		tile_y="0" />
 
 	<element 
@@ -25,8 +24,7 @@
 		container="0" 
 		playable="1" 
 		type="base" 
-		background="" 
-		tile_x="1" 
+		tile_x="1"
 		tile_y="0" />
 		
 	<element 
@@ -39,8 +37,7 @@
 		container="0" 
 		playable="1" 
 		type="base" 
-		background="" 
-		tile_x="2" 
+		tile_x="2"
 		tile_y="0" />
 	<element 
 		name="Berry bush" 
@@ -52,8 +49,7 @@
 		joinable="1" 
 		playable="0" 
 		type="base" 
-		background="" 
-		tile_x="3" 
+		tile_x="3"
 		tile_y="0" />
 		
 	<element 
@@ -66,8 +62,7 @@
 		joinable="1" 
 		playable="0" 
 		type="base" 
-		background="" 
-		tile_x="4" 
+		tile_x="4"
 		tile_y="0" />
 	
 	<element 
@@ -80,8 +75,7 @@
 		joinable="1" 
 		playable="1" 
 		type="extended" 
-		background="" 
-		tile_x="5" 
+		tile_x="5"
 		tile_y="0" />
 	<element 
 		name="Fruit tree" 
@@ -93,8 +87,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="6" 
+		tile_x="6"
 		tile_y="0" />
 		
 	<element 
@@ -107,8 +100,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="7" 
+		tile_x="7"
 		tile_y="0" />
 	<element 
 		name="Woodhouse double" 
@@ -120,8 +112,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="8" 
+		tile_x="8"
 		tile_y="0" />			
 
 	<element 
@@ -134,8 +125,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="9" 
+		tile_x="9"
 		tile_y="0" />
 	<element 
 		name="Stonehouse lux" 
@@ -147,8 +137,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="9" 
+		tile_x="9"
 		tile_y="1" />	
 		
 	<element 
@@ -161,8 +150,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="8" 
+		tile_x="8"
 		tile_y="1" />
 	<element 
 		name="Cottage lux" 
@@ -174,8 +162,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="7" 
+		tile_x="7"
 		tile_y="1" />		
 		
 		
@@ -189,8 +176,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="6" 
+		tile_x="6"
 		tile_y="1" />		
 	<element 
 		name="Castle lux" 
@@ -202,8 +188,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extended" 
-		background="" 
-		tile_x="6" 
+		tile_x="6"
 		tile_y="2" />
 		
 	<element 
@@ -216,8 +201,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extra" 
-		background="" 
-		tile_x="5" 
+		tile_x="5"
 		tile_y="1" />		
 	<element 
 		name="Flying tower lux" 
@@ -229,8 +213,7 @@
 		joinable="1" 
 		playable="0" 
 		type="extra" 
-		background="" 
-		tile_x="4" 
+		tile_x="4"
 		tile_y="1" />
 		
 	<element 
@@ -243,7 +226,19 @@
 		joinable="0" 
 		playable="0" 
 		type="extra" 
-		background="" 
-		tile_x="4" 
-		tile_y="1" />		
+		tile_x="4"
+		tile_y="1" />
+
+	<element
+		name="Robot"
+		id="robot_base"
+		subspecies="robot"
+		join_result="robot"
+		chance="0.1"
+		container="0"
+		joinable="0"
+		playable="1"
+		type="base"
+		tile_x="1"
+		tile_y="1" />
 </elements>

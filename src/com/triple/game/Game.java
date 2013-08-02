@@ -1,11 +1,9 @@
 package com.triple.game;
 
-import javax.swing.*;
-
 import com.triple.game.configs.Config;
 import com.triple.game.configs.Fps;
 import com.triple.game.elements.ElementTypesCollection;
-import com.triple.game.grid.*;
+import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
 import com.triple.game.player.PlayerPanel;
 import com.triple.handlers.InputEvents;
@@ -13,9 +11,8 @@ import com.triple.handlers.MouseInput;
 import com.triple.menu.Menu;
 import com.triple.sprites.Tiles;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
@@ -35,6 +32,8 @@ public class Game extends Canvas implements Runnable {
 
     public static Grid grid;
     public static PlayerPanel playerPanel;
+    public static ElementTypesCollection elementTypesCollection;
+    
     private Image screen;
 	private Thread thread;
 	private Menu menu;
@@ -71,6 +70,7 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
         ElementTypesCollection.loadElements();
+        elementTypesCollection = new ElementTypesCollection();
         grid = new Grid();
         grid.refreshJoinableCells();
         
