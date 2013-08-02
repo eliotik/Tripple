@@ -6,9 +6,7 @@ import java.awt.Graphics;
 //import java.awt.image.BufferedImage;
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
-import com.triple.game.configs.Tiles;
-//import com.triple.game.configs.Utils;
-//import com.triple.game.grid.Cell;
+import com.triple.sprites.Tiles;
 
 public class Element {
 

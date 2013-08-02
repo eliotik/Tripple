@@ -1,15 +1,17 @@
-package com.triple.game.grid;
+package com.triple.handlers;
 
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.grid.Cell;
+import com.triple.game.grid.Grid;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class Event implements MouseListener, MouseMotionListener {
+public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
@@ -19,7 +21,7 @@ public class Event implements MouseListener, MouseMotionListener {
     }
 
     public void mousePressed(MouseEvent e) {
-    	
+    	if (Game.getGameState() != 1) return;
     	if (Game.isJoinning) return;
     	
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
@@ -59,7 +61,9 @@ public class Event implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
         //System.out.println("Test mouseExited");
     }
+    
     public void mouseMoved(MouseEvent e) {
+    	if (Game.getGameState() != 1) return;
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
 			y = e.getY()/Game.pixelSize/Config.cellSize;
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {

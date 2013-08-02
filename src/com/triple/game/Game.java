@@ -2,75 +2,105 @@ package com.triple.game;
 
 import javax.swing.*;
 
+import com.triple.game.configs.Config;
 import com.triple.game.configs.Fps;
-import com.triple.game.configs.Tiles;
 import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.grid.*;
-import com.triple.game.grid.Event;
 import com.triple.game.player.Player;
 import com.triple.game.player.PlayerPanel;
+import com.triple.handlers.InputEvents;
+import com.triple.handlers.MouseInput;
+import com.triple.menu.Menu;
+import com.triple.sprites.Tiles;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int pixelSize = 1;
+	public static final int pixelSize = Config.pixelSize;
 
-    public static final Dimension size = new Dimension(800, 640);
+    public static final Dimension size = Config.screenSize;
     public static final Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);
 
-    public static final String name = "Triple Town";
+    public static final String name = Config.gameName;
     public static boolean isRunning = false;
     public static boolean isJoinning = false;
+    private static int gameState;
 
     public static Grid grid;
     public static PlayerPanel playerPanel;
-    
     private Image screen;
-    private JFrame frame;
-
+	private Thread thread;
+	private Menu menu;
+	
     public static void main(String[] args) {
-        new Game().start();
+        //new Game().run();
+    	
+    	JFrame frame = new JFrame(name);
+        Game game = new Game();
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(game, BorderLayout.CENTER);
+        frame.pack();
+        
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
+        game.start();
     }    
   
     public Game() {
     	setMinimumSize(size);
     	setMaximumSize(size);
     	setPreferredSize(size);
-    	
-        frame = new JFrame(name);
-        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-        
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 
-    public synchronized void start() {
-        isRunning = true;
-        Tiles.loadTiles();
+    public void init() {
+    	menu = new Menu(this);
+        try {
+			Tiles.loadTiles();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         ElementTypesCollection.loadElements();
         grid = new Grid();
         grid.refreshJoinableCells();
-        playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
-
-        new Thread(this).start();
-        addMouseListener(new Event());
-        addMouseMotionListener(new Event());
+        
+    	addMouseListener(new MouseInput(this));
+    	addMouseMotionListener(new MouseInput(this));
+		addMouseListener(new InputEvents());
+		addMouseMotionListener(new InputEvents());    	
+    }
+    
+    public synchronized void start() {
+    	if (isRunning) return;
+        isRunning = true;
+        thread = new Thread(this);
+        thread.start();
     }
 
-    public void stop() {
+    public synchronized void stop() {
+    	if (!isRunning) return;
     	isRunning = false;
+    	
+    	try {
+    		thread.join();
+    	} catch (InterruptedException e) {
+    		e.printStackTrace();
+    	}
+    	System.exit(1);
     }
 
     public void run() {
-        screen = createVolatileImage(pixel.width, pixel.height);
+    	init();
         boolean doRender = false;
         
         Fps.init();
@@ -96,7 +126,7 @@ public class Game extends Canvas implements Runnable {
             
     }
 
-    private void drawScreenBackground(Graphics g) {
+    private void drawGameScreenBackground(Graphics g) {
 		g.drawImage(Tiles.getScreenBackground(), 
 					0, 
 					0, 
@@ -106,23 +136,57 @@ public class Game extends Canvas implements Runnable {
     }
     
     public void render() {
-        Graphics g = screen.getGraphics();
+    	BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+    		createBufferStrategy(2);
+    		return;
+    	}
+    	Graphics g = bs.getDrawGraphics();
+    	
+    	switch (getGameState()) {
+			case 0:
+				getMenu().render(g);	
+			break;
+			case 1:
+				if (playerPanel == null)
+					playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
+				if (screen == null)
+					screen = createVolatileImage(pixel.width, pixel.height);
 
-        g.setColor(new Color(100,100,100));
-        g.fillRect(0, 0, pixel.width, pixel.height);
-        g.setFont(new Font("Arial", Font.PLAIN, 24));
-        
-        drawScreenBackground(g);
-        grid.render(g);
-        playerPanel.render(g);
-        Fps.render(g);
-        
-        g = getGraphics();
-        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
-        g.dispose();
+				Graphics sg = screen.getGraphics();
+				sg.setColor(new Color(100,100,100));
+				sg.fillRect(0, 0, pixel.width, pixel.height);
+				sg.setFont(new Font("Arial", Font.PLAIN, 24));
+		        
+		        drawGameScreenBackground(sg);
+		        grid.render(sg);
+		        playerPanel.render(sg);
+		        Fps.render(sg);
+		        
+		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
+			break;
+		}
+    	
+    	
+    	g.dispose();
+    	bs.show();    	
+    	
     }
 
     public void tick() {
 
     }
+        
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public static int getGameState() {
+		return Game.gameState;
+	}
+
+	public static void setGameState(int gameState) {
+		Game.gameState = gameState;
+	}
+
 }

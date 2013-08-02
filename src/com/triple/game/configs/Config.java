@@ -1,5 +1,8 @@
 package com.triple.game.configs;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+
 public class Config {
 	public static final int cellSize = 80;
 	public static final int tileBorderWidth = 1;
@@ -11,4 +14,12 @@ public class Config {
 	public static final int[] bgOneSide = {3, 2};
 	public static final int[] bgTwoSides = {1, 2};
 	public static final int[] bgLine = {2, 2};
+	public static final Dimension screenSize = new Dimension(800, 640);
+	public static final String gameName = "Triple town";
+	public static final int pixelSize = 1;
+	public static final String screenBackgroundFile = "assets/screen_background.png";
+	public static final String tilesFile = "assets/tiles2.png";
+	public static final String mainTitleFile = "assets/main_title.png";
+	public static final String buttonsAssetsFile = "assets/buttons.png";
+	public static final Rectangle menuButton = new Rectangle(0, 0, 82, 23);
 }

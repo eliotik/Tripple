@@ -45,6 +45,7 @@ public class Fps {
         g2.setFont(new Font("Arial", Font.PLAIN, 9));			
         g2.setColor(Color.BLACK);
         g2.drawString("fps="+screenShowUpdates+":"+screenShowFrames, (Grid.cellsAmount + 1) * Config.cellSize, (Grid.cellsAmount) * Config.cellSize - 5);
+        //Utils.print("fps="+screenShowUpdates+":"+screenShowFrames);
 		
 	}
 
