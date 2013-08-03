@@ -13,6 +13,8 @@ public class Config {
 	public static final int[] focusBorder = {0, 1};
 	public static final int[] bgCenter = {0, 0};
 	public static final int[] bgCorner_e = {2, 3};
+	public static final int[] bgSide_f = {1, 3};
+	public static final int[] bgSide_d = {2, 2};
 	public static final int[] bgTwoSides = {1, 2};
 	public static final int[] bgLine = {2, 2};
 	public static final int[] bgFullRound = {1, 2};

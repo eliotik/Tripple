@@ -93,8 +93,8 @@ public class Element {
 			if (cell_d.getElement() != null || cell_e.getElement() != null || cell_f.getElement() != null) {
 				
 				if (cell_d.getElement() != null && cell_e.getElement() == null && cell_f.getElement() == null) {
-					tile_x = Config.bgFullRound[0];
-					tile_y = Config.bgFullRound[1];					
+					tile_x = Config.bgSide_f[0];
+					tile_y = Config.bgSide_f[1];					
 				} else if (cell_d.getElement() != null && cell_e.getElement() != null && cell_f.getElement() == null) {
 					tile_x = Config.bgFullRound[0];
 					tile_y = Config.bgFullRound[1];					
@@ -105,8 +105,8 @@ public class Element {
 					tile_x = Config.bgFullRound[0];
 					tile_y = Config.bgFullRound[1];					
 				} else if (cell_d.getElement() == null && cell_e.getElement() == null && cell_f.getElement() != null) {
-					tile_x = Config.bgFullRound[0];
-					tile_y = Config.bgFullRound[1];					
+					tile_x = Config.bgSide_d[0];
+					tile_y = Config.bgSide_d[1];					
 				} else if (cell_d.getElement() != null && cell_e.getElement() == null && cell_f.getElement() != null) {
 					tile_x = Config.bgFullRound[0];
 					tile_y = Config.bgFullRound[1];					
