@@ -13,6 +13,8 @@ public class ElementType {
 	private int tile_y = -1;
 	private String joinResult;
 	private String subspecies;
+	private int score;
+	private double joinScoreMultiplier;
 	
 	public String getId() {
 		return id;
@@ -109,6 +111,22 @@ public class ElementType {
 
 	public void setSubspecies(String subspecies) {
 		this.subspecies = subspecies;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public double getJoinScoreMultiplier() {
+		return joinScoreMultiplier;
+	}
+
+	public void setJoinScoreMultiplier(double joinScoreMultiplier) {
+		this.joinScoreMultiplier = joinScoreMultiplier;
 	}
 
 }

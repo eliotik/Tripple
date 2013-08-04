@@ -53,6 +53,8 @@ public class ElementTypesCollection {
                 elementType.setContainer((elemj.getAttribute("container").equals("1")) ? true : false);
                 elementType.setJoinResult(elemj.getAttribute("join_result").toString());
                 elementType.setSubspecies(elemj.getAttribute("subspecies").toString());
+                elementType.setScore(Integer.parseInt(elemj.getAttribute("score").toString()));
+                elementType.setJoinScoreMultiplier(Double.parseDouble(elemj.getAttribute("join_score_multiplier").toString()));
                 
                 elementMap.add(elementType);
             }

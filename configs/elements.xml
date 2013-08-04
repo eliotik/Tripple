@@ -12,7 +12,9 @@
 		playable="0" 
 		type="system" 
 		tile_x="0"
-		tile_y="0" />
+		tile_y="0"
+		score="0"
+		join_score_multiplier="0" />
 
 	<element 
 		name="Green" 
@@ -25,7 +27,9 @@
 		playable="1" 
 		type="base" 
 		tile_x="1"
-		tile_y="0" />
+		tile_y="0"
+		score="10"
+		join_score_multiplier="0.1" />
 		
 	<element 
 		name="Bush" 
@@ -38,7 +42,9 @@
 		playable="1" 
 		type="base" 
 		tile_x="2"
-		tile_y="0" />
+		tile_y="0"
+		score="20"
+		join_score_multiplier="0.2" />
 	<element 
 		name="Berry bush" 
 		id="bush_multi" 
@@ -50,7 +56,9 @@
 		playable="0" 
 		type="base" 
 		tile_x="3"
-		tile_y="0" />
+		tile_y="0"
+		score="25"
+		join_score_multiplier="0.25" />
 		
 	<element 
 		name="Stone" 
@@ -63,7 +71,9 @@
 		playable="0" 
 		type="base" 
 		tile_x="4"
-		tile_y="0" />
+		tile_y="0"
+		score="20"
+		join_score_multiplier="0.2" />
 	
 	<element 
 		name="Tree" 
@@ -76,7 +86,9 @@
 		playable="1" 
 		type="extended" 
 		tile_x="5"
-		tile_y="0" />
+		tile_y="0"
+		score="30"
+		join_score_multiplier="0.3" />
 	<element 
 		name="Fruit tree" 
 		id="tree_multi" 
@@ -88,7 +100,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="6"
-		tile_y="0" />
+		tile_y="0"
+		score="35"
+		join_score_multiplier="0.35" />
 		
 	<element 
 		name="Woodhouse" 
@@ -101,7 +115,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="7"
-		tile_y="0" />
+		tile_y="0"
+		score="40"
+		join_score_multiplier="0.4" />
 	<element 
 		name="Woodhouse double" 
 		id="woodhouse_multi" 
@@ -113,7 +129,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="8"
-		tile_y="0" />			
+		tile_y="0"
+		score="45"
+		join_score_multiplier="0.45" />			
 
 	<element 
 		name="Stonehouse" 
@@ -126,7 +144,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="9"
-		tile_y="0" />
+		tile_y="0"
+		score="50"
+		join_score_multiplier="0.5" />
 	<element 
 		name="Stonehouse lux" 
 		id="stonehouse_multi" 
@@ -138,7 +158,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="9"
-		tile_y="1" />	
+		tile_y="1"
+		score="55"
+		join_score_multiplier="0.55" />	
 		
 	<element 
 		name="Cottage" 
@@ -151,7 +173,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="8"
-		tile_y="1" />
+		tile_y="1"
+		score="60"
+		join_score_multiplier="0.6" />
 	<element 
 		name="Cottage lux" 
 		id="cottage_multi" 
@@ -163,7 +187,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="7"
-		tile_y="1" />		
+		tile_y="1"
+		score="65"
+		join_score_multiplier="0.65" />		
 		
 		
 	<element 
@@ -177,7 +203,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="6"
-		tile_y="1" />		
+		tile_y="1"
+		score="70"
+		join_score_multiplier="0.7" />		
 	<element 
 		name="Castle lux" 
 		id="castle_multi" 
@@ -189,7 +217,9 @@
 		playable="0" 
 		type="extended" 
 		tile_x="6"
-		tile_y="2" />
+		tile_y="2"
+		score="75"
+		join_score_multiplier="0.75" />
 		
 	<element 
 		name="Flying tower" 
@@ -202,7 +232,9 @@
 		playable="0" 
 		type="extra" 
 		tile_x="5"
-		tile_y="1" />		
+		tile_y="1"
+		score="80"
+		join_score_multiplier="0.8" />		
 	<element 
 		name="Flying tower lux" 
 		id="flyingtower_multi" 
@@ -214,7 +246,9 @@
 		playable="0" 
 		type="extra" 
 		tile_x="4"
-		tile_y="1" />
+		tile_y="1"
+		score="85"
+		join_score_multiplier="0.85" />
 		
 	<element 
 		name="Flying castle" 
@@ -227,7 +261,9 @@
 		playable="0" 
 		type="extra" 
 		tile_x="4"
-		tile_y="1" />
+		tile_y="1"
+		score="90"
+		join_score_multiplier="0.9" />
 
 	<element
 		name="Robot"
@@ -240,5 +276,7 @@
 		playable="1"
 		type="base"
 		tile_x="1"
-		tile_y="1" />
+		tile_y="1"
+		score="0"
+		join_score_multiplier="0" />
 </elements>

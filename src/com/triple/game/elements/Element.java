@@ -89,21 +89,21 @@ public class Element {
 				tile_y = Config.bgFullRound[1];
 			}
 		} else if (cell_a == null && cell_b == null && cell_c == null && cell_d != null && 
-				cell_e != null && cell_f != null && cell_g == null && cell_h == null) {
+			cell_e != null && cell_f != null && cell_g == null && cell_h == null) {
 			if (cell_d.getElement() != null || cell_e.getElement() != null || cell_f.getElement() != null) {
 				
 				if (cell_d.getElement() != null && cell_e.getElement() == null && cell_f.getElement() == null) {
 					tile_x = Config.bgSide_f[0];
 					tile_y = Config.bgSide_f[1];					
 				} else if (cell_d.getElement() != null && cell_e.getElement() != null && cell_f.getElement() == null) {
-					tile_x = Config.bgFullRound[0];
-					tile_y = Config.bgFullRound[1];					
+					tile_x = Config.bgSide_f[0];
+					tile_y = Config.bgSide_f[1];					
 				} else if (cell_d.getElement() != null && cell_e.getElement() != null && cell_f.getElement() != null) {
 					tile_x = Config.bgFullRound[0];
 					tile_y = Config.bgFullRound[1];
 				} else if (cell_d.getElement() == null && cell_e.getElement() != null && cell_f.getElement() != null) {
-					tile_x = Config.bgFullRound[0];
-					tile_y = Config.bgFullRound[1];					
+					tile_x = Config.bgSide_d[0];
+					tile_y = Config.bgSide_d[1];					
 				} else if (cell_d.getElement() == null && cell_e.getElement() == null && cell_f.getElement() != null) {
 					tile_x = Config.bgSide_d[0];
 					tile_y = Config.bgSide_d[1];					
@@ -114,9 +114,24 @@ public class Element {
 					tile_x = Config.bgCorner_e[0];
 					tile_y = Config.bgCorner_e[1];					
 				}
+				
 			} else {
 				tile_x = Config.bgCorner_e[0];
 				tile_y = Config.bgCorner_e[1];
+			}
+		} else if (cell_a == null && cell_b != null && cell_c != null && cell_d != null && 
+			cell_e != null && cell_f != null && cell_g == null && cell_h == null) {
+			if (cell_b.getElement() != null || cell_c.getElement() == null || cell_d.getElement() == null ||
+				cell_e.getElement() == null || cell_f.getElement() == null) {
+				
+				if (cell_b.getElement() != null && cell_c.getElement() == null && cell_d.getElement() == null &&
+						cell_e.getElement() == null && cell_f.getElement() == null) {
+					
+				}
+				
+			} else {
+				tile_x = Config.bgSide_d_round[0];
+				tile_y = Config.bgSide_d_round[1];
 			}
 		}
 
