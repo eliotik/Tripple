@@ -113,7 +113,7 @@ public class ElementType {
 		this.subspecies = subspecies;
 	}
 
-	public double getScore() {
+	public int getScore() {
 		return score;
 	}
 

@@ -6,7 +6,7 @@ public class Player {
 
 	private String name = "";
 	private PlayerHand hand = new PlayerHand();
-	private int score;
+	private PlayerScore score = new PlayerScore();
 	
 	public Player(String name, Element element) {
 		this.name = name;
@@ -33,11 +33,11 @@ public class Player {
 		this.hand = hand;
 	}
 
-	public int getScore() {
+	public PlayerScore getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(PlayerScore score) {
 		this.score = score;
 	}
 	

@@ -61,25 +61,26 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell != null) {
 		        if (cell.getElement() == null) {
-		        	cell.setElement(Game.playerPanel.getPlayer().getHand().getElement());
-		        	Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+		        	cell.setElement(Game.getPlayerPanel().getPlayer().getHand().getElement());
+		        	Game.getPlayerPanel().getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 		        	cell.checkJoinables();
+		        	System.out.println(Game.getPlayerPanel().getPlayer().getScore().getScore());
 		        } else {
 		        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 		        	{
 		        		if (cell.getTemporaryElement() == null)
 		        		{
-	                        cell.setTemporaryElement(Game.playerPanel.getPlayer().getHand().getElement());
-			        		Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+	                        cell.setTemporaryElement(Game.getPlayerPanel().getPlayer().getHand().getElement());
+			        		Game.getPlayerPanel().getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 		        		} else {
-		        			Game.playerPanel.getPlayer().getHand().setElement(cell.getTemporaryElement());
+		        			Game.getPlayerPanel().getPlayer().getHand().setElement(cell.getTemporaryElement());
 		        			cell.setTemporaryElement(Game.elementTypesCollection.getRandomForHand());
 		        		}
 		        	}
 	
-	                if (Game.playerPanel.getPlayer().getHand().getElement().getType().getId().equals("robot_base")){
+	                if (Game.getPlayerPanel().getPlayer().getHand().getElement().getType().getId().equals("robot_base")){
 	                    cell.setElement(null);
-	                    Game.playerPanel.getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
+	                    Game.getPlayerPanel().getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 	                }
 		        }
 	        }

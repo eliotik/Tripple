@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable {
     private static int gameState;
 
     public static Grid grid;
-    public static PlayerPanel playerPanel;
+    private static PlayerPanel playerPanel;
     public static ElementTypesCollection elementTypesCollection;
     
     private Image screen;
@@ -145,8 +145,8 @@ public class Game extends Canvas implements Runnable {
 				getMenu().render(g);	
 			break;
 			case 1:
-				if (playerPanel == null)
-					playerPanel = new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom()));
+				if (getPlayerPanel() == null)
+					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
 				if (screen == null)
 					screen = createVolatileImage(pixel.width, pixel.height);
 
@@ -157,7 +157,7 @@ public class Game extends Canvas implements Runnable {
 		        
 		        drawGameScreenBackground(sg);
 		        grid.render(sg);
-		        playerPanel.render(sg);
+		        getPlayerPanel().render(sg);
 		        Fps.render(sg);
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
@@ -184,6 +184,14 @@ public class Game extends Canvas implements Runnable {
 
 	public static void setGameState(int gameState) {
 		Game.gameState = gameState;
+	}
+
+	public static PlayerPanel getPlayerPanel() {
+		return playerPanel;
+	}
+
+	public static void setPlayerPanel(PlayerPanel playerPanel) {
+		Game.playerPanel = playerPanel;
 	}
 
 }

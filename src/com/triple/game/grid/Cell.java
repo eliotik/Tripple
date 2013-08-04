@@ -8,6 +8,7 @@ import com.triple.game.elements.ElementTypesCollection;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Cell extends Rectangle{
 
@@ -75,18 +76,57 @@ public class Cell extends Rectangle{
 		Game.isJoinning = true;
 		
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		HashMap<String, ArrayList<ElementType>> elementTypes = new HashMap<String, ArrayList<ElementType>>();
+		ArrayList<String> elements = new ArrayList<String>();
 		
 		findNeigbors(neighbors, this, this);
 		
 		if (neighbors.size() >= 2) {
 			for (int i = 0, l = neighbors.size(); i < l; ++i) {
+				ElementType elType = neighbors.get(i).getElement().getType();
+				if (elementTypes.get(elType.getType()) != null && elementTypes.get(elType.getType()).size() > 0)
+				{
+					elementTypes.get(elType.getType()).add(elType);
+				} else {
+					ArrayList<ElementType> elTypes = new ArrayList<ElementType>();
+					elTypes.add(elType);
+					elementTypes.put(elType.getType(), elTypes);
+					elements.add(elType.getType());
+				}
                 //neighbors.get(i).animateFlop(neighbors.get(i), this);
+				//Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
 				neighbors.get(i).setElement(null);
 			}
 			String sufix = (neighbors.size() > 2) ? "_multi": "_base";
 			ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
+			
+			if (elementTypes.get(element.getType().getType()) != null && elementTypes.get(element.getType().getType()).size() > 0)
+			{
+				elementTypes.get(element.getType().getType()).add(element.getType());
+			} else {
+				ArrayList<ElementType> elTypes = new ArrayList<ElementType>();
+				elTypes.add(element.getType());
+				elementTypes.put(element.getType().getType(), elTypes);
+				elements.add(element.getType().getType());
+			}
+			
+			if (elements.size() > 0) {
+				for (int i = 0, l = elements.size(); i < l; ++i) {
+					ArrayList<ElementType> tempEls = elementTypes.get(elements.get(i));
+					if (tempEls != null && tempEls.size() > 0) {
+						if (tempEls.size() > 3) {
+							Game.getPlayerPanel().getPlayer().getScore().addMultiplier(tempEls.get(0).getJoinScoreMultiplier());
+						}
+						for(int y = 0, c = tempEls.size(); y < c; ++y) {
+							Game.getPlayerPanel().getPlayer().getScore().addScore(tempEls.get(y).getScore());
+						}
+					}
+				}
+			}
+			
 			if (!newType.getId().equals(""))
 			{
+				Game.getPlayerPanel().getPlayer().getScore().addScore(element.getType().getScore());
 				element.setType( newType );
 				checkJoinables();
 			}

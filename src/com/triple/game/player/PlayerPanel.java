@@ -45,6 +45,9 @@ public class PlayerPanel {
 			player.getHand().render(g);
 		}
         
+		if (player.getScore() != null) {
+			player.getScore().render(g);
+		}
 	}
 	
     public void tick() {
