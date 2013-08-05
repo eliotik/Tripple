@@ -15,9 +15,10 @@ public class ElementTypesCollection {
 	
 	private static ArrayList<ElementType> elementMap = new ArrayList<ElementType>();
 
-    private HashMap<String, String> chanceContainer = new HashMap<String, String>();
+//    private HashMap<String, String> chanceContainer = new HashMap<String, String>();
+    private HashMap<String, Double> chanceContainer = new HashMap<String, Double>();
     private ElementType element;
-    private String elementTypeCount = "0";
+    private Double elementTypeCount = 0.0;
     private int allHandElementCount = 0;
     private double counter;
     private double quotient;
@@ -94,15 +95,17 @@ public class ElementTypesCollection {
 
         elementTypeCount = chanceContainer.get( elementType.getName() );
         if (elementTypeCount == null){
-            elementTypeCount = "0";
+            elementTypeCount = 0.0;
         }
-        counter = Double.parseDouble( elementTypeCount );
+
+        counter = elementTypeCount;
         quotient =  counter / allHandElementCount;
         chance = Double.parseDouble( elementType.getChance() );
 
-        if (quotient < chance){
+        if (quotient <= chance){
             counter++;
-            elementTypeCount = Double.toString( counter );
+//            elementTypeCount = Double.toString( counter );
+            elementTypeCount = counter;
             chanceContainer.put( elementType.getName(), elementTypeCount );
 
             element = elementType;
