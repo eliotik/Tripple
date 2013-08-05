@@ -75,7 +75,6 @@
 		score="20"
 		join_score_multiplier="0.2" />
 
-
 	<element 
 		name="Tree" 
 		id="tree_base" 
