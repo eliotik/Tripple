@@ -114,11 +114,12 @@ public class Cell extends Rectangle{
 				for (int i = 0, l = elements.size(); i < l; ++i) {
 					ArrayList<ElementType> tempEls = elementTypes.get(elements.get(i));
 					if (tempEls != null && tempEls.size() > 0) {
-						if (tempEls.size() > 3) {
+						if (tempEls.size() > 3 && tempEls.get(0) != null && Game.getPlayerPanel() != null) {
 							Game.getPlayerPanel().getPlayer().getScore().addMultiplier(tempEls.get(0).getJoinScoreMultiplier());
 						}
 						for(int y = 0, c = tempEls.size(); y < c; ++y) {
-							Game.getPlayerPanel().getPlayer().getScore().addScore(tempEls.get(y).getScore());
+							if (tempEls.get(y) != null && Game.getPlayerPanel() != null)
+								Game.getPlayerPanel().getPlayer().getScore().addScore(tempEls.get(y).getScore());
 						}
 					}
 				}

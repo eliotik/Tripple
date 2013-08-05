@@ -13,8 +13,8 @@ public class ElementType {
 	private int tile_y = -1;
 	private String joinResult;
 	private String subspecies;
-	private int score;
-	private double joinScoreMultiplier;
+	private int score = 0;
+	private double joinScoreMultiplier = 0;
 	
 	public String getId() {
 		return id;

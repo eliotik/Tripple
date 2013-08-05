@@ -31,9 +31,10 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     	Rectangle r = new Rectangle(e.getX(), e.getY(), 1, 1);
     	switch(mouse) {
     	case MouseEvent.BUTTON1:
-    		if (r.intersects(menu.getButton("play").getButtonBounds()))
+    		if (r.intersects(menu.getButton("play").getButtonBounds())) {
     			menu.getButton("play").setClicked(true);
     			Game.setGameState(1);
+    		}
     		break;
     	}
 	}
@@ -64,7 +65,6 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        	cell.setElement(Game.getPlayerPanel().getPlayer().getHand().getElement());
 		        	Game.getPlayerPanel().getPlayer().getHand().setElement(Game.elementTypesCollection.getRandomForHand());
 		        	cell.checkJoinables();
-		        	System.out.println(Game.getPlayerPanel().getPlayer().getScore().getScore());
 		        } else {
 		        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 		        	{
