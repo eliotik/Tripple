@@ -5,10 +5,13 @@ import com.triple.game.Game;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
+import com.triple.sprites.Tiles;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.triple.sprites.Tiles.*;
 
 public class Cell extends Rectangle{
 
@@ -19,10 +22,10 @@ public class Cell extends Rectangle{
     private static final long serialVersionUID = 1L;
     private Element element;
     private Element temporaryElement;
-//    private Cell offCellElement;
-//    private Cell mainCell;
+    private Cell offCellElement;
+    private Cell mainCell;
     private boolean showBorder = false;
-//    private boolean flop = false;
+    private boolean flop = false;
 
     public Cell(Rectangle size, int x, int y) {
     	setBounds(size);
@@ -40,33 +43,45 @@ public class Cell extends Rectangle{
     }
 
 	public void render(Graphics g) {
+        if (flop = true){
+            if (mainCell != null || offCellElement != null){
+                offCellElement.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, offCellElement.x, offCellElement.y);
+            }
+        }
+
 		if (element != null)
 		{
 			element.render(g, x, y, width, height, false, showBorder, true);
 		} else if (showBorder) {
 			Element.renderBorder(g, x, y, width, height, false);
 		}
-		
+
 		if (temporaryElement != null)
 			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
 
-//        if (Game.isJoinning = true){
-//            offCellElement.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, offCellElement.x, offCellElement.y);
-//        }
     }
 
-//    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
-//        g.drawImage(Tiles.getTilesAsset(),
-//                x,
-//                y,
-//                x + width,
-//                y + height,
-//                sx,
-//                sy,
-//                sx + width,
-//                sy + height,
-//                null);
-//    }
+    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
+
+
+        g.drawImage(getTilesAsset(),
+                getChangedCoordinate(x , width),
+                getChangedCoordinate(y , width),
+                getChangedCoordinate(x , width) + width,
+                getChangedCoordinate(y , height) + height,
+                getChangedCoordinate(sx , width),
+                getChangedCoordinate(sy , height),
+                getChangedCoordinate(sx , width) + width,
+                getChangedCoordinate(sy , height) + height,
+                null);
+    }
+
+    private int getChangedCoordinate(int position, int multiplier) {
+
+        int coordinate = position * multiplier;
+
+        return coordinate;
+    }
 
     public void setElement(Element el) {
         element = el;
@@ -111,10 +126,13 @@ public class Cell extends Rectangle{
 				}
                 //neighbors.get(i).animateFlop(neighbors.get(i), this);
 				//Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
-//                offCellElement = neighbors.get(i);
-//                mainCell = this;
+                this.offCellElement = neighbors.get(i);
+                this.mainCell = this;
+                this.flop = true;
 				neighbors.get(i).setElement(null);
 			}
+            flop = false;
+
 			String sufix = (neighbors.size() > 2) ? "_multi": "_base";
 			ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
 			
@@ -150,7 +168,7 @@ public class Cell extends Rectangle{
 				checkJoinables();
 			}
 		}
-		
+
 		Game.isJoinning = false;
 	}
 

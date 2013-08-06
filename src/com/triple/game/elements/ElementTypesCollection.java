@@ -15,7 +15,6 @@ public class ElementTypesCollection {
 	
 	private static ArrayList<ElementType> elementMap = new ArrayList<ElementType>();
 
-//    private HashMap<String, String> chanceContainer = new HashMap<String, String>();
     private HashMap<String, Double> chanceContainer = new HashMap<String, Double>();
     private ElementType element;
     private Double elementTypeCount = 0.0;
