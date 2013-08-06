@@ -102,23 +102,19 @@ public class ElementTypesCollection {
         quotient =  counter / allHandElementCount;
         chance = Double.parseDouble( elementType.getChance() );
 
-        if (quotient <= chance){
+        if (quotient < chance){
             counter++;
-//            elementTypeCount = Double.toString( counter );
             elementTypeCount = counter;
             chanceContainer.put( elementType.getName(), elementTypeCount );
-
             element = elementType;
         }
         else{
             allHandElementCount--;
             getRandomForHand();
         }
-
         return new Element(element);
 
     }
-
 
 	public static ElementType getTypeById(String id) {
 		List<ElementType> eTs = filter(having(on(ElementType.class).getId(), Matchers.equalTo(id)), elementMap);		

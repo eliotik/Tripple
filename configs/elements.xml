@@ -80,7 +80,7 @@
 		id="tree_base" 
 		subspecies="tree" 
 		join_result="woodhouse" 
-		chance="0.1" 
+		chance="0.05"
 		container="0" 
 		joinable="1" 
 		playable="1" 

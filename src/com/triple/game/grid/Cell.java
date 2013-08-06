@@ -19,10 +19,10 @@ public class Cell extends Rectangle{
     private static final long serialVersionUID = 1L;
     private Element element;
     private Element temporaryElement;
-    private Element offCellElement;
-    private Cell mainCell;
+//    private Cell offCellElement;
+//    private Cell mainCell;
     private boolean showBorder = false;
-    private boolean flop = false;
+//    private boolean flop = false;
 
     public Cell(Rectangle size, int x, int y) {
     	setBounds(size);
@@ -50,7 +50,23 @@ public class Cell extends Rectangle{
 		if (temporaryElement != null)
 			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
 
+//        if (Game.isJoinning = true){
+//            offCellElement.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, offCellElement.x, offCellElement.y);
+//        }
     }
+
+//    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
+//        g.drawImage(Tiles.getTilesAsset(),
+//                x,
+//                y,
+//                x + width,
+//                y + height,
+//                sx,
+//                sy,
+//                sx + width,
+//                sy + height,
+//                null);
+//    }
 
     public void setElement(Element el) {
         element = el;
@@ -95,6 +111,8 @@ public class Cell extends Rectangle{
 				}
                 //neighbors.get(i).animateFlop(neighbors.get(i), this);
 				//Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
+//                offCellElement = neighbors.get(i);
+//                mainCell = this;
 				neighbors.get(i).setElement(null);
 			}
 			String sufix = (neighbors.size() > 2) ? "_multi": "_base";
