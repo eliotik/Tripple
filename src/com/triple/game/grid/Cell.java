@@ -47,6 +47,8 @@ public class Cell extends Rectangle{
             if (mainCell != null || offCellElement != null){
                 offCellElement.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, offCellElement.x, offCellElement.y);
             }
+
+            flop = false;
         }
 
 		if (element != null)
@@ -62,8 +64,6 @@ public class Cell extends Rectangle{
     }
 
     public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
-
-
         g.drawImage(getTilesAsset(),
                 getChangedCoordinate(x , width),
                 getChangedCoordinate(y , width),
