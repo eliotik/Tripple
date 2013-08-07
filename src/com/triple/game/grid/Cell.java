@@ -8,8 +8,8 @@ import com.triple.game.elements.ElementTypesCollection;
 import com.triple.sprites.Tiles;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.List;
 
 import static com.triple.sprites.Tiles.*;
 
@@ -22,8 +22,8 @@ public class Cell extends Rectangle{
     private static final long serialVersionUID = 1L;
     private Element element;
     private Element temporaryElement;
-    private Cell offCellElement;
     private Cell mainCell;
+    private List<Cell> cellList = new ArrayList<Cell>();
     private boolean showBorder = false;
     private boolean flop = false;
 
@@ -43,23 +43,25 @@ public class Cell extends Rectangle{
     }
 
 	public void render(Graphics g) {
-        if (flop = true){
-            if (mainCell != null || offCellElement != null){
-                offCellElement.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, offCellElement.x, offCellElement.y);
-            }
 
-            flop = false;
+        if (element != null)
+        {
+            element.render(g, x, y, width, height, false, showBorder, true);
+        } else if (showBorder) {
+            Element.renderBorder(g, x, y, width, height, false);
         }
-
-		if (element != null)
-		{
-			element.render(g, x, y, width, height, false, showBorder, true);
-		} else if (showBorder) {
-			Element.renderBorder(g, x, y, width, height, false);
-		}
 
 		if (temporaryElement != null)
 			temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
+
+        if ( cellList.size() >= 2 ){
+            if( mainCell != null ) {
+                for( Cell cell : cellList ){
+                    cell.renderPartial(g, mainCell.x, mainCell.y, mainCell.width, mainCell.height, cell.x, cell.y);
+                    cell.setElement(null);
+                }
+            }
+        }
 
     }
 
@@ -68,18 +70,17 @@ public class Cell extends Rectangle{
                 getChangedCoordinate(x , width),
                 getChangedCoordinate(y , width),
                 getChangedCoordinate(x , width) + width,
-                getChangedCoordinate(y , height) + height,
+                getChangedCoordinate(y , width) + height,
                 getChangedCoordinate(sx , width),
                 getChangedCoordinate(sy , height),
                 getChangedCoordinate(sx , width) + width,
                 getChangedCoordinate(sy , height) + height,
                 null);
+
     }
 
     private int getChangedCoordinate(int position, int multiplier) {
-
         int coordinate = position * multiplier;
-
         return coordinate;
     }
 
@@ -124,14 +125,12 @@ public class Cell extends Rectangle{
 					elementTypes.put(elType.getType(), elTypes);
 					elements.add(elType.getType());
 				}
-                //neighbors.get(i).animateFlop(neighbors.get(i), this);
 				//Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
-                this.offCellElement = neighbors.get(i);
-                this.mainCell = this;
-                this.flop = true;
-				neighbors.get(i).setElement(null);
+                mainCell = this;
+                cellList = neighbors;
+				//neighbors.get(i).setElement(null);
 			}
-            flop = false;
+            this.flop = false;
 
 			String sufix = (neighbors.size() > 2) ? "_multi": "_base";
 			ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
@@ -199,9 +198,4 @@ public class Cell extends Rectangle{
 		}
 		cell = null;
 	}
-
-//    private void animateFlop(Cell offCell, Cell mainCell){
-//        System.out.println(offCell.getCoordinates()[0] + " " + offCell.getCoordinates()[1]);
-//    }
-
 }
