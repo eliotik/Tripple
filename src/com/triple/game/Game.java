@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable {
     public static Grid grid;
     private static PlayerPanel playerPanel;
     public static ElementTypesCollection elementTypesCollection;
-    
+
     private Image screen;
 	private Thread thread;
 	private Menu menu;

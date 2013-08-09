@@ -61,6 +61,29 @@ public class Element {
 		
 	}
 
+	public void renderCollapsing(Graphics g, int x, int y, int width, int height, int stepCollapsionX, int stepCollapsionY) {
+		
+		int	cell_size = width,
+			tile_size = Config.tileSize,
+			tile_border_width = Config.tileBorderWidth,
+			x_width = x * cell_size + stepCollapsionX,
+			y_width = y * cell_size + stepCollapsionY;
+		
+		int tile_x = type.getTile_x(),
+			tile_y = type.getTile_y();
+		System.out.println("x="+x_width+", y="+y_width);
+		g.drawImage(Tiles.getTilesAsset(), 
+        			x_width, 
+					y_width, 
+					x_width + cell_size, 
+					y_width + cell_size,
+					tile_x * tile_size + tile_x * tile_border_width + tile_border_width,
+					tile_y * tile_size + tile_y * tile_border_width + tile_border_width,
+					tile_x * tile_size + tile_size + tile_x * tile_border_width + tile_border_width,
+					tile_y * tile_size + tile_size + tile_y * tile_border_width + tile_border_width,
+        			null);
+	}	
+	
 	private void renderBackground(Graphics g, int x, int y, int width, int height) {
 		
 		int tile_x = Config.bgCenter[0],

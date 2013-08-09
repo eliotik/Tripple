@@ -2,6 +2,7 @@ package com.triple.game.grid;
 
 
 import com.triple.game.Game;
+import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
@@ -18,13 +19,18 @@ public class Cell extends Rectangle{
 
     private int x;
     private int y;
+    private int collapseNewX;
+    private int collapseNewY;
     private int collapseX;
     private int collapseY;
+    private int collapseStep;
+    private int collapsionIterration;
+    private int collapsionPath;
+    private boolean doCollapse = false;
+    
     private Element element;
     private Element temporaryElement;
     private boolean showBorder = false;
-    private boolean isCollapse = false;
-    private List<Cell> collapsedCellList = new ArrayList<Cell>();
 
     public Cell(Rectangle size, int x, int y) {
         setBounds(size);
@@ -45,7 +51,34 @@ public class Cell extends Rectangle{
 
         if (element != null)
         {
-            element.render(g, x, y, width, height, false, showBorder, true);
+        	if (doCollapse == true) {
+//        		System.out.println("----------------------------------");
+//        		System.out.println("collapsionPath="+collapsionPath);
+//        		System.out.println("collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", collapseX="+collapseX+", collapseY="+collapseY+", colapsestep="+collapseStep);
+        		if (collapseStep < (collapsionPath - 6) ) {
+        			if(x ==1 && y ==0) System.out.println("-----------------START-----------------");        				
+        			int directionX = (collapseNewX < collapseX) ? ((collapseNewX == collapseX) ? 0 : 1) : ((collapseNewX == collapseX) ? 0 : -1),
+    					directionY = (collapseNewY < collapseY) ? ((collapseNewY == collapseY) ? 0 : 1) : ((collapseNewY == collapseY) ? 0 : -1);
+    					collapseNewX = directionX * Config.collapseStepSize * collapsionIterration;
+						collapseNewY = directionY * Config.collapseStepSize * collapsionIterration;
+        			
+        			collapseStep += Config.collapseStepSize;
+//        			System.out.println("directionX="+directionX+", directionY="+directionY+", collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", colapsestep="+collapseStep);
+        			if(x ==1 && y ==0) System.out.println("-----------------END-----------------");
+        			System.out.println("");
+        			element.renderCollapsing(g, x, y, width, height, collapseNewX, collapseNewY);
+        			++collapsionIterration;
+        		} else {
+        			collapseStep = 0;
+        			collapseNewX = x;
+        			collapseNewY = y;
+	        		element = null;
+	        		doCollapse = false;
+        		}
+        		
+        	} else {
+        		element.render(g, x, y, width, height, false, showBorder, true);
+        	}
         } else if (showBorder) {
             Element.renderBorder(g, x, y, width, height, false);
         }
@@ -53,63 +86,63 @@ public class Cell extends Rectangle{
         if (temporaryElement != null)
             temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
 
-        if (collapsedCellList != null)
-        {
-            for (Cell collapseCell : collapsedCellList)
-            {
-                if (collapseCell.isCollapse == true)
-                {
-//                    System.out.println("collapseX = " + collapseCell.collapseX);
-//                    System.out.println("collapseY = " + collapseCell.collapseY);
-//                    System.out.println("x = " + collapseCell.x);
-//                    System.out.println("y = " + collapseCell.y);
-//                    System.out.println("name = " + collapseCell.toString());
-//                    int x = getChangedCoordinate(collapseCell.x , collapseCell.width),
-//                        y = getChangedCoordinate(collapseCell.y , collapseCell.height),
-//                        sx = getChangedCoordinate(collapseCell.collapseX , collapseCell.height),
-//                        sy = getChangedCoordinate(collapseCell.collapseY , collapseCell.height);
-//                    renderPartial(g, x, y, collapseCell.width, collapseCell.height, sx, sy);
-                    int dx = getChangedCoordinate( Math.abs(collapseCell.collapseX - collapseCell.x), collapseCell.width ),
-                            dy = getChangedCoordinate( Math.abs(collapseCell.collapseY - collapseCell.y), collapseCell.height );
-                    if (dx > 10 || dx > 10)
-                    {
-                        renderPartial(g, collapseCell.collapseX, collapseCell.collapseY,
-                                collapseCell.width, collapseCell.height, collapseCell.x, collapseCell.y );
-                    } else {
-                        collapseCell.setElement(null);
-                    }
-
-                }
-            }
-        }
-
-    }
-
-    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
-//        System.out.println("x = " + x);
-//        System.out.println("y = " + y);
-//        System.out.println("sx = " + sx);
-//        System.out.println("sy = " + sy);
-
-        g.drawImage(getTilesAsset(),
-                getChangedCoordinate(x, width) + 1,
-                getChangedCoordinate(y, width) + 1,
-                getChangedCoordinate(x, width) + width + 1,
-                getChangedCoordinate(y, width) + height + 1,
-                sx,
-                sx,
-                sx + width,
-                sx + height,
-                null);
+//        if (collapsedCellList != null)
+//        {
+//            for (Cell collapseCell : collapsedCellList)
+//            {
+//                if (collapseCell.isCollapse == true)
+//                {
+////                    System.out.println("collapseX = " + collapseCell.collapseX);
+////                    System.out.println("collapseY = " + collapseCell.collapseY);
+////                    System.out.println("x = " + collapseCell.x);
+////                    System.out.println("y = " + collapseCell.y);
+////                    System.out.println("name = " + collapseCell.toString());
+////                    int x = getChangedCoordinate(collapseCell.x , collapseCell.width),
+////                        y = getChangedCoordinate(collapseCell.y , collapseCell.height),
+////                        sx = getChangedCoordinate(collapseCell.collapseX , collapseCell.height),
+////                        sy = getChangedCoordinate(collapseCell.collapseY , collapseCell.height);
+////                    renderPartial(g, x, y, collapseCell.width, collapseCell.height, sx, sy);
+//                    int dx = getChangedCoordinate( Math.abs(collapseCell.collapseX - collapseCell.x), collapseCell.width ),
+//                            dy = getChangedCoordinate( Math.abs(collapseCell.collapseY - collapseCell.y), collapseCell.height );
+//                    if (dx > 10 || dx > 10)
+//                    {
+//                        renderPartial(g, collapseCell.collapseX, collapseCell.collapseY,
+//                                collapseCell.width, collapseCell.height, collapseCell.x, collapseCell.y );
+//                    } else {
+//                        collapseCell.setElement(null);
+//                    }
+//
+//                }
+//            }
+//        }
 
     }
 
-    private int getChangedCoordinate(int position, int multiplier) {
+//    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
+////        System.out.println("x = " + x);
+////        System.out.println("y = " + y);
+////        System.out.println("sx = " + sx);
+////        System.out.println("sy = " + sy);
+//
+//        g.drawImage(getTilesAsset(),
+//                getChangedCoordinate(x, width) + 1,
+//                getChangedCoordinate(y, width) + 1,
+//                getChangedCoordinate(x, width) + width + 1,
+//                getChangedCoordinate(y, width) + height + 1,
+//                sx,
+//                sx,
+//                sx + width,
+//                sx + height,
+//                null);
+//
+//    }
 
-        int coordinate = position * multiplier;
-
-        return coordinate;
-    }
+//    private int getChangedCoordinate(int position, int multiplier) {
+//
+//        int coordinate = position * multiplier;
+//
+//        return coordinate;
+//    }
 
     public void setElement(Element el) {
         element = el;
@@ -141,8 +174,12 @@ public class Cell extends Rectangle{
         findNeigbors(neighbors, this, this);
 
         if (neighbors.size() >= 2) {
+        	
             for (int i = 0, l = neighbors.size(); i < l; ++i) {
-                ElementType elType = neighbors.get(i).getElement().getType();
+            	Cell neighbor = neighbors.get(i);
+            	neighbor.collapse(x, y);
+            	
+                ElementType elType = neighbor.getElement().getType();
                 if (elementTypes.get(elType.getType()) != null && elementTypes.get(elType.getType()).size() > 0)
                 {
                     elementTypes.get(elType.getType()).add(elType);
@@ -155,15 +192,12 @@ public class Cell extends Rectangle{
 
                 //Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
 
-                neighbors.get(i).collapseX = this.x;
-                neighbors.get(i).collapseY = this.y;
-                neighbors.get(i).isCollapse = true;
-                collapsedCellList.add(neighbors.get(i));
+                
+                //collapsedCellList.add(neighbors.get(i));
                 //neighbors.get(i).setElement(null);
 
             }
             //flop = false;
-
             String sufix = (neighbors.size() > 2) ? "_multi": "_base";
             ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
 
@@ -192,7 +226,9 @@ public class Cell extends Rectangle{
                 }
             }
 
-            if (!newType.getId().equals(""))
+            
+            
+            if (!newType.getId().equals("") && Game.getPlayerPanel() != null)
             {
                 Game.getPlayerPanel().getPlayer().getScore().addScore(element.getType().getScore());
                 element.setType( newType );
@@ -203,7 +239,22 @@ public class Cell extends Rectangle{
         Game.isJoinning = false;
     }
 
-    private void findNeigbors(ArrayList<Cell> outerNeighbors, Cell excludeCell, Cell mainCell) {
+    private void collapse(int collapseX, int collapseY) {
+    	this.collapseX = collapseX;
+    	this.collapseY = collapseY;
+    	this.doCollapse = true;
+    	collapseStep = 0;
+    	collapseNewX = x;
+    	collapseNewY = y;
+    	collapsionIterration = 1;
+    	double x2 = collapseX*Config.cellSize;
+    	double x1 = x*Config.cellSize;
+    	double y2 = collapseY*Config.cellSize;
+    	double y1 = y*Config.cellSize;
+    	collapsionPath = (int) Math.sqrt(Math.pow(x2 - x1 , 2) + Math.pow(y2 - y1, 2) );
+	}
+
+	private void findNeigbors(ArrayList<Cell> outerNeighbors, Cell excludeCell, Cell mainCell) {
         Cell cell;
         for (int i = 0, l = 4; i < l; ++i) {
             switch(i) {
