@@ -86,10 +86,10 @@ public class Cell extends Rectangle{
     }
 
     public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
-        System.out.println("x = " + x);
-        System.out.println("y = " + y);
-        System.out.println("sx = " + sx);
-        System.out.println("sy = " + sy);
+//        System.out.println("x = " + x);
+//        System.out.println("y = " + y);
+//        System.out.println("sx = " + sx);
+//        System.out.println("sy = " + sy);
 
         g.drawImage(getTilesAsset(),
                 getChangedCoordinate(x, width) + 1,
