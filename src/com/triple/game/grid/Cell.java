@@ -27,7 +27,6 @@ public class Cell extends Rectangle{
     private int collapseY;
     private int collapseStep;
     private int collapseStepDelta;
-    private int collapsionIterration;
     private int collapsionPath;
     private boolean doCollapse = false;
     
@@ -55,13 +54,7 @@ public class Cell extends Rectangle{
         if (element != null)
         {
         	if (doCollapse == true) {
-//        		System.out.println(">>>>>>>>>>>>>>>>>>>>>");
-//        		System.out.println("collapseStep="+collapseStep+", collapsionPath="+collapsionPath);
-//        		System.out.println("<<<<<<<<<<<<<<<<<<<<<");
-//        		System.out.println("collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", collapseX="+collapseX+", collapseY="+collapseY+", colapsestep="+collapseStep);
         		if (collapseStep < collapsionPath - Config.cellSize/2) {
-//        			System.out.println(element);
-//	        		if(x ==1 && y ==0) System.out.println("-----------------START-----------------");        				
         			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
     					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
 					if (collapseStepDelta >= Config.collapseStepDelta) {
@@ -70,34 +63,17 @@ public class Cell extends Rectangle{
 						collapseStep += collapsionPath - getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2);
 						stepCollapsionX = directionX  * collapseStep;
 						stepCollapsionY = directionY  * collapseStep;
-						++collapsionIterration;
-						
-//						System.out.println("----------------------------------------");
-//						System.out.println("Vector="+getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2));
-//						System.out.println("collapsionPath="+collapsionPath);
-//						System.out.println("result path=="+collapseStep);
-//						System.out.println("----------------------------------------");
 						collapseStepDelta = 0;
 					} else {
 						++collapseStepDelta;
 					}
-					
-//        			/*if(x ==1 && y ==0) */System.out.println("collapsionIterration="+collapsionIterration+", collapseNewX="+collapseNewX+", collapseNewY="+collapseNewX);
-//        			/*if(x ==1 && y ==0) */System.out.println("stepCollapsionX="+stepCollapsionX+", stepCollapsionY="+stepCollapsionY);
-//        			/*if(x ==1 && y ==0) */System.out.println("directionX="+directionX+", directionY="+directionY);
-//        			/*if(x ==1 && y ==0) */System.out.println("collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", collapseX="+collapseX*Config.cellSize+", collapseY="+collapseY*Config.cellSize);
-//        			System.out.println("directionX="+directionX+", directionY="+directionY+", collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", colapsestep="+collapseStep);
         			element.renderCollapsing(g, x, y, width, height, stepCollapsionX, stepCollapsionY);
-//	        		if(x ==1 && y ==0) System.out.println("-----------------END-----------------");
-//	        		if(x ==1 && y ==0) System.out.println("");
-
         		} else {
         			collapseStep = 0;
         			collapseNewX = x;
         			collapseNewY = y;
         			stepCollapsionX = 0;
         			stepCollapsionY = 0;
-        			collapsionIterration = 0;
         			collapseStepDelta = 0;
 	        		element = null;
 	        		doCollapse = false;
@@ -112,69 +88,12 @@ public class Cell extends Rectangle{
 
         if (temporaryElement != null)
             temporaryElement.renderContainer(g, 0, 0, width-6, height-6, 1, -1, false, 0);
-
-//        if (collapsedCellList != null)
-//        {
-//            for (Cell collapseCell : collapsedCellList)
-//            {
-//                if (collapseCell.isCollapse == true)
-//                {
-////                    System.out.println("collapseX = " + collapseCell.collapseX);
-////                    System.out.println("collapseY = " + collapseCell.collapseY);
-////                    System.out.println("x = " + collapseCell.x);
-////                    System.out.println("y = " + collapseCell.y);
-////                    System.out.println("name = " + collapseCell.toString());
-////                    int x = getChangedCoordinate(collapseCell.x , collapseCell.width),
-////                        y = getChangedCoordinate(collapseCell.y , collapseCell.height),
-////                        sx = getChangedCoordinate(collapseCell.collapseX , collapseCell.height),
-////                        sy = getChangedCoordinate(collapseCell.collapseY , collapseCell.height);
-////                    renderPartial(g, x, y, collapseCell.width, collapseCell.height, sx, sy);
-//                    int dx = getChangedCoordinate( Math.abs(collapseCell.collapseX - collapseCell.x), collapseCell.width ),
-//                            dy = getChangedCoordinate( Math.abs(collapseCell.collapseY - collapseCell.y), collapseCell.height );
-//                    if (dx > 10 || dx > 10)
-//                    {
-//                        renderPartial(g, collapseCell.collapseX, collapseCell.collapseY,
-//                                collapseCell.width, collapseCell.height, collapseCell.x, collapseCell.y );
-//                    } else {
-//                        collapseCell.setElement(null);
-//                    }
-//
-//                }
-//            }
-//        }
-
     }
 
     private int getVector(double x1, double x2, double y1, double y2) {
     	return (int) Math.sqrt(Math.pow(x2 - x1 , 2) + Math.pow(y2 - y1, 2) );
     }
     
-//    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
-////        System.out.println("x = " + x);
-////        System.out.println("y = " + y);
-////        System.out.println("sx = " + sx);
-////        System.out.println("sy = " + sy);
-//
-//        g.drawImage(getTilesAsset(),
-//                getChangedCoordinate(x, width) + 1,
-//                getChangedCoordinate(y, width) + 1,
-//                getChangedCoordinate(x, width) + width + 1,
-//                getChangedCoordinate(y, width) + height + 1,
-//                sx,
-//                sx,
-//                sx + width,
-//                sx + height,
-//                null);
-//
-//    }
-
-//    private int getChangedCoordinate(int position, int multiplier) {
-//
-//        int coordinate = position * multiplier;
-//
-//        return coordinate;
-//    }
-
     public void setElement(Element el) {
         element = el;
     }
@@ -221,14 +140,7 @@ public class Cell extends Rectangle{
                     elements.add(elType.getType());
                 }
 
-                //Game.getPlayerPanel().getPlayer().getScore().addScore(neighbors.get(i).getElement().getType().getScore());
-
-                
-                //collapsedCellList.add(neighbors.get(i));
-                //neighbors.get(i).setElement(null);
-
             }
-            //flop = false;
             String sufix = (neighbors.size() > 2) ? "_multi": "_base";
             ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
 
@@ -257,8 +169,6 @@ public class Cell extends Rectangle{
                 }
             }
 
-            
-            
             if (!newType.getId().equals("") && Game.getPlayerPanel() != null)
             {
                 Game.getPlayerPanel().getPlayer().getScore().addScore(element.getType().getScore());
@@ -280,7 +190,6 @@ public class Cell extends Rectangle{
     	stepCollapsionX = 0;
     	stepCollapsionY = 0;
     	collapseStepDelta = 0;
-    	collapsionIterration = 1;
     	collapsionPath = getVector(x*Config.cellSize, collapseX*Config.cellSize + Config.cellSize/2, y*Config.cellSize, collapseY*Config.cellSize + Config.cellSize/2);
 	}
 
