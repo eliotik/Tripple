@@ -71,7 +71,7 @@ public class Element {
 		
 		int tile_x = type.getTile_x(),
 			tile_y = type.getTile_y();
-		System.out.println("x="+x_width+", y="+y_width);
+//		if(x==1 && y==0) System.out.println("x="+x+", y="+y+", x_width="+x_width+", y_width="+y_width);
 		g.drawImage(Tiles.getTilesAsset(), 
         			x_width, 
 					y_width, 

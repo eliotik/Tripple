@@ -9,7 +9,8 @@ public class Config {
 	public static final int tileSize = Config.cellSize - Config.tileBorderWidth*2;
 	public static final String xmlFilePath = "configs/";
 	public static final String elementsFile = "elements.xml";
-	public static final int collapseStepSize = 1;
+	public static final int collapseStepSize = 5;
+	public static final int collapseStepDelta = 10;
 
 	public static final int[] focusBorder = {0, 1};
 	public static final int[] bgCenter = {0, 0};

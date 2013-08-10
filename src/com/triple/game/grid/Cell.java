@@ -21,9 +21,12 @@ public class Cell extends Rectangle{
     private int y;
     private int collapseNewX;
     private int collapseNewY;
+    private int stepCollapsionX;
+    private int stepCollapsionY;
     private int collapseX;
     private int collapseY;
     private int collapseStep;
+    private int collapseStepDelta;
     private int collapsionIterration;
     private int collapsionPath;
     private boolean doCollapse = false;
@@ -52,26 +55,50 @@ public class Cell extends Rectangle{
         if (element != null)
         {
         	if (doCollapse == true) {
-//        		System.out.println("----------------------------------");
-//        		System.out.println("collapsionPath="+collapsionPath);
+//        		System.out.println(">>>>>>>>>>>>>>>>>>>>>");
+//        		System.out.println("collapseStep="+collapseStep+", collapsionPath="+collapsionPath);
+//        		System.out.println("<<<<<<<<<<<<<<<<<<<<<");
 //        		System.out.println("collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", collapseX="+collapseX+", collapseY="+collapseY+", colapsestep="+collapseStep);
-        		if (collapseStep < (collapsionPath - 6) ) {
-        			if(x ==1 && y ==0) System.out.println("-----------------START-----------------");        				
-        			int directionX = (collapseNewX < collapseX) ? ((collapseNewX == collapseX) ? 0 : 1) : ((collapseNewX == collapseX) ? 0 : -1),
-    					directionY = (collapseNewY < collapseY) ? ((collapseNewY == collapseY) ? 0 : 1) : ((collapseNewY == collapseY) ? 0 : -1);
-    					collapseNewX = directionX * Config.collapseStepSize * collapsionIterration;
-						collapseNewY = directionY * Config.collapseStepSize * collapsionIterration;
-        			
-        			collapseStep += Config.collapseStepSize;
+        		if (collapseStep < collapsionPath - Config.cellSize/2) {
+//        			System.out.println(element);
+//	        		if(x ==1 && y ==0) System.out.println("-----------------START-----------------");        				
+        			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
+    					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
+					if (collapseStepDelta >= Config.collapseStepDelta) {
+						collapseNewX += directionX * Config.collapseStepSize;
+						collapseNewY += directionY * Config.collapseStepSize;
+						collapseStep += collapsionPath - getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2);
+						stepCollapsionX = directionX  * collapseStep;
+						stepCollapsionY = directionY  * collapseStep;
+						++collapsionIterration;
+						
+//						System.out.println("----------------------------------------");
+//						System.out.println("Vector="+getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2));
+//						System.out.println("collapsionPath="+collapsionPath);
+//						System.out.println("result path=="+collapseStep);
+//						System.out.println("----------------------------------------");
+						collapseStepDelta = 0;
+					} else {
+						++collapseStepDelta;
+					}
+					
+//        			/*if(x ==1 && y ==0) */System.out.println("collapsionIterration="+collapsionIterration+", collapseNewX="+collapseNewX+", collapseNewY="+collapseNewX);
+//        			/*if(x ==1 && y ==0) */System.out.println("stepCollapsionX="+stepCollapsionX+", stepCollapsionY="+stepCollapsionY);
+//        			/*if(x ==1 && y ==0) */System.out.println("directionX="+directionX+", directionY="+directionY);
+//        			/*if(x ==1 && y ==0) */System.out.println("collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", collapseX="+collapseX*Config.cellSize+", collapseY="+collapseY*Config.cellSize);
 //        			System.out.println("directionX="+directionX+", directionY="+directionY+", collapseNewX="+collapseNewX+", collapseNewY="+collapseNewY+", colapsestep="+collapseStep);
-        			if(x ==1 && y ==0) System.out.println("-----------------END-----------------");
-        			System.out.println("");
-        			element.renderCollapsing(g, x, y, width, height, collapseNewX, collapseNewY);
-        			++collapsionIterration;
+        			element.renderCollapsing(g, x, y, width, height, stepCollapsionX, stepCollapsionY);
+//	        		if(x ==1 && y ==0) System.out.println("-----------------END-----------------");
+//	        		if(x ==1 && y ==0) System.out.println("");
+
         		} else {
         			collapseStep = 0;
         			collapseNewX = x;
         			collapseNewY = y;
+        			stepCollapsionX = 0;
+        			stepCollapsionY = 0;
+        			collapsionIterration = 0;
+        			collapseStepDelta = 0;
 	        		element = null;
 	        		doCollapse = false;
         		}
@@ -118,6 +145,10 @@ public class Cell extends Rectangle{
 
     }
 
+    private int getVector(double x1, double x2, double y1, double y2) {
+    	return (int) Math.sqrt(Math.pow(x2 - x1 , 2) + Math.pow(y2 - y1, 2) );
+    }
+    
 //    public void renderPartial(Graphics g, int x, int y, int width, int height, int sx, int sy) {
 ////        System.out.println("x = " + x);
 ////        System.out.println("y = " + y);
@@ -244,14 +275,13 @@ public class Cell extends Rectangle{
     	this.collapseY = collapseY;
     	this.doCollapse = true;
     	collapseStep = 0;
-    	collapseNewX = x;
-    	collapseNewY = y;
+    	collapseNewX = x*Config.cellSize;
+    	collapseNewY = y*Config.cellSize;
+    	stepCollapsionX = 0;
+    	stepCollapsionY = 0;
+    	collapseStepDelta = 0;
     	collapsionIterration = 1;
-    	double x2 = collapseX*Config.cellSize;
-    	double x1 = x*Config.cellSize;
-    	double y2 = collapseY*Config.cellSize;
-    	double y1 = y*Config.cellSize;
-    	collapsionPath = (int) Math.sqrt(Math.pow(x2 - x1 , 2) + Math.pow(y2 - y1, 2) );
+    	collapsionPath = getVector(x*Config.cellSize, collapseX*Config.cellSize + Config.cellSize/2, y*Config.cellSize, collapseY*Config.cellSize + Config.cellSize/2);
 	}
 
 	private void findNeigbors(ArrayList<Cell> outerNeighbors, Cell excludeCell, Cell mainCell) {
