@@ -9,9 +9,6 @@ import com.triple.game.elements.ElementTypesCollection;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
-
-import static com.triple.sprites.Tiles.getTilesAsset;
 
 public class Cell extends Rectangle{
 

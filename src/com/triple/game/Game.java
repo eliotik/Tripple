@@ -148,9 +148,11 @@ public class Game extends Canvas implements Runnable {
 				getMenu().render(g);	
 			break;
 			case 1:
-				if (getPlayerPanel() == null)
+				if (getPlayerPanel() == null) {
 					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
-
+//					playerPanel.addPlayer(new Player("Player 2", ElementTypesCollection.getRandom()));
+//					playerPanel.addPlayer(new Player("Player 3", ElementTypesCollection.getRandom()));
+				}
 
 				
 				sg.setColor(new Color(100,100,100));
