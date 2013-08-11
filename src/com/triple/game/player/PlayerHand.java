@@ -10,8 +10,8 @@ public class PlayerHand {
 
 	private Element element;
 	
-	public void render(Graphics g) {
-		element.render(g, Grid.cellsAmount + 1, 0, Config.cellSize, Config.cellSize, true, false, false);
+	public void render(Graphics g, int y) {
+		element.render(g, Grid.cellsAmount + 1, y, Config.cellSize, Config.cellSize, true, false, false);
 	}
 
 	public void setElement(Element element) {

@@ -159,11 +159,11 @@ public class Cell extends Rectangle{
                     ArrayList<ElementType> tempEls = elementTypes.get(elements.get(i));
                     if (tempEls != null && tempEls.size() > 0) {
                         if (tempEls.size() > 3 && tempEls.get(0) != null && Game.getPlayerPanel() != null) {
-                            Game.getPlayerPanel().getPlayer().getScore().addMultiplier(tempEls.get(0).getJoinScoreMultiplier());
+                            Game.getPlayerPanel().getPlayer(0).getScore().addMultiplier(tempEls.get(0).getJoinScoreMultiplier());
                         }
                         for(int y = 0, c = tempEls.size(); y < c; ++y) {
                             if (tempEls.get(y) != null && Game.getPlayerPanel() != null)
-                                Game.getPlayerPanel().getPlayer().getScore().addScore(tempEls.get(y).getScore());
+                                Game.getPlayerPanel().getPlayer(0).getScore().addScore(tempEls.get(y).getScore());
                         }
                     }
                 }
@@ -171,7 +171,7 @@ public class Cell extends Rectangle{
 
             if (!newType.getId().equals("") && Game.getPlayerPanel() != null)
             {
-                Game.getPlayerPanel().getPlayer().getScore().addScore(element.getType().getScore());
+                Game.getPlayerPanel().getPlayer(0).getScore().addScore(element.getType().getScore());
                 element.setType( newType );
                 checkJoinables();
             }
