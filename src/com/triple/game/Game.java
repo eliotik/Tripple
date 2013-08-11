@@ -139,6 +139,9 @@ public class Game extends Canvas implements Runnable {
     		return;
     	}
     	Graphics g = bs.getDrawGraphics();
+		if (screen == null)
+			screen = createVolatileImage(pixel.width, pixel.height);    	
+    	Graphics sg = screen.getGraphics();
     	
     	switch (getGameState()) {
 			case 0:
@@ -147,10 +150,9 @@ public class Game extends Canvas implements Runnable {
 			case 1:
 				if (getPlayerPanel() == null)
 					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
-				if (screen == null)
-					screen = createVolatileImage(pixel.width, pixel.height);
 
-				Graphics sg = screen.getGraphics();
+
+				
 				sg.setColor(new Color(100,100,100));
 				sg.fillRect(0, 0, pixel.width, pixel.height);
 				sg.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -162,6 +164,21 @@ public class Game extends Canvas implements Runnable {
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 			break;
+			case 2:
+				if (getPlayerPanel() == null)
+					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
+
+				sg.setColor(new Color(100,100,100));
+				sg.fillRect(0, 0, pixel.width, pixel.height);
+				sg.setFont(new Font("Arial", Font.PLAIN, 24));
+		        
+		        drawGameScreenBackground(sg);
+		        grid.render(sg);
+		        getPlayerPanel().render(sg);
+		        Fps.render(sg);
+		        
+		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
+			break;			
 		}
     	
     	

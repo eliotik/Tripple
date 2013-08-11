@@ -11,6 +11,7 @@ public class Menu {
 
 	private GlobalTextures textures;
 	private Button playButton;
+	private Button multiPlayButton;
 	
 	public Menu(Game game) {
 		try {
@@ -20,6 +21,7 @@ public class Menu {
 		}
 		textures = new GlobalTextures(game);
 		playButton = new Button("play", 350, 280, textures);
+		multiPlayButton = new Button("multi", 350, 310, textures);
 	}
 
     private void drawTitleScreenBackground(Graphics g) {
@@ -32,14 +34,14 @@ public class Menu {
 	public void render(Graphics g) {
 		drawTitleScreenBackground(g);
 		playButton.render(g);
+		multiPlayButton.render(g);
 	}
 
 	public Button getButton(String buttonName) {
-//		switch(buttonName) {
-//			case equals("play"): return playButton;
-//		}
-        if (buttonName.equals("play")){
+        if (buttonName.equals("play")) {
             return playButton;
+        }else if (buttonName.equals("multi")) {
+        	return multiPlayButton;
         }
 		return new Button("BAD", 0, 0, textures);
 	}

@@ -34,6 +34,9 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     		if (r.intersects(menu.getButton("play").getButtonBounds())) {
     			menu.getButton("play").setClicked(true);
     			Game.setGameState(1);
+    		} else if (r.intersects(menu.getButton("multi").getButtonBounds())) {
+    			menu.getButton("multi").setClicked(true);
+    			Game.setGameState(2);
     		}
     		break;
     	}
@@ -45,14 +48,15 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	}
 	
 	private void checkHoveredButton(Rectangle r, Menu menu) {
-		if (r.intersects(menu.getButton("play").getButtonBounds()))
-		{
+		if (r.intersects(menu.getButton("play").getButtonBounds())) {
 			setHoveredButton(menu.getButton("play"));
+		} else if (r.intersects(menu.getButton("multi").getButtonBounds())) {
+			setHoveredButton(menu.getButton("multi"));
 		}
 	}
 	
     public void mousePressed(MouseEvent e) {
-    	if (Game.getGameState() != 1) return;
+    	if (Game.getGameState() != 1 && Game.getGameState() != 2) return;
     	if (Game.isJoinning) return;
     	
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
@@ -100,7 +104,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     }
     
     public void mouseMoved(MouseEvent e) {
-    	if (Game.getGameState() == 1) {
+    	if (Game.getGameState() == 1 || Game.getGameState() == 2) {
     	
 	    	int x = e.getX()/Game.pixelSize/Config.cellSize,
 				y = e.getY()/Game.pixelSize/Config.cellSize;
