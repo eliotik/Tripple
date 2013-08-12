@@ -58,9 +58,9 @@ public class PlayerScore {
 	        g2.setFont(new Font("Arial", Font.PLAIN, 18));			
 	        g2.setColor(Color.BLACK);
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	        g2.drawString("Score: "+score, Grid.cellsAmount * Config.cellSize + 10, 100 * y);
+	        g2.drawString("Score: "+score, Grid.cellsAmount * Config.cellSize + 10, y);
 	        g2.setFont(new Font("Arial", Font.PLAIN, 14));
-	        g2.drawString("1 x "+String.format( "%.2f",multiplier), Grid.cellsAmount * Config.cellSize + 10, 125 * y);
+	        g2.drawString("1 x "+String.format( "%.2f",multiplier), Grid.cellsAmount * Config.cellSize + 10, y + 15);
 	        
 		}		
 	}

@@ -31,4 +31,5 @@ public class Config {
 	public static final String buttonsAssetsFile = "assets/buttons.png";
 	public static final String backgroundsAssetsFile = "assets/tiles_backgrounds.png";
 	public static final Rectangle menuButton = new Rectangle(0, 0, 82, 23);
+	public static final int playerMargin = 80;
 }

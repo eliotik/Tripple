@@ -46,16 +46,16 @@ public class PlayerPanel {
 						//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 				        g2.setFont(new Font("Arial", Font.PLAIN, 24));			
 				        g2.setColor(Color.BLACK);
-				        g2.drawString(player.getName(), Grid.cellsAmount * Config.cellSize + 10, 60 * (i + 1));
+				        g2.drawString(player.getName(), Grid.cellsAmount * Config.cellSize + 10, 65 + (i * Config.playerMargin));
 				        
 					}
 			    	
 					if (player.getHand() != null) {
-						player.getHand().render(g, i);
+						player.getHand().render(g, i );
 					}
 			        
 					if (player.getScore() != null) {
-						player.getScore().render(g, i + 1);
+						player.getScore().render(g, 90 + (i * Config.playerMargin));
 					}
 				} else {
 					break;
