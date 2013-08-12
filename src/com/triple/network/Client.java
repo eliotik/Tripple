@@ -7,13 +7,11 @@ import java.net.Socket;
 
 class Client {
     static Socket socket;
-    //static DataInputStream inputStream;
     static ObjectInputStream inputStream;
     private List data;
 
     public Client(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
-        //inputStream = new DataInputStream(socket.getInputStream());
         inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
