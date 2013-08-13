@@ -35,7 +35,7 @@ public class Element {
 			x_width = x * cell_size,
 			y_width = y * cell_size;
 		
-		if (drawBackground)
+		if (drawBackground && type.isShowBackground())
 			renderBackground(g, x, y, width, height);
 		
 		if (showBorder) {

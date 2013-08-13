@@ -51,7 +51,7 @@ public class Cell extends Rectangle{
         if (element != null)
         {
         	if (doCollapse == true) {
-        		if (collapseStep < collapsionPath - Config.cellSize/2) {
+        		if (collapseStep < collapsionPath - Config.cellSize/2 && Game.isStarted == true) {
         			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
     					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
 					if (collapseStepDelta >= Config.collapseStepDelta) {
@@ -209,7 +209,8 @@ public class Cell extends Rectangle{
             }
             if ( cell != null && cell != excludeCell && cell.getElement() != null && mainCell.getElement() != null &&
                     cell.getElement().getType().getSubspecies().equals(mainCell.getElement().getType().getSubspecies()) &&
-                    !cell.getElement().getType().getJoinResult().equals(cell.getElement().getType().getId()) )
+                    !cell.getElement().getType().getJoinResult().equals(cell.getElement().getType().getId()) &&
+                    cell.getElement().getType().getJoinable() )
             {
                 outerNeighbors.add(cell);
                 findNeigbors(outerNeighbors, mainCell, cell);

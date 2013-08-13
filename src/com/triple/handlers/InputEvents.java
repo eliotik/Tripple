@@ -2,8 +2,11 @@ package com.triple.handlers;
 
 import com.triple.game.Game;
 import com.triple.game.configs.Config;
+import com.triple.game.elements.Element;
+import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.grid.Cell;
 import com.triple.game.grid.Grid;
+import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
 
@@ -58,6 +61,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
     	if (Game.getGameState() != 1 && Game.getGameState() != 2) return;
     	if (Game.isJoinning) return;
+    	if (Game.isStarted == false) Game.isStarted = true;
     	
     	int x = e.getX()/Game.pixelSize/Config.cellSize,
 			y = e.getY()/Game.pixelSize/Config.cellSize;
@@ -65,27 +69,34 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
 	        if (cell != null) {
-		        if (cell.getElement() == null) {
-		        	cell.setElement(Game.getPlayerPanel().getPlayer(0).getHand().getElement());
-		        	Game.getPlayerPanel().getPlayer(0).getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-		        	cell.checkJoinables();
+	        	Player player = Game.getPlayerPanel().getPlayer(0);
+		        if (cell.getElement() == null &&
+	        		!player.getHand().getElement().getType().getSubspecies().equals("robot")) {
+		        	
+		        	cell.setElement(player.getHand().getElement());
+		        	player.getHand().setElement(ElementTypesCollection.getRandomForHand());
+		        	if (cell.getElement().getType().getJoinable()) {
+		        		cell.checkJoinables();
+		        	}
+		        	
 		        } else {
-		        	if (cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
-		        	{
-		        		if (cell.getTemporaryElement() == null)
+		        	if (cell.getElement() != null) {
+		        		if ( cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 		        		{
-	                        cell.setTemporaryElement(Game.getPlayerPanel().getPlayer(0).getHand().getElement());
-			        		Game.getPlayerPanel().getPlayer(0).getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-		        		} else {
-		        			Game.getPlayerPanel().getPlayer(0).getHand().setElement(cell.getTemporaryElement());
-		        			cell.setTemporaryElement(Game.elementTypesCollection.getRandomForHand());
+			        		if (cell.getTemporaryElement() == null)
+			        		{
+		                        cell.setTemporaryElement(player.getHand().getElement());
+		                        player.getHand().setElement(ElementTypesCollection.getRandomForHand());
+			        		} else {
+			        			Element playerElement = player.getHand().getElement();
+			        			player.getHand().setElement(cell.getTemporaryElement());
+			        			cell.setTemporaryElement(playerElement);
+			        		}
+		        		} else if (player.getHand().getElement().getType().getSubspecies().equals("robot")){
+		        			cell.setElement(null);
+		        			player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        		}
 		        	}
-	
-	                if (Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getId().equals("robot_base")){
-	                    cell.setElement(null);
-	                    Game.getPlayerPanel().getPlayer(0).getHand().setElement(Game.elementTypesCollection.getRandomForHand());
-	                }
 		        }
 	        }
     	}

@@ -41,7 +41,8 @@ public class Grid {
                 elementTypeCount = "0";
             }
             counter = Integer.parseInt( elementTypeCount );
-            if (counter < countElements * Double.parseDouble(newElement.getType().getChance())){
+//            if (counter < countElements * Double.parseDouble(newElement.getType().getChance())){
+            if (counter < countElements * newElement.getType().getChance()) {
                 counter++;
                 elementTypeCount = Integer.toString( counter );
 

@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable {
     public static final String name = Config.gameName;
     public static boolean isRunning = false;
     public static boolean isJoinning = false;
+    public static boolean isStarted = false;
     private static int gameState;
 
     public static Grid grid;
@@ -69,7 +70,7 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
         ElementTypesCollection.loadElements();
-        elementTypesCollection = new ElementTypesCollection();
+        //elementTypesCollection = new ElementTypesCollection();
         grid = new Grid();
         grid.refreshJoinableCells();
         

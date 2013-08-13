@@ -8,13 +8,14 @@ public class ElementType {
 	private Boolean playable = false;
     private Boolean container = false;
 	private String id = "";
-    private String chance;
+    private int chance;
 	private int tile_x = -1;
 	private int tile_y = -1;
 	private String joinResult;
 	private String subspecies;
 	private int score = 0;
 	private double joinScoreMultiplier = 0;
+	private boolean show_background;
 	
 	public String getId() {
 		return id;
@@ -44,11 +45,11 @@ public class ElementType {
 		this.id = id;
 	}
 
-    public void setChance(String chance){
+    public void setChance(int chance){
         this.chance = chance;
     }
 
-    public String getChance(){
+    public int getChance(){
         return chance;
     }
 
@@ -127,6 +128,14 @@ public class ElementType {
 
 	public void setJoinScoreMultiplier(double joinScoreMultiplier) {
 		this.joinScoreMultiplier = joinScoreMultiplier;
+	}
+
+	public void setShowBackground(boolean show_background) {
+		this.show_background = show_background;
+	}
+
+	public boolean isShowBackground() {
+		return show_background;
 	}
 
 }

@@ -15,13 +15,13 @@ public class ElementTypesCollection {
 	
 	private static ArrayList<ElementType> elementMap = new ArrayList<ElementType>();
 
-    private HashMap<String, Double> chanceContainer = new HashMap<String, Double>();
-    private ElementType element;
-    private Double elementTypeCount = 0.0;
-    private int allHandElementCount = 0;
-    private double counter;
-    private double quotient;
-    private double chance;
+//    private HashMap<String, Double> chanceContainer = new HashMap<String, Double>();
+//    private ElementType element;
+//    private Double elementTypeCount = 0.0;
+//    private int allHandElementCount = 0;
+//    private double counter;
+//    private double quotient;
+//    private double chance;
 
     public static ElementType getRandomByType(String type) {
 		List<ElementType> eTs = filter(having(on(ElementType.class).getJoinable(), Matchers.equalTo(true))
@@ -46,11 +46,12 @@ public class ElementTypesCollection {
                 elementType.setName(elemj.getAttribute("name").toString());
                 elementType.setId(elemj.getAttribute("id").toString());
                 elementType.setType(elemj.getAttribute("type").toString());
-                elementType.setChance(elemj.getAttribute("chance").toString());
+                elementType.setChance(Integer.parseInt(elemj.getAttribute("chance").toString()));
                 elementType.setTile(Integer.parseInt(elemj.getAttribute("tile_x").toString()), Integer.parseInt(elemj.getAttribute("tile_y").toString()));
                 elementType.setJoinable((elemj.getAttribute("joinable").equals("1")) ? true : false);
                 elementType.setPlayable((elemj.getAttribute("playable").equals("1")) ? true : false);
                 elementType.setContainer((elemj.getAttribute("container").equals("1")) ? true : false);
+                elementType.setShowBackground((elemj.getAttribute("show_background").equals("1")) ? true : false);
                 elementType.setJoinResult(elemj.getAttribute("join_result").toString());
                 elementType.setSubspecies(elemj.getAttribute("subspecies").toString());
                 elementType.setScore(Integer.parseInt(elemj.getAttribute("score").toString()));
@@ -81,37 +82,56 @@ public class ElementTypesCollection {
 		return new Element(randomType);
 	}
 
-    public Element getRandomForHand() {
-        List<ElementType> eTs = filter(
-                having(on(ElementType.class).getJoinable(), Matchers.equalTo(true))
-                        .and(having(on(ElementType.class).getPlayable(), Matchers.equalTo(true)))
-                        .and(having(on(ElementType.class).getType(), Matchers.isIn(Arrays.asList("base", "extended")))),
-                elementMap);
-        Random generator = new Random();
-        Object[] values = eTs.toArray();
-        allHandElementCount++;
-        ElementType elementType = (ElementType) values[generator.nextInt(values.length)];
-
-        elementTypeCount = chanceContainer.get( elementType.getName() );
-        if (elementTypeCount == null){
-            elementTypeCount = 0.0;
-        }
-
-        counter = elementTypeCount;
-        quotient =  counter / allHandElementCount;
-        chance = Double.parseDouble( elementType.getChance() );
-
-        if (quotient < chance){
-            counter++;
-            elementTypeCount = counter;
-            chanceContainer.put( elementType.getName(), elementTypeCount );
-            element = elementType;
-        }
-        else{
-            allHandElementCount--;
-            getRandomForHand();
-        }
-        return new Element(element);
+    public static Element getRandomForHand() {
+    	
+		List<ElementType> eTs = filter(
+		having(on(ElementType.class).getPlayable(), Matchers.equalTo(true))
+		        .and(having(on(ElementType.class).getPlayable(), Matchers.equalTo(true)))
+		        .and(having(on(ElementType.class).getType(), Matchers.isIn(Arrays.asList("base", "extended")))),
+		elementMap);
+		Random generator = new Random();
+		Object[] values = eTs.toArray();    	
+    	
+		ArrayList<ElementType> types = new ArrayList<ElementType>();
+		for(int i = 0, l = values.length; i < l; ++i ) {
+			ElementType elementType = (ElementType) values[i];
+			for (int y = 0, c = elementType.getChance(); y < c; ++y) {
+				types.add(elementType);
+			}
+		}
+		Collections.shuffle(types);
+		return new Element(types.get(generator.nextInt(types.size())));
+		
+//        List<ElementType> eTs = filter(
+//                having(on(ElementType.class).getJoinable(), Matchers.equalTo(true))
+//                        .and(having(on(ElementType.class).getPlayable(), Matchers.equalTo(true)))
+//                        .and(having(on(ElementType.class).getType(), Matchers.isIn(Arrays.asList("base", "extended")))),
+//                elementMap);
+//        Random generator = new Random();
+//        Object[] values = eTs.toArray();
+//        allHandElementCount++;
+//        ElementType elementType = (ElementType) values[generator.nextInt(values.length)];
+//
+//        elementTypeCount = chanceContainer.get( elementType.getName() );
+//        if (elementTypeCount == null){
+//            elementTypeCount = 0.0;
+//        }
+//
+//        counter = elementTypeCount;
+//        quotient =  counter / allHandElementCount;
+//        chance = Double.parseDouble( elementType.getChance() );
+//
+//        if (quotient < chance){
+//            counter++;
+//            elementTypeCount = counter;
+//            chanceContainer.put( elementType.getName(), elementTypeCount );
+//            element = elementType;
+//        }
+//        else{
+//            allHandElementCount--;
+//            getRandomForHand();
+//        }
+//        return new Element(element);
 
     }
 
