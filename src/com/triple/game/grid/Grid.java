@@ -3,6 +3,7 @@ package com.triple.game.grid;
 import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.elements.ElementsFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Grid {
         HashMap<String, String> chanceContainer = new HashMap<String, String>();
     	while(prefilledCellsAmount > 0)
     	{
-            Element newElement =  new Element(ElementTypesCollection.getRandomByType("base"));
+    		Element newElement =  ElementsFactory.getElement(ElementTypesCollection.getRandomByType("base"));
             elementTypeCount = chanceContainer.get( newElement.getType().getName() );
             if (elementTypeCount == null){
                 elementTypeCount = "0";
@@ -55,7 +56,7 @@ public class Grid {
             }
         }
 
-        cells[0][0].setElement( new Element(ElementTypesCollection.getTypeById("system", "inventory")) );
+        cells[0][0].setElement( ElementsFactory.getElement(ElementTypesCollection.getTypeById("system", "inventory")) );
     	
     	for (int i = 0; i < cellsTotal; ++i) {
     		int randomX = generator.nextInt( cellsAmount );

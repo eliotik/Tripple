@@ -6,7 +6,6 @@ import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
-
 import java.awt.*;
 import java.util.*;
 
@@ -43,7 +42,7 @@ public class Cell extends Rectangle{
     }
 
     public Element getElement() {
-        return element;
+        return (Element) element;
     }
 
     public void render(Graphics g) {
@@ -80,7 +79,7 @@ public class Cell extends Rectangle{
         		element.render(g, x, y, width, height, false, showBorder, true);
         	}
         } else if (showBorder) {
-            Element.renderBorder(g, x, y, width, height, false);
+        	Element.renderBorder(g, x, y, width, height, false);
         }
 
         if (temporaryElement != null)
