@@ -10,10 +10,12 @@ import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
@@ -100,6 +102,11 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        }
 	        }
     	}
+        List<String> dataList = new ArrayList<String>();
+        dataList.add("Test");
+        dataList.add("Test1");
+        dataList.add("Test2");
+       // Game.server.setData((java.awt.List) dataList);
     }
 
     public void mouseReleased(MouseEvent e) {

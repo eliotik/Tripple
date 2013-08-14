@@ -1,29 +1,51 @@
 package com.triple.network;
 
-import java.awt.*;
+import com.triple.game.Game;
+
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
-class Server {
-    static ServerSocket serverSocket;
-    static Socket socket;
-    //static DataOutputStream out;
-    static ObjectOutputStream out;
+public class Server extends Thread{
+    private int port = 1444;
+    private DatagramSocket socket;
+    private Game game;
 
-    public Server(int port) throws IOException {
-        System.out.println("Starting server...");
-        serverSocket = new ServerSocket(port);
-        System.out.println("Server started...");
-        socket = serverSocket.accept();
-        //out = new DataOutputStream(socket.getOutputStream());
-        out = new ObjectOutputStream(socket.getOutputStream());
-        System.out.println("Server started...");
+    public static boolean isRunning = false;
+
+    public Server(Game game) {
+        this.game = game;
+        try {
+            this.socket = new DatagramSocket(port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setData(List data) throws IOException {
-        out.writeObject(data);
+    public void run() {
+        if (isRunning) return;
+        isRunning = true;
+        while (true) {
+            byte[] data = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(data, data.length);
+            try {
+                socket.receive(packet);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String message = new String(packet.getData());
+            if (message.trim().equals("tetete")){
+                sendData("test".getBytes(), packet.getAddress(), packet.getPort());
+                System.out.println("hjhj");
+            }
+        }
     }
 
+    public void sendData(byte[] data, InetAddress inetAddress, int port) {
+        DatagramPacket packet = new DatagramPacket(data, data.length, inetAddress, port);
+        try {
+            socket.send(packet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

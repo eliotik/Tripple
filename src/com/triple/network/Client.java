@@ -1,22 +1,47 @@
 package com.triple.network;
 
-import java.awt.*;
+import com.triple.game.Game;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.net.Socket;
+import java.net.*;
 
-class Client {
-    static Socket socket;
-    static ObjectInputStream inputStream;
-    private List data;
+public class Client extends Thread {
+    private int port = 1444;
+    private InetAddress inetAddress;
+    private DatagramSocket socket;
+    private Game game;
 
-    public Client(String ip, int port) throws IOException {
-        socket = new Socket(ip, port);
-        inputStream = new ObjectInputStream(socket.getInputStream());
+    public Client(Game game, String inetAddress) {
+        this.game = game;
+        try {
+            this.socket = new DatagramSocket();
+            this.inetAddress = InetAddress.getByName(inetAddress);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List getData() throws IOException, ClassNotFoundException {
-        data = (List) inputStream.readObject();
-        return data;
+    public void run() {
+        while (true) {
+            byte[] data = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(data, data.length);
+            try {
+                socket.receive(packet);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+    public void sendData(byte[] data) {
+        DatagramPacket packet = new DatagramPacket(data, data.length, inetAddress, port);
+        try {
+            socket.send(packet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

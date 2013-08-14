@@ -8,6 +8,8 @@ import com.triple.game.player.Player;
 import com.triple.game.player.PlayerPanel;
 import com.triple.handlers.InputEvents;
 import com.triple.menu.Menu;
+import com.triple.network.Client;
+import com.triple.network.Server;
 import com.triple.sprites.Tiles;
 
 import javax.swing.*;
@@ -33,10 +35,14 @@ public class Game extends Canvas implements Runnable {
     public static Grid grid;
     private static PlayerPanel playerPanel;
     public static ElementTypesCollection elementTypesCollection;
+    public static Server server;
 
     private Image screen;
 	private Thread thread;
 	private Menu menu;
+
+    private Client socketClient;
+    private Server socketServer;
 	
     public static void main(String[] args) {
         //new Game().run();
@@ -73,8 +79,7 @@ public class Game extends Canvas implements Runnable {
         //elementTypesCollection = new ElementTypesCollection();
         grid = new Grid();
         grid.refreshJoinableCells();
-        
-		addMouseListener(new InputEvents(this));
+        addMouseListener(new InputEvents(this));
 		addMouseMotionListener(new InputEvents(this));    	
     }
     
@@ -83,6 +88,11 @@ public class Game extends Canvas implements Runnable {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
+
+        startServer();
+        startClient();
+        socketClient.sendData("tetete".getBytes());
+
     }
 
     public synchronized void stop() {
@@ -96,6 +106,7 @@ public class Game extends Canvas implements Runnable {
     	}
     	System.exit(1);
     }
+
 
     public void run() {
     	init();
@@ -131,6 +142,24 @@ public class Game extends Canvas implements Runnable {
 					size.width, 
 					size.height,
 					null);    	
+    }
+
+    public void startServer() {
+        socketServer = new Server(this);
+        socketServer.start();
+    }
+
+    public Server getServer() {
+        return socketServer;
+    }
+
+    public void startClient() {
+        socketClient = new Client(this, "localhost");
+        socketClient.start();
+    }
+
+    public Client getClient() {
+        return socketClient;
     }
     
     public void render() {
