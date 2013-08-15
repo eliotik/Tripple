@@ -6,6 +6,7 @@ import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.elements.subspecies.ElementBear;
 
 import java.awt.*;
 import java.util.*;

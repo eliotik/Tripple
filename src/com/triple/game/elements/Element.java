@@ -39,7 +39,6 @@ public abstract class Element implements IElement  {
 			tile_border_width = Config.tileBorderWidth,
 			x_width = x * cell_size,
 			y_width = y * cell_size;
-		
 		if (drawBackground && type.isShowBackground())
 			renderBackground(g, x, y, width, height);
 		
@@ -280,8 +279,6 @@ public abstract class Element implements IElement  {
 	}
 
 	protected void updateTickerAnimation(int stepTickAmount) {
-//		updateStepTick = updateStepTick + 1*Game.currentDelta;
-//		System.out.println(Game.currentDelta+"::"+updateStepTick);
 		updateStepTick++;		
 		if (directionAnimation == 0)
 		{
@@ -290,31 +287,23 @@ public abstract class Element implements IElement  {
 				stepAnimation++;
 				updateStepTick = 0;
 			} else {
-				if (updateStepTick > 3) {
+				if (updateStepTick > stepTickAmount) {
 					updateStepTick = 0;
 					stepAnimation--;
 				}
 			}
 			
-//			if (updateStepTick >= stepTickAmount) {
-//				updateStepTick = 0;
-//				stepAnimation--;
-//			}
 		} else {
 			if (stepAnimation >= 5) {
 				directionAnimation = 0;
 				stepAnimation--;
 				updateStepTick = 0;
 			} else {
-				if (updateStepTick > 3) {
+				if (updateStepTick > stepTickAmount) {
 					updateStepTick = 0;
 					stepAnimation++;
 				}
 			}
-//			if (updateStepTick >= stepTickAmount) {
-//				updateStepTick = 0;
-//				stepAnimation++;
-//			}
 		}
 	}		
 }
