@@ -24,6 +24,7 @@ public class Cell extends Rectangle{
     private int collapseY;
     private double collapseStep;
 //    private int collapseStepDelta;
+    private int updateStepTick = 0;
     private int collapsionPath;
     private boolean doCollapse = false;
     
@@ -51,19 +52,25 @@ public class Cell extends Rectangle{
         if (element != null)
         {
         	if (doCollapse == true) {
-        		if (collapseStep < (collapsionPath - Config.cellSize - Config.cellSize/3) && Game.isStarted == true) {
+        		updateStepTick++;
+        		if (collapseStep < collapsionPath && Game.isStarted == true) {
+        			if (updateStepTick > 2) {
         			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
     					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
 //					if (collapseStepDelta >= Config.collapseStepDelta) {
-						collapseNewX += directionX * Config.collapseStepSize * Game.currentDelta;
-						collapseNewY += directionY * Config.collapseStepSize * Game.currentDelta;
+						collapseNewX += directionX * Config.collapseStepSize;
+						collapseNewY += directionY * Config.collapseStepSize;
+						
 						collapseStep += collapsionPath - getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2);
+						
 						stepCollapsionX = directionX  * collapseStep;
 						stepCollapsionY = directionY  * collapseStep;
 //						collapseStepDelta = 0;
 //					} else {
 //						++collapseStepDelta;
 //					}
+						updateStepTick = 0;
+        			}
         			element.renderCollapsing(g, x, y, width, height, stepCollapsionX, stepCollapsionY);
         		} else {
         			collapseStep = 0;

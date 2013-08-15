@@ -11,7 +11,7 @@ public abstract class Element implements IElement  {
 	
 	protected int stepAnimation = 0;
 	protected int directionAnimation = 1;//0 -down; 1 - up
-	protected double updateStepTick = 0;
+	protected int updateStepTick = 0;
 	protected int stepTick = Config.handAnimationTick;	
 	
 	protected ElementType type;	
