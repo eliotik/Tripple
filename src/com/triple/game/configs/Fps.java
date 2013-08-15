@@ -14,7 +14,7 @@ public class Fps {
     private static int screenShowFrames;
     private static double delta;
     private static long lastTime;
-    private static final double numTicks = 60.0;;
+    private static final double numTicks = 60.0;
     private static double n;
     private static int ticks;
     

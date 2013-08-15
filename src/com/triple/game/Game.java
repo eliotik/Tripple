@@ -1,7 +1,8 @@
 package com.triple.game;
 
 import com.triple.game.configs.Config;
-import com.triple.game.configs.Fps;
+import com.triple.game.configs.FPS2;
+//import com.triple.game.configs.Fps;
 import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
@@ -13,6 +14,7 @@ import com.triple.network.Server;
 import com.triple.sprites.Tiles;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
@@ -37,6 +39,8 @@ public class Game extends Canvas implements Runnable {
     public static ElementTypesCollection elementTypesCollection;
     public static Server server;
 
+    public static double currentDelta;
+    
     private Image screen;
 	private Thread thread;
 	private Menu menu;
@@ -110,27 +114,41 @@ public class Game extends Canvas implements Runnable {
 
     public void run() {
     	init();
-        boolean doRender = false;
+//        boolean doRender = false;
         
-        Fps.init();
+        //Fps.init();
+        FPS2.init();
         
         while (isRunning) {
-        	Fps.doTick();
+//        	Fps.doTick();
+//        	
+//        	while(Fps.getDelta() >= 1) {
+//        		tick();
+//        		Fps.doTickUpdate();
+//        		doRender = true;
+//        	}
+//        	
+//        	try { Thread.sleep(2); } catch (Exception e) { e.printStackTrace(); }
+//        	
+//        	if (doRender) {
+//	        	Fps.increaseFrames();
+//	            render();
+//        	}
+//        	
+//            Fps.doUpdate();
         	
-        	while(Fps.getDelta() >= 1) {
-        		tick();
-        		Fps.doTickUpdate();
-        		doRender = true;
-        	}
+        	FPS2.update();
         	
-        	try { Thread.sleep(2); } catch (Exception e) { e.printStackTrace(); }
+        	tick(FPS2.getDelta());
+        	render();
         	
-        	if (doRender) {
-	        	Fps.increaseFrames();
-	            render();
-        	}
+        	try{
+        		long t = FPS2.getTimeout();
+        		Thread.sleep( (t < 0) ? 0 : t );
+    		} catch (Exception e) { 
+    			e.printStackTrace(); 
+			}
         	
-            Fps.doUpdate();
         }
             
     }
@@ -192,7 +210,8 @@ public class Game extends Canvas implements Runnable {
 		        drawGameScreenBackground(sg);
 		        grid.render(sg);
 		        getPlayerPanel().render(sg);
-		        Fps.render(sg);
+		        //Fps.render(sg);
+		        FPS2.render(sg);
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 			break;
@@ -207,7 +226,8 @@ public class Game extends Canvas implements Runnable {
 		        drawGameScreenBackground(sg);
 		        grid.render(sg);
 		        getPlayerPanel().render(sg);
-		        Fps.render(sg);
+		        //Fps.render(sg);
+		        FPS2.render(sg);
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 			break;			
@@ -219,8 +239,8 @@ public class Game extends Canvas implements Runnable {
     	
     }
 
-    public void tick() {
-
+    public void tick(double delta) {
+    	currentDelta = delta;
     }
         
 	public Menu getMenu() {

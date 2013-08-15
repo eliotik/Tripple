@@ -35,7 +35,7 @@ public class Server extends Thread{
             String message = new String(packet.getData());
             if (message.trim().equals("tetete")){
                 sendData("test".getBytes(), packet.getAddress(), packet.getPort());
-                System.out.println("hjhj");
+                //System.out.println("hjhj");
             }
         }
     }

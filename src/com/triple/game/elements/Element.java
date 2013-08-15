@@ -11,7 +11,7 @@ public abstract class Element implements IElement  {
 	
 	protected int stepAnimation = 0;
 	protected int directionAnimation = 1;//0 -down; 1 - up
-	protected int updateStepTick = 0;
+	protected double updateStepTick = 0;
 	protected int stepTick = Config.handAnimationTick;	
 	
 	protected ElementType type;	
@@ -62,13 +62,13 @@ public abstract class Element implements IElement  {
 		
 	}
 
-	public void renderCollapsing(Graphics g, int x, int y, int width, int height, int stepCollapsionX, int stepCollapsionY) {
+	public void renderCollapsing(Graphics g, int x, int y, int width, int height, double stepCollapsionX, double stepCollapsionY) {
 		
 		int	cell_size = width,
 			tile_size = Config.tileSize,
 			tile_border_width = Config.tileBorderWidth,
-			x_width = x * cell_size + stepCollapsionX,
-			y_width = y * cell_size + stepCollapsionY;
+			x_width = (int) (x * cell_size + stepCollapsionX),
+			y_width = (int) (y * cell_size + stepCollapsionY);
 		
 		int tile_x = type.getTile_x(),
 			tile_y = type.getTile_y();
@@ -280,29 +280,41 @@ public abstract class Element implements IElement  {
 	}
 
 	protected void updateTickerAnimation(int stepTickAmount) {
-		updateStepTick++;
+//		updateStepTick = updateStepTick + 1*Game.currentDelta;
+//		System.out.println(Game.currentDelta+"::"+updateStepTick);
+		updateStepTick++;		
 		if (directionAnimation == 0)
 		{
-			if (stepAnimation <= -2) {
+			if (stepAnimation <= -5) {
 				directionAnimation = 1;
 				stepAnimation++;
 				updateStepTick = 0;
+			} else {
+				if (updateStepTick > 3) {
+					updateStepTick = 0;
+					stepAnimation--;
+				}
 			}
 			
-			if (updateStepTick >= stepTickAmount) {
-				updateStepTick = 0;
-				stepAnimation--;
-			}
+//			if (updateStepTick >= stepTickAmount) {
+//				updateStepTick = 0;
+//				stepAnimation--;
+//			}
 		} else {
-			if (stepAnimation >= 2) {
+			if (stepAnimation >= 5) {
 				directionAnimation = 0;
 				stepAnimation--;
 				updateStepTick = 0;
+			} else {
+				if (updateStepTick > 3) {
+					updateStepTick = 0;
+					stepAnimation++;
+				}
 			}
-			if (updateStepTick >= stepTickAmount) {
-				updateStepTick = 0;
-				stepAnimation++;
-			}
+//			if (updateStepTick >= stepTickAmount) {
+//				updateStepTick = 0;
+//				stepAnimation++;
+//			}
 		}
 	}		
 }

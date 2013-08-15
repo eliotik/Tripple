@@ -14,7 +14,7 @@ public interface IElement {
 	
 	//public void renderBorder(Graphics g, int x, int y, int width, int height, boolean animate);	
 	
-	public void renderCollapsing(Graphics g, int x, int y, int width, int height, int stepCollapsionX, int stepCollapsionY);
+	public void renderCollapsing(Graphics g, int x, int y, int width, int height, double stepCollapsionX, double stepCollapsionY);
 	
 	public void renderContainer(Graphics g, int x, int y, int width, int height, int offsetX, int offsetY, boolean animate, int tickModifier);
 	
