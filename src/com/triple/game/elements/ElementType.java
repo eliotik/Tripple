@@ -16,6 +16,7 @@ public class ElementType {
 	private int score = 0;
 	private double joinScoreMultiplier = 0;
 	private boolean show_background;
+	private int penalty = 0;
 	
 	public String getId() {
 		return id;
@@ -136,6 +137,14 @@ public class ElementType {
 
 	public boolean isShowBackground() {
 		return show_background;
+	}
+
+	public int getPenalty() {
+		return penalty;
+	}
+
+	public void setPenalty(int penalty) {
+		this.penalty = penalty;
 	}
 
 }

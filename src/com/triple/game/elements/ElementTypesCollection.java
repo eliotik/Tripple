@@ -55,6 +55,7 @@ public class ElementTypesCollection {
                 elementType.setJoinResult(elemj.getAttribute("join_result").toString());
                 elementType.setSubspecies(elemj.getAttribute("subspecies").toString());
                 elementType.setScore(Integer.parseInt(elemj.getAttribute("score").toString()));
+                elementType.setPenalty(Integer.parseInt(elemj.getAttribute("penalty").toString()));
                 elementType.setJoinScoreMultiplier(Double.parseDouble(elemj.getAttribute("join_score_multiplier").toString()));
                 
                 elementMap.add(elementType);
@@ -105,7 +106,7 @@ public class ElementTypesCollection {
 
 	public static ElementType getTypeById(String id) {
 		List<ElementType> eTs = filter(having(on(ElementType.class).getId(), Matchers.equalTo(id)), elementMap);		
-		if (eTs == null || eTs.size() == 0) return new ElementType();
+		if (eTs == null || eTs.size() == 0) return null;//new ElementType();
 		return eTs.get(0);		
 	}	
 	

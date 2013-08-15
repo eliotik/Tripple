@@ -14,6 +14,7 @@
 		tile_x="0"
 		tile_y="0"
 		score="0"
+		penalty="100000"
 		show_background="1"
 		join_score_multiplier="0" />
 
@@ -29,7 +30,8 @@
 		type="base" 
 		tile_x="1"
 		tile_y="0"
-		score="10"
+		score="100"
+		penalty="-75"
 		show_background="1"
 		join_score_multiplier="0.1" />
 		
@@ -45,7 +47,8 @@
 		type="base" 
 		tile_x="2"
 		tile_y="0"
-		score="20"
+		score="200"
+		penalty="-175"
 		show_background="1"
 		join_score_multiplier="0.2" />
 	<element 
@@ -60,7 +63,8 @@
 		type="base" 
 		tile_x="3"
 		tile_y="0"
-		score="25"
+		score="250"
+		penalty="-225"
 		show_background="1"
 		join_score_multiplier="0.25" />
 		
@@ -68,7 +72,7 @@
 		name="Stone" 
 		id="stone_base" 
 		subspecies="stone" 
-		join_result="stone" 
+		join_result="rock" 
 		chance="1"
 		container="0" 
 		joinable="1" 
@@ -76,9 +80,77 @@
 		type="base" 
 		tile_x="4"
 		tile_y="0"
-		score="20"
+		score="200"
+		penalty="-100"
 		show_background="1"
 		join_score_multiplier="0.2" />
+	<element 
+		name="Rock" 
+		id="rock_base" 
+		subspecies="rock" 
+		join_result="platinumchest" 
+		chance="0"
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="base" 
+		tile_x="3"
+		tile_y="2"
+		score="300"
+		penalty="-500"
+		show_background="1"
+		join_score_multiplier="0.35" />		
+
+	<element 
+		name="Crystal" 
+		id="crystal_base" 
+		subspecies="crystal" 
+		join_result="*" 
+		chance="2"
+		container="0" 
+		joinable="1" 
+		playable="1" 
+		type="extra" 
+		tile_x="4"
+		tile_y="2"
+		score="0"
+		penalty="0"
+		show_background="1"
+		join_score_multiplier="0" />
+
+	<element 
+		name="Golden chest" 
+		id="goldenchest_base" 
+		subspecies="goldenchest" 
+		join_result="platinumchest" 
+		chance="0"
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		tile_x="5"
+		tile_y="2"
+		score="200"
+		penalty="-100"
+		show_background="1"
+		join_score_multiplier="0.2" />
+		
+	<element 
+		name="Platinum chest" 
+		id="platinumchest_base" 
+		subspecies="platinumchest" 
+		join_result="platinumchest" 
+		chance="0"
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		tile_x="7"
+		tile_y="2"
+		score="300"
+		penalty="-500"
+		show_background="1"
+		join_score_multiplier="0.35" />	
 
 	<element 
 		name="Tree" 
@@ -92,7 +164,8 @@
 		type="extended" 
 		tile_x="5"
 		tile_y="0"
-		score="30"
+		score="300"
+		penalty="-310"
 		show_background="1"
 		join_score_multiplier="0.3" />
 	<element 
@@ -107,7 +180,8 @@
 		type="extended" 
 		tile_x="6"
 		tile_y="0"
-		score="35"
+		score="350"
+		penalty="-360"
 		show_background="1"
 		join_score_multiplier="0.35" />
 		
@@ -123,7 +197,8 @@
 		type="extended" 
 		tile_x="7"
 		tile_y="0"
-		score="40"
+		score="400"
+		penalty="-440"
 		show_background="1"
 		join_score_multiplier="0.4" />
 	<element 
@@ -138,7 +213,8 @@
 		type="extended" 
 		tile_x="8"
 		tile_y="0"
-		score="45"
+		score="450"
+		penalty="-475"
 		show_background="1"
 		join_score_multiplier="0.45" />			
 
@@ -154,7 +230,8 @@
 		type="extended" 
 		tile_x="9"
 		tile_y="0"
-		score="50"
+		score="500"
+		penalty="-550"
 		show_background="1"
 		join_score_multiplier="0.5" />
 	<element 
@@ -169,7 +246,8 @@
 		type="extended" 
 		tile_x="9"
 		tile_y="1"
-		score="55"
+		score="550"
+		penalty="-650"
 		show_background="1"
 		join_score_multiplier="0.55" />	
 		
@@ -185,7 +263,8 @@
 		type="extended" 
 		tile_x="8"
 		tile_y="1"
-		score="60"
+		score="600"
+		penalty="-660"
 		show_background="1"
 		join_score_multiplier="0.6" />
 	<element 
@@ -200,10 +279,10 @@
 		type="extended" 
 		tile_x="7"
 		tile_y="1"
-		score="65"
+		score="650"
+		penalty="-750"
 		show_background="1"
 		join_score_multiplier="0.65" />		
-		
 		
 	<element 
 		name="Castle" 
@@ -217,7 +296,8 @@
 		type="extended" 
 		tile_x="6"
 		tile_y="1"
-		score="70"
+		score="700"
+		penalty="-800"
 		show_background="1"
 		join_score_multiplier="0.7" />		
 	<element 
@@ -232,7 +312,8 @@
 		type="extended" 
 		tile_x="6"
 		tile_y="2"
-		score="75"
+		score="750"
+		penalty="-900"
 		show_background="1"
 		join_score_multiplier="0.75" />
 		
@@ -248,7 +329,8 @@
 		type="extra" 
 		tile_x="5"
 		tile_y="1"
-		score="80"
+		score="1100"
+		penalty="-1400"
 		show_background="1"
 		join_score_multiplier="0.8" />		
 	<element 
@@ -263,7 +345,8 @@
 		type="extra" 
 		tile_x="4"
 		tile_y="1"
-		score="85"
+		score="1400"
+		penalty="-1750"
 		show_background="1"
 		join_score_multiplier="0.85" />
 		
@@ -279,7 +362,8 @@
 		type="extra" 
 		tile_x="4"
 		tile_y="1"
-		score="90"
+		score="2000"
+		penalty="-3000"
 		show_background="1"
 		join_score_multiplier="0.9" />
 
@@ -296,6 +380,7 @@
 		tile_x="1"
 		tile_y="1"
 		score="0"
+		penalty="0"
 		show_background="0"
 		join_score_multiplier="0" />
 		
@@ -304,8 +389,8 @@
 		name="Bear"
 		id="bear_base"
 		subspecies="bear"
-		join_result="bear"
-		chance="5"
+		join_result="church"
+		chance="9"
 		container="0"
 		joinable="0"
 		playable="1"
@@ -313,6 +398,7 @@
 		tile_x="0"
 		tile_y="2"
 		score="0"
+		penalty="100"
 		show_background="0"
 		join_score_multiplier="0" />	
 		
@@ -320,7 +406,7 @@
 		name="Grave"
 		id="grave_base"
 		subspecies="grave"
-		join_result="grave"
+		join_result="church"
 		chance="0"
 		container="0"
 		joinable="1"
@@ -328,7 +414,41 @@
 		type="extended"
 		tile_x="1"
 		tile_y="2"
-		score="0"
+		score="250"
+		penalty="-800"
 		show_background="1"
 		join_score_multiplier="0" />
+		
+	<element 
+		name="Church" 
+		id="church_base" 
+		subspecies="church" 
+		join_result="bigchurch" 
+		chance="0" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		tile_x="2"
+		tile_y="1"
+		score="800"
+		penalty="-880"
+		show_background="1"
+		join_score_multiplier="0.6" />		
+	<element 
+		name="Big church" 
+		id="bigchurch_base" 
+		subspecies="bigchurch" 
+		join_result="goldenchest" 
+		chance="0" 
+		container="0" 
+		joinable="1" 
+		playable="0" 
+		type="extra" 
+		tile_x="2"
+		tile_y="2"
+		score="1000"
+		penalty="-1150"
+		show_background="1"
+		join_score_multiplier="0.66" />		
 </elements>

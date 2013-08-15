@@ -23,7 +23,6 @@ public class Cell extends Rectangle{
     private int collapseX;
     private int collapseY;
     private double collapseStep;
-//    private int collapseStepDelta;
     private int updateStepTick = 0;
     private int collapsionPath;
     private boolean doCollapse = false;
@@ -53,11 +52,10 @@ public class Cell extends Rectangle{
         {
         	if (doCollapse == true) {
         		updateStepTick++;
-        		if (collapseStep < collapsionPath && Game.isStarted == true) {
+        		if (collapseStep < (collapsionPath - Config.cellSize) && Game.isStarted == true) {
         			if (updateStepTick > 2) {
         			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
     					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
-//					if (collapseStepDelta >= Config.collapseStepDelta) {
 						collapseNewX += directionX * Config.collapseStepSize;
 						collapseNewY += directionY * Config.collapseStepSize;
 						
@@ -65,10 +63,13 @@ public class Cell extends Rectangle{
 						
 						stepCollapsionX = directionX  * collapseStep;
 						stepCollapsionY = directionY  * collapseStep;
-//						collapseStepDelta = 0;
-//					} else {
-//						++collapseStepDelta;
-//					}
+						if (stepCollapsionX > collapseX*Config.cellSize) {
+							stepCollapsionX = collapseX*Config.cellSize;
+						}
+						
+						if (stepCollapsionY > collapseY*Config.cellSize) {
+							stepCollapsionY = collapseY*Config.cellSize;
+						}
 						updateStepTick = 0;
         			}
         			element.renderCollapsing(g, x, y, width, height, stepCollapsionX, stepCollapsionY);
@@ -78,7 +79,6 @@ public class Cell extends Rectangle{
         			collapseNewY = y;
         			stepCollapsionX = 0;
         			stepCollapsionY = 0;
-//        			collapseStepDelta = 0;
 	        		element = null;
 	        		doCollapse = false;
         		}
@@ -147,7 +147,10 @@ public class Cell extends Rectangle{
             }
             String sufix = (neighbors.size() > 2) ? "_multi": "_base";
             ElementType newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + sufix );
-
+            if (sufix.equals("_multi") && newType == null) {
+            	newType = ElementTypesCollection.getTypeById( element.getType().getJoinResult() + "_base" );	
+            }
+            	
             if (elementTypes.get(element.getType().getType()) != null && elementTypes.get(element.getType().getType()).size() > 0)
             {
                 elementTypes.get(element.getType().getType()).add(element.getType());
@@ -193,7 +196,6 @@ public class Cell extends Rectangle{
     	collapseNewY = y*Config.cellSize;
     	stepCollapsionX = 0;
     	stepCollapsionY = 0;
-//    	collapseStepDelta = 0;
     	collapsionPath = getVector(x*Config.cellSize, collapseX*Config.cellSize + Config.cellSize/2, y*Config.cellSize, collapseY*Config.cellSize + Config.cellSize/2);
 	}
 

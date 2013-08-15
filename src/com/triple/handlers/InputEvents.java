@@ -4,6 +4,7 @@ import com.triple.game.Game;
 import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.elements.ElementsFactory;
 import com.triple.game.grid.Cell;
 import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
@@ -95,7 +96,13 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 			        			cell.setTemporaryElement(playerElement);
 			        		}
 		        		} else if (player.getHand().getElement().getType().getSubspecies().equals("robot")){
-		        			cell.setElement(null);
+		        			player.getScore().addScore(cell.getElement().getType().getPenalty());
+		        			if (cell.getElement().getType().getSubspecies().equalsIgnoreCase("Bear")) {
+		        				cell.setElement(ElementsFactory.getElement(ElementTypesCollection.getTypeById("grave_base")));
+		        				cell.checkJoinables();
+		        			} else {
+		        				cell.setElement(null);
+		        			}
 		        			player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        		}
 		        	}
