@@ -1,6 +1,9 @@
 Triple.iml
+Tripple.iml
 .idea
 /bin
 .project
 .classpath
 .checkstyle
+.settings
+/target
