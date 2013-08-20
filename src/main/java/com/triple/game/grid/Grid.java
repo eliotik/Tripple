@@ -4,6 +4,7 @@ import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.elements.ElementsFactory;
+import com.triple.game.elements.subspecies.ElementBear;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -97,7 +98,24 @@ public class Grid {
         for (int x = 0; x < cells.length; ++x ) {
             for (int y = 0; y < cells[0].length; ++y) {
                 cells[x][y].render(g);
+                cells[x][y].setHotOfBear(false);
             }
         }
     }
+
+	public void moveBears() {
+		for (int x = 0; x < cells.length; ++x) {
+            for (int y = 0; y < cells[0].length; ++y) {
+            	Cell cell = cells[x][y];
+                if (cell.getElement() != null && cell.getElement().getType().getSubspecies().equalsIgnoreCase("bear")) {
+                	if (cell.isHotOfBear()) {
+                		cell.setHotOfBear(false);
+                	} else {
+                		ElementBear Bear = (ElementBear) cell.getElement();
+                		Bear.changeDislocation(cell);
+                	}
+                }
+          }
+        }		
+	}
 }

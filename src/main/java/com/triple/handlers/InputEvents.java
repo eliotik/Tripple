@@ -81,7 +81,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        	if (cell.getElement().getType().getJoinable()) {
 		        		cell.checkJoinables();
 		        	}
-		        	
+		        	Game.grid.moveBears();
 		        } else {
 		        	if (cell.getElement() != null) {
 		        		if ( cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
@@ -103,6 +103,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        			} else {
 		        				cell.setElement(null);
 		        			}
+		        			Game.grid.moveBears();		        			
 		        			player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        		}
 		        	}
