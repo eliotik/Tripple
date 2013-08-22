@@ -138,7 +138,7 @@ public class ElementBear extends Element {
 			directions.add("h");
 		}
 		if (directions.isEmpty()) {
-			if ( moveNeighborsBears(currentCell, cell_b, cell_d, cell_f, cell_h) ) {
+			if ( moveNeighborsBears(currentCell, cell_b, cell_d, cell_f, cell_h) != null ) {
 				changeDislocation(currentCell);
 				return;
 //				System.out.println("[Trying to move again]");
@@ -189,7 +189,12 @@ public class ElementBear extends Element {
 			directions.add("h");
 		}
 		if (directions.isEmpty()) {
-			return null;
+			Cell newCell = moveNeighborsBears(currentCell, cell_b, cell_d, cell_f, cell_h);
+			if (newCell != null) {
+				return newCell;
+			} else {
+				return null;
+			}
 		} else {
 			HashMap<String, Cell> cells = new HashMap<String, Cell>();
 			cells.put("b", cell_b);
@@ -202,7 +207,7 @@ public class ElementBear extends Element {
 		}		
 	}
 	
-	private boolean moveNeighborsBears(Cell currentCell, Cell cell_b,
+	private Cell moveNeighborsBears(Cell currentCell, Cell cell_b,
 			Cell cell_d, Cell cell_f, Cell cell_h) {
 		
 		if (cell_b != null && cell_b.getElement() != null && 
@@ -213,7 +218,7 @@ public class ElementBear extends Element {
 				cell_b.setElement(null);
 				newCell.setElement(bear);
 				newCell.setHotOfBear(true);
-				return true;
+				return cell_b;
 			}
 		}
 
@@ -225,7 +230,7 @@ public class ElementBear extends Element {
 				cell_d.setElement(null);
 				newCell.setElement(bear);
 				newCell.setHotOfBear(true);
-				return true;
+				return cell_d;
 			}
 		}		
 		
@@ -237,7 +242,7 @@ public class ElementBear extends Element {
 				cell_f.setElement(null);
 				newCell.setElement(bear);
 				newCell.setHotOfBear(true);
-				return true;
+				return cell_f;
 			}
 		}
 		
@@ -249,10 +254,10 @@ public class ElementBear extends Element {
 				cell_h.setElement(null);
 				newCell.setElement(bear);
 				newCell.setHotOfBear(true);
-				return true;
+				return cell_h;
 			}
 		}		
 		
-		return false;
+		return null;
 	}	
 }
