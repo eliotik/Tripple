@@ -5,6 +5,7 @@ import com.triple.game.configs.Config;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.elements.ElementsFactory;
+import com.triple.game.elements.subspecies.ElementBear;
 import com.triple.game.grid.Cell;
 import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
@@ -80,6 +81,10 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        	player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        	if (cell.getElement().getType().getJoinable()) {
 		        		cell.checkJoinables();
+		        	}
+		        	if (cell.getElement().getType().getSubspecies().equalsIgnoreCase("Bear")) {
+		        		ElementBear Bear = (ElementBear) cell.getElement();
+                		Bear.changeDislocation(cell);
 		        	}
 		        	Game.grid.moveBears();
 		        } else {

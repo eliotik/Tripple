@@ -2,7 +2,10 @@ package com.triple.game.elements.subspecies;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import com.triple.game.Game;
@@ -110,21 +113,60 @@ public class ElementBear extends Element {
 		}
 	}
 
-	public void changeDislocation(Cell currentCell) {
+	public boolean changeDislocation(Cell currentCell) {
+		
+		ArrayList<String> directions = new ArrayList<String>();
+		HashMap<String, Cell> cells = getEmptyNeighbors(currentCell, directions);
+		if (directions.isEmpty()) {
+			if (findNeighborBear(currentCell, cells)) {
+				this.changeDislocation(currentCell);
+			} else {
+				currentCell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+			}
+		} else {
+			Cell newCell = getNewParentCell(directions, cells);
+			currentCell.setElement(null);
+			newCell.setElement((Element) this);
+			newCell.setHotOfBear(true);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean findNeighborBear(Cell currentCell, HashMap<String, Cell> cells) {
+		String[] keys = cells.keySet().toArray(new String[0]);
+		for (int i = 0, l = keys.length; i < l; ++i) {
+			Cell cell = cells.get(keys[i]);
+			if (cell != null) {
+				if (cell.isHotOfBear()) return true;
+				Element el = cell.getElement();
+				if (el != null && el.getType().getSubspecies().equalsIgnoreCase("bear")) {
+					ElementBear Bear = (ElementBear) el;
+					if ( Bear.changeDislocation(cell) ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private Cell getNewParentCell(ArrayList<String> directions, HashMap<String, Cell> cells) {
+		Random generator = new Random();
+		String direction = directions.get( generator.nextInt(directions.size()) );
+		return cells.get(direction);
+	}
+
+	private HashMap<String, Cell> getEmptyNeighbors(Cell currentCell, ArrayList<String> directions) {
 		int[] coords = currentCell.getCoordinates();
 		int currentX = coords[0];
 		int currentY = coords[1];
-//		System.out.println("<--------------->");
-//		System.out.println(coords[0]+","+coords[1]);
+		
 		Cell cell_b = Game.grid.getCell(currentX, currentY - 1);
 		Cell cell_d = Game.grid.getCell(currentX + 1, currentY);
 		Cell cell_f = Game.grid.getCell(currentX, currentY + 1);
 		Cell cell_h = Game.grid.getCell(currentX - 1, currentY);
-//		if (cell_b != null) System.out.println("b: "+cell_b.getCoordinates()[0]+","+cell_b.getCoordinates()[1]);
-//		if (cell_d != null) System.out.println("d: "+cell_d.getCoordinates()[0]+","+cell_d.getCoordinates()[1]);
-//		if (cell_f != null) System.out.println("f: "+cell_f.getCoordinates()[0]+","+cell_f.getCoordinates()[1]);
-//		if (cell_h != null) System.out.println("h: "+cell_h.getCoordinates()[0]+","+cell_h.getCoordinates()[1]);
-		ArrayList<String> directions = new ArrayList<String>();
+		
 		if (cell_b != null && cell_b.getElement() == null) {
 			directions.add("b");
 		}
@@ -137,127 +179,14 @@ public class ElementBear extends Element {
 		if (cell_h != null && cell_h.getElement() == null) {
 			directions.add("h");
 		}
-		if (directions.isEmpty()) {
-			if ( moveNeighborsBears(currentCell, cell_b, cell_d, cell_f, cell_h) != null ) {
-				changeDislocation(currentCell);
-				return;
-//				System.out.println("[Trying to move again]");
-			} else {
-				currentCell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
-				currentCell.checkJoinables();
-//				System.out.println("GRAVE");
-//				System.out.println(">---------------<");
-			}
-		} else {
-			HashMap<String, Cell> cells = new HashMap<String, Cell>();
-			cells.put("b", cell_b);
-			cells.put("d", cell_d);
-			cells.put("f", cell_f);
-			cells.put("h", cell_h);
-			Random generator = new Random();
-			String direction = directions.get( generator.nextInt(directions.size()) );
-			Cell newCell = cells.get(direction);
-			Element bear = this;
-			currentCell.setElement(null);
-			newCell.setElement(bear);
-			newCell.setHotOfBear(true);
-//			System.out.println(newCell.getCoordinates()[0]+","+newCell.getCoordinates()[1]);
-//			System.out.println(">---------------<");
-		}
+		
+		HashMap<String, Cell> cells = new HashMap<String, Cell>();
+		cells.put("b", cell_b);
+		cells.put("d", cell_d);
+		cells.put("f", cell_f);
+		cells.put("h", cell_h);		
+		
+		return cells;
 	}
 
-	private Cell getDirectionCell(Cell currentCell, Cell excludeCell) {
-		int[] coords = currentCell.getCoordinates();
-		int currentX = coords[0];
-		int currentY = coords[1];
-		Cell cell_b = Game.grid.getCell(currentX, currentY - 1);
-		Cell cell_d = Game.grid.getCell(currentX + 1, currentY);
-		Cell cell_f = Game.grid.getCell(currentX, currentY + 1);
-		Cell cell_h = Game.grid.getCell(currentX - 1, currentY);
-		
-		ArrayList<String> directions = new ArrayList<String>();
-		if (cell_b != null && cell_b.getElement() == null && !cell_b.equals(excludeCell)) {
-			directions.add("b");
-		}
-		if (cell_d != null && cell_d.getElement() == null && !cell_d.equals(excludeCell)) {
-			directions.add("d");
-		}
-		if (cell_f != null && cell_f.getElement() == null && !cell_f.equals(excludeCell)) {
-			directions.add("f");
-		}
-		if (cell_h != null && cell_h.getElement() == null && !cell_h.equals(excludeCell)) {
-			directions.add("h");
-		}
-		if (directions.isEmpty()) {
-			Cell newCell = moveNeighborsBears(currentCell, cell_b, cell_d, cell_f, cell_h);
-			if (newCell != null) {
-				return newCell;
-			} else {
-				return null;
-			}
-		} else {
-			HashMap<String, Cell> cells = new HashMap<String, Cell>();
-			cells.put("b", cell_b);
-			cells.put("d", cell_d);
-			cells.put("f", cell_f);
-			cells.put("h", cell_h);
-			Random generator = new Random();
-			String direction = directions.get( generator.nextInt(directions.size()) );
-			return cells.get(direction);
-		}		
-	}
-	
-	private Cell moveNeighborsBears(Cell currentCell, Cell cell_b,
-			Cell cell_d, Cell cell_f, Cell cell_h) {
-		
-		if (cell_b != null && cell_b.getElement() != null && 
-			cell_b.getElement().getType().getSubspecies().equalsIgnoreCase("bear") ) {
-			Cell newCell = getDirectionCell(cell_b, currentCell);
-			if (newCell != null) {
-				Element bear = cell_b.getElement();
-				cell_b.setElement(null);
-				newCell.setElement(bear);
-				newCell.setHotOfBear(true);
-				return cell_b;
-			}
-		}
-
-		if (cell_d != null && cell_d.getElement() != null && 
-			cell_d.getElement().getType().getSubspecies().equalsIgnoreCase("bear") ) {
-			Cell newCell = getDirectionCell(cell_d, currentCell);
-			if (newCell != null) {
-				Element bear = cell_d.getElement();
-				cell_d.setElement(null);
-				newCell.setElement(bear);
-				newCell.setHotOfBear(true);
-				return cell_d;
-			}
-		}		
-		
-		if (cell_f != null && cell_f.getElement() != null && 
-			cell_f.getElement().getType().getSubspecies().equalsIgnoreCase("bear") ) {
-			Cell newCell = getDirectionCell(cell_f, currentCell);
-			if (newCell != null) {
-				Element bear = cell_f.getElement();
-				cell_f.setElement(null);
-				newCell.setElement(bear);
-				newCell.setHotOfBear(true);
-				return cell_f;
-			}
-		}
-		
-		if (cell_h != null && cell_h.getElement() != null && 
-			cell_h.getElement().getType().getSubspecies().equalsIgnoreCase("bear") ) {
-			Cell newCell = getDirectionCell(cell_h, currentCell);
-			if (newCell != null) {
-				Element bear = cell_h.getElement();
-				cell_h.setElement(null);
-				newCell.setElement(bear);
-				newCell.setHotOfBear(true);
-				return cell_h;
-			}
-		}		
-		
-		return null;
-	}	
 }

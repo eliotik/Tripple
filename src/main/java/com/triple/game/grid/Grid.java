@@ -116,6 +116,7 @@ public class Grid {
                 	}
                 }
           }
-        }		
+        }
+		refreshJoinableCells();
 	}
 }
