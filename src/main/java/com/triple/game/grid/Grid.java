@@ -108,15 +108,32 @@ public class Grid {
             for (int y = 0; y < cells[0].length; ++y) {
             	Cell cell = cells[x][y];
                 if (cell.getElement() != null && cell.getElement().getType().getSubspecies().equalsIgnoreCase("bear")) {
+                	ElementBear Bear = (ElementBear) cell.getElement();
                 	if (cell.isHotOfBear()) {
                 		cell.setHotOfBear(false);
                 	} else {
-                		ElementBear Bear = (ElementBear) cell.getElement();
-                		Bear.changeDislocation(cell);
+                		if (Bear.changeDislocation(cell)) {
+                			moveBears();
+                			return;
+                		}
                 	}
                 }
           }
         }
+		for (int x = 0; x < cells.length; ++x) {
+            for (int y = 0; y < cells[0].length; ++y) {
+            	Cell cell = cells[x][y];
+                if (cell.getElement() != null && cell.getElement().getType().getSubspecies().equalsIgnoreCase("bear")) {
+                	ElementBear Bear = (ElementBear) cell.getElement();
+                	if (Bear.isMoved() || Bear.isSleeped()){
+                		Bear.setMoved(false);
+                		Bear.setSleeped(false);
+                		continue;
+                	}
+                	cell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+                }
+            }
+		}
 		refreshJoinableCells();
 	}
 }

@@ -29,6 +29,8 @@ public class ElementBear extends Element {
 //	private double pixelsMoveToY;
 //	private double currentMoveX;  
 //	private double currentMoveY;  
+	private boolean moved = false;
+	private boolean sleeped = false;
 	
 	public ElementBear() {
 		super();
@@ -119,15 +121,17 @@ public class ElementBear extends Element {
 		HashMap<String, Cell> cells = getEmptyNeighbors(currentCell, directions);
 		if (directions.isEmpty()) {
 			if (findNeighborBear(currentCell, cells)) {
-				this.changeDislocation(currentCell);
-			} else {
-				currentCell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+				setSleeped(true);
+//				this.changeDislocation(currentCell);
+//			} else {
+//				currentCell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
 			}
 		} else {
 			Cell newCell = getNewParentCell(directions, cells);
 			currentCell.setElement(null);
 			newCell.setElement((Element) this);
 			newCell.setHotOfBear(true);
+			setMoved(true);
 			return true;
 		}
 		return false;
@@ -135,20 +139,26 @@ public class ElementBear extends Element {
 
 	private boolean findNeighborBear(Cell currentCell, HashMap<String, Cell> cells) {
 		String[] keys = cells.keySet().toArray(new String[0]);
+		boolean foundBear = false, 
+				foundDarkness = false;		
 		for (int i = 0, l = keys.length; i < l; ++i) {
 			Cell cell = cells.get(keys[i]);
 			if (cell != null) {
-				if (cell.isHotOfBear()) return true;
+//				if (cell.isHotOfBear()) return true;
 				Element el = cell.getElement();
 				if (el != null && el.getType().getSubspecies().equalsIgnoreCase("bear")) {
-					ElementBear Bear = (ElementBear) el;
-					if ( Bear.changeDislocation(cell) ) {
-						return true;
-					}
+					foundBear = true;
+//					ElementBear Bear = (ElementBear) el;
+//					if ( Bear.changeDislocation(cell) ) {
+//						return true;
+//					}
 				}
+			} else {
+				foundDarkness = true;
 			}
 		}
-		return false;
+		
+		return (foundDarkness && foundBear);
 	}
 
 	private Cell getNewParentCell(ArrayList<String> directions, HashMap<String, Cell> cells) {
@@ -187,6 +197,22 @@ public class ElementBear extends Element {
 		cells.put("h", cell_h);		
 		
 		return cells;
+	}
+
+	public boolean isMoved() {
+		return moved;
+	}
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+
+	public boolean isSleeped() {
+		return sleeped;
+	}
+
+	public void setSleeped(boolean sleeped) {
+		this.sleeped = sleeped;
 	}
 
 }
