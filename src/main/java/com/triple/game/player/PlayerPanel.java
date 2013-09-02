@@ -44,9 +44,9 @@ public class PlayerPanel {
 						Graphics2D g2 = (Graphics2D)g;
 						g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 						//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-				        g2.setFont(new Font("Arial", Font.PLAIN, 24));			
+				        g2.setFont(new Font("Arial", Font.PLAIN, 18));			
 				        g2.setColor(Color.BLACK);
-				        g2.drawString(player.getName(), Grid.cellsAmount * Config.cellSize + 10, 65 + (i * Config.playerMargin));
+				        g2.drawString(player.getName(), Grid.cellsAmount * Config.cellSizeX + 5, 65 + (i * Config.playerMargin));
 				        
 					}
 			    	

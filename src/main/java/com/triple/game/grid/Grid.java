@@ -14,13 +14,14 @@ import java.util.Random;
 
 public class Grid {
 
-	public static int cellsAmount = 8;
+	public static int cellsAmount = Config.cellsAmount;
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
+    private boolean bearMoved = false;
 
     public Grid() {
         for (int x = 0; x < cells.length; ++x) {
             for (int y = 0; y < cells[0].length; ++y) {
-                cells[x][y] = new Cell(new Rectangle(x * Config.cellSize, y * Config.cellSize, Config.cellSize, Config.cellSize), x, y);
+                cells[x][y] = new Cell(new Rectangle(x * Config.cellSizeX, y * Config.cellSizeY, Config.cellSizeX, Config.cellSizeY), x, y);
           }
         }
         generateGrid();
@@ -104,22 +105,27 @@ public class Grid {
     }
 
 	public void moveBears() {
+		bearMoved = false;
 		for (int x = 0; x < cells.length; ++x) {
             for (int y = 0; y < cells[0].length; ++y) {
             	Cell cell = cells[x][y];
                 if (cell.getElement() != null && cell.getElement().getType().getSubspecies().equalsIgnoreCase("bear")) {
                 	ElementBear Bear = (ElementBear) cell.getElement();
-                	if (cell.isHotOfBear()) {
+                	if (cell.isHotOfBear() || Bear.isMoved()) {
                 		cell.setHotOfBear(false);
                 	} else {
-                		if (Bear.changeDislocation(cell)) {
-                			moveBears();
-                			return;
-                		}
+                		Bear.changeDislocation(cell);
+//                		if (Bear.changeDislocation(cell)) {
+//                			moveBears();
+//                			return;
+//                		}
                 	}
                 }
           }
         }
+		if (bearMoved) {
+			moveBears();
+		}
 		for (int x = 0; x < cells.length; ++x) {
             for (int y = 0; y < cells[0].length; ++y) {
             	Cell cell = cells[x][y];
@@ -130,10 +136,18 @@ public class Grid {
                 		Bear.setSleeped(false);
                 		continue;
                 	}
-                	cell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+                	//cell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
                 }
             }
 		}
 		refreshJoinableCells();
+	}
+
+	public boolean isBearMoved() {
+		return bearMoved;
+	}
+
+	public void setBearMoved(boolean bearMoved) {
+		this.bearMoved = bearMoved;
 	}
 }

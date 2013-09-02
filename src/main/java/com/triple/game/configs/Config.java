@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 
 public class Config {
 	public static final int cellSize = 80;
+	public static final int cellSizeX = 80;
+	public static final int cellSizeY = 80;
 	public static final int tileBorderWidth = 1;
 	public static final int tileSize = Config.cellSize - Config.tileBorderWidth*2;
 	public static final String xmlFilePath = "/configs/";
@@ -22,7 +24,7 @@ public class Config {
 	public static final int[] bgLine = {2, 2};
 	public static final int[] bgFullRound = {1, 2};
 	
-	public static final Dimension screenSize = new Dimension(800, 640);
+	public static final Dimension screenSize = new Dimension(500, 400);
 	public static final String gameName = "Triple town";
 	public static final int pixelSize = 1;
 	public static final String screenBackgroundFile = "/assets/screen_background.png";
@@ -33,4 +35,5 @@ public class Config {
 	public static final Rectangle menuButton = new Rectangle(0, 0, 82, 23);
 	public static final int playerMargin = 80;
 	public static final int handAnimationTick = 5;
+	public static final int cellsAmount = 5;
 }

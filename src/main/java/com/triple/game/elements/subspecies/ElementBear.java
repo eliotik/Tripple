@@ -132,6 +132,7 @@ public class ElementBear extends Element {
 			newCell.setElement((Element) this);
 			newCell.setHotOfBear(true);
 			setMoved(true);
+			Game.grid.setBearMoved(true);
 			return true;
 		}
 		return false;

@@ -53,6 +53,6 @@ public class FPS2 {
         Graphics2D g2 = (Graphics2D)g;
         g2.setFont(new Font("Arial", Font.PLAIN, 9));			
         g2.setColor(Color.BLACK);
-        g2.drawString("fps="+showFps, (Grid.cellsAmount + 1) * Config.cellSize, (Grid.cellsAmount) * Config.cellSize - 5);
+        g2.drawString("fps="+showFps, (Grid.cellsAmount + 1) * Config.cellSizeX-10, (Grid.cellsAmount) * Config.cellSizeY - 5);
 	}	
 }

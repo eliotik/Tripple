@@ -20,14 +20,14 @@ public class Menu {
 			e.printStackTrace();
 		}
 		textures = new GlobalTextures(game);
-		playButton = new Button("play", 350, 280, textures);
-		multiPlayButton = new Button("multi", 350, 310, textures);
+		playButton = new Button("play", 220, 180, textures);
+		multiPlayButton = new Button("multi", 220, 210, textures);
 	}
 
     private void drawTitleScreenBackground(Graphics g) {
     	g.drawImage(Tiles.getMainTitleBackground(), 
-    			0, 
-    			0, 
+    			-140, 
+    			-100, 
     			null);    	
     }	
 	

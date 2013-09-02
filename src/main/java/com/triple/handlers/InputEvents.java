@@ -67,8 +67,8 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     	if (Game.isJoinning) return;
     	if (Game.isStarted == false) Game.isStarted = true;
     	
-    	int x = e.getX()/Game.pixelSize/Config.cellSize,
-			y = e.getY()/Game.pixelSize/Config.cellSize;
+    	int x = e.getX()/Game.pixelSize/Config.cellSizeX,
+			y = e.getY()/Game.pixelSize/Config.cellSizeY;
     	
     	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	        Cell cell = Game.grid.getCell(x, y);
@@ -137,8 +137,8 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
     	if (Game.getGameState() == 1 || Game.getGameState() == 2) {
     	
-	    	int x = e.getX()/Game.pixelSize/Config.cellSize,
-				y = e.getY()/Game.pixelSize/Config.cellSize;
+	    	int x = e.getX()/Game.pixelSize/Config.cellSizeX,
+				y = e.getY()/Game.pixelSize/Config.cellSizeY;
 	    	if (x < Grid.cellsAmount && y < Grid.cellsAmount) {
 	    		if (focusedCell != null) {
 	    			focusedCell.setShowBorder(false);

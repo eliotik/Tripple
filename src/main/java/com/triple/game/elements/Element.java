@@ -112,11 +112,12 @@ public abstract class Element implements IElement  {
 	
 	public void render(Graphics g, int x, int y, int width, int height, boolean animate, boolean showBorder, boolean drawBackground) {
 		
-		int	cell_size = width,
+		int	cell_size_x = width,
+			cell_size_y = height,
 			tile_size = Config.tileSize,
 			tile_border_width = Config.tileBorderWidth,
-			x_width = x * cell_size,
-			y_width = y * cell_size;
+			x_width = x * cell_size_x,
+			y_width = y * cell_size_y;
 		
 		if (drawBackground && type.isShowBackground())
 			renderBackground(g, x, y, width, height);
@@ -131,8 +132,8 @@ public abstract class Element implements IElement  {
 		g.drawImage(Tiles.getTilesAsset(), 
         			(animate) ? (x_width + stepAnimation) : x_width, 
 					(animate) ? (y_width + stepAnimation) : y_width, 
-					(animate) ? (x_width + cell_size + (stepAnimation*-1)) : (x_width + cell_size), 
-					(animate) ? (y_width + cell_size + (stepAnimation*-1)) : (y_width + cell_size),
+					(animate) ? (x_width + cell_size_x + (stepAnimation*-1)) : (x_width + cell_size_x), 
+					(animate) ? (y_width + cell_size_y + (stepAnimation*-1)) : (y_width + cell_size_y),
 					tile_x * tile_size + tile_x * tile_border_width + tile_border_width,
 					tile_y * tile_size + tile_y * tile_border_width + tile_border_width,
 					tile_x * tile_size + tile_size + tile_x * tile_border_width + tile_border_width,

@@ -55,12 +55,12 @@ public class PlayerScore {
 		if(g instanceof Graphics2D)
 		{
 			Graphics2D g2 = (Graphics2D)g;
-	        g2.setFont(new Font("Arial", Font.PLAIN, 18));			
+	        g2.setFont(new Font("Arial", Font.PLAIN, 15));			
 	        g2.setColor(Color.BLACK);
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	        g2.drawString("Score: "+score, Grid.cellsAmount * Config.cellSize + 10, y);
-	        g2.setFont(new Font("Arial", Font.PLAIN, 14));
-	        g2.drawString("1 x "+String.format( "%.2f",multiplier), Grid.cellsAmount * Config.cellSize + 10, y + 15);
+	        g2.drawString(""+score, Grid.cellsAmount * Config.cellSizeX + 5, y);
+	        g2.setFont(new Font("Arial", Font.PLAIN, 12));
+	        g2.drawString("1 x "+String.format( "%.2f",multiplier), Grid.cellsAmount * Config.cellSizeX + 5, y + 15);
 	        
 		}		
 	}

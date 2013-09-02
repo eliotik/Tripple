@@ -54,23 +54,23 @@ public class Cell extends Rectangle{
         {
         	if (doCollapse == true) {
         		updateStepTick++;
-        		if (collapseStep < (collapsionPath - Config.cellSize) && Game.isStarted == true) {
+        		if (collapseStep < (collapsionPath - Config.cellSizeX) && Game.isStarted == true) {
         			if (updateStepTick > 2) {
-        			int directionX = (collapseNewX < collapseX*Config.cellSize) ? ((collapseNewX == collapseX*Config.cellSize) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSize) ? 0 : -1),
-    					directionY = (collapseNewY < collapseY*Config.cellSize) ? ((collapseNewY == collapseY*Config.cellSize) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSize) ? 0 : -1);
+        			int directionX = (collapseNewX < collapseX*Config.cellSizeX) ? ((collapseNewX == collapseX*Config.cellSizeX) ? 0 : 1) : ((collapseNewX == collapseX*Config.cellSizeX) ? 0 : -1),
+    					directionY = (collapseNewY < collapseY*Config.cellSizeY) ? ((collapseNewY == collapseY*Config.cellSizeY) ? 0 : 1) : ((collapseNewY == collapseY*Config.cellSizeY) ? 0 : -1);
 						collapseNewX += directionX * Config.collapseStepSize;
 						collapseNewY += directionY * Config.collapseStepSize;
 						
-						collapseStep += collapsionPath - getVector(collapseNewX, collapseX*Config.cellSize + Config.cellSize/2, collapseNewY, collapseY*Config.cellSize + Config.cellSize/2);
+						collapseStep += collapsionPath - getVector(collapseNewX, collapseX*Config.cellSizeX + Config.cellSizeX/2, collapseNewY, collapseY*Config.cellSizeY + Config.cellSizeY/2);
 						
 						stepCollapsionX = directionX  * collapseStep;
 						stepCollapsionY = directionY  * collapseStep;
-						if (stepCollapsionX > collapseX*Config.cellSize) {
-							stepCollapsionX = collapseX*Config.cellSize;
+						if (stepCollapsionX > collapseX*Config.cellSizeX) {
+							stepCollapsionX = collapseX*Config.cellSizeX;
 						}
 						
-						if (stepCollapsionY > collapseY*Config.cellSize) {
-							stepCollapsionY = collapseY*Config.cellSize;
+						if (stepCollapsionY > collapseY*Config.cellSizeY) {
+							stepCollapsionY = collapseY*Config.cellSizeY;
 						}
 						updateStepTick = 0;
         			}
@@ -194,11 +194,11 @@ public class Cell extends Rectangle{
     	this.collapseY = collapseY;
     	this.doCollapse = true;
     	collapseStep = 0;
-    	collapseNewX = x*Config.cellSize;
-    	collapseNewY = y*Config.cellSize;
+    	collapseNewX = x*Config.cellSizeX;
+    	collapseNewY = y*Config.cellSizeY;
     	stepCollapsionX = 0;
     	stepCollapsionY = 0;
-    	collapsionPath = getVector(x*Config.cellSize, collapseX*Config.cellSize + Config.cellSize/2, y*Config.cellSize, collapseY*Config.cellSize + Config.cellSize/2);
+    	collapsionPath = getVector(x*Config.cellSizeX, collapseX*Config.cellSizeX + Config.cellSizeX/2, y*Config.cellSizeY, collapseY*Config.cellSizeY + Config.cellSizeY/2);
 	}
 
 	private void findNeigbors(ArrayList<Cell> outerNeighbors, Cell excludeCell, Cell mainCell) {
