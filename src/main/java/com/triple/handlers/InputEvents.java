@@ -11,6 +11,8 @@ import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
+import com.triple.network.Client;
+import com.triple.network.Server;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -23,6 +25,8 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
+    private Server server = Game.getServer();
+    private Client client = Game.getClient();
 
 	private Game game;
 	private Button hoveredButton;
@@ -120,6 +124,8 @@ public class InputEvents implements MouseListener, MouseMotionListener {
         dataList.add("Test1");
         dataList.add("Test2");
        // Game.server.setData((java.awt.List) dataList);
+//        server.sendData("tratata".getBytes());
+        client.sendData("tra".getBytes());
     }
 
     public void mouseReleased(MouseEvent e) {

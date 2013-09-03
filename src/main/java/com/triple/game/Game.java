@@ -45,8 +45,8 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private Menu menu;
 
-    private Client socketClient;
-    private Server socketServer;
+    private static Client socketClient;
+    private static Server socketServer;
 	
     public static void main(String[] args) {
         //new Game().run();
@@ -167,7 +167,7 @@ public class Game extends Canvas implements Runnable {
         socketServer.start();
     }
 
-    public Server getServer() {
+    public static Server getServer() {
         return socketServer;
     }
 
@@ -176,7 +176,7 @@ public class Game extends Canvas implements Runnable {
         socketClient.start();
     }
 
-    public Client getClient() {
+    public static Client getClient() {
         return socketClient;
     }
     
