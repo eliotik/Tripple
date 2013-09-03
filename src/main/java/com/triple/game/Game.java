@@ -92,11 +92,6 @@ public class Game extends Canvas implements Runnable {
         isRunning = true;
         thread = new Thread(this);
         thread.start();
-
-        startServer();
-        startClient();
-        socketClient.sendData("tetete".getBytes());
-
     }
 
     public synchronized void stop() {
@@ -210,12 +205,14 @@ public class Game extends Canvas implements Runnable {
 		        drawGameScreenBackground(sg);
 		        grid.render(sg);
 		        getPlayerPanel().render(sg);
-		        //Fps.render(sg);
 		        FPS2.render(sg);
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
 			break;
 			case 2:
+				getMenu().mprender(g);
+			break;
+			case 4:
 				if (getPlayerPanel() == null)
 					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
 
@@ -226,7 +223,6 @@ public class Game extends Canvas implements Runnable {
 		        drawGameScreenBackground(sg);
 		        grid.render(sg);
 		        getPlayerPanel().render(sg);
-		        //Fps.render(sg);
 		        FPS2.render(sg);
 		        
 		        g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);

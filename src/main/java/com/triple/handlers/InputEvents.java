@@ -25,8 +25,6 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
-    private Server server = Game.getServer();
-    private Client client = Game.getClient();
 
 	private Game game;
 	private Button hoveredButton;
@@ -36,19 +34,30 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	}    
     
 	public void mouseClicked(MouseEvent e) {
-		if (Game.getGameState() != 0) return;
+		if (Game.getGameState() != 0 && Game.getGameState() != 2) return;
 		Menu menu = game.getMenu();
     	int mouse = e.getButton();
     	Rectangle r = new Rectangle(e.getX(), e.getY(), 1, 1);
     	switch(mouse) {
-    	case MouseEvent.BUTTON1:
-    		if (r.intersects(menu.getButton("play").getButtonBounds())) {
-    			menu.getButton("play").setClicked(true);
-    			Game.setGameState(1);
-    		} else if (r.intersects(menu.getButton("multi").getButtonBounds())) {
-    			menu.getButton("multi").setClicked(true);
-    			Game.setGameState(2);
-    		}
+	    	case MouseEvent.BUTTON1:
+	    		if (r.intersects(menu.getButton("play").getButtonBounds()) &&  Game.getGameState() == 0) {
+	    			//menu.getButton("play").setClicked(true);
+	    			Game.setGameState(1);
+	    		} else if (r.intersects(menu.getButton("multi").getButtonBounds()) &&  Game.getGameState() == 0) {
+	    			//menu.getButton("multi").setClicked(true);
+	    			Game.setGameState(2);
+	    		} else if (r.intersects(menu.getButton("mpstart").getButtonBounds()) &&  Game.getGameState() == 2) {
+	    			//menu.getButton("mpstart").setClicked(true);
+	    			game.startServer();
+	    			game.startClient();
+	    			Game.setGameState(4);
+	    		} else if (r.intersects(menu.getButton("mpjoin").getButtonBounds()) &&  Game.getGameState() == 2) {
+	    			//menu.getButton("mpjoin").setClicked(true);
+	    			game.startClient();
+	    			Game.setGameState(4);
+	    		} else if (r.intersects(menu.getButton("mpback").getButtonBounds()) &&  Game.getGameState() == 2) {
+	    			Game.setGameState(0);
+	    		}
     		break;
     	}
 	}
@@ -59,15 +68,21 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	}
 	
 	private void checkHoveredButton(Rectangle r, Menu menu) {
-		if (r.intersects(menu.getButton("play").getButtonBounds())) {
+		if (r.intersects(menu.getButton("play").getButtonBounds()) &&  Game.getGameState() == 0) {
 			setHoveredButton(menu.getButton("play"));
-		} else if (r.intersects(menu.getButton("multi").getButtonBounds())) {
+		} else if (r.intersects(menu.getButton("multi").getButtonBounds()) &&  Game.getGameState() == 0) {
 			setHoveredButton(menu.getButton("multi"));
+		} else if (r.intersects(menu.getButton("mpstart").getButtonBounds()) &&  Game.getGameState() == 2) {
+			setHoveredButton(menu.getButton("mpstart"));
+		} else if (r.intersects(menu.getButton("mpjoin").getButtonBounds()) &&  Game.getGameState() == 2) {
+			setHoveredButton(menu.getButton("mpjoin"));
+		} else if (r.intersects(menu.getButton("mpback").getButtonBounds()) &&  Game.getGameState() == 2) {
+			setHoveredButton(menu.getButton("mpback"));
 		}
 	}
 	
     public void mousePressed(MouseEvent e) {
-    	if (Game.getGameState() != 1 && Game.getGameState() != 2) return;
+    	if (Game.getGameState() != 1 && Game.getGameState() != 4) return;
     	if (Game.isJoinning) return;
     	if (Game.isStarted == false) Game.isStarted = true;
     	
@@ -119,13 +134,16 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        }
 	        }
     	}
-        List<String> dataList = new ArrayList<String>();
-        dataList.add("Test");
-        dataList.add("Test1");
-        dataList.add("Test2");
-       // Game.server.setData((java.awt.List) dataList);
-//        server.sendData("tratata".getBytes());
-        client.sendData("tra".getBytes());
+    	
+    	if (Game.getGameState() == 4) {
+	        List<String> dataList = new ArrayList<String>();
+	        dataList.add("Test");
+	        dataList.add("Test1");
+	        dataList.add("Test2");
+	       // Game.server.setData((java.awt.List) dataList);
+	//        server.sendData("tratata".getBytes());
+	        Game.getClient().sendData("tra".getBytes());
+    	}
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -141,7 +159,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     }
     
     public void mouseMoved(MouseEvent e) {
-    	if (Game.getGameState() == 1 || Game.getGameState() == 2) {
+    	if (Game.getGameState() == 1 || Game.getGameState() == 4) {
     	
 	    	int x = e.getX()/Game.pixelSize/Config.cellSizeX,
 				y = e.getY()/Game.pixelSize/Config.cellSizeY;
@@ -155,7 +173,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		    		focusedCell = cell;
 	    		}
 	    	}
-    	} else if (Game.getGameState() == 0) {
+    	} else if (Game.getGameState() == 0 || Game.getGameState() == 2) {
         	Menu menu = game.getMenu();
         	Rectangle r = new Rectangle(e.getX(), e.getY(), 1, 1);
         	if (hoveredButton != null) {

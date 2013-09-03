@@ -12,6 +12,9 @@ public class Menu {
 	private GlobalTextures textures;
 	private Button playButton;
 	private Button multiPlayButton;
+	private Button mpStartButton;
+	private Button mpJoinButton;
+	private Button mpBackButton;
 	
 	public Menu(Game game) {
 		try {
@@ -22,6 +25,9 @@ public class Menu {
 		textures = new GlobalTextures(game);
 		playButton = new Button("play", 220, 180, textures);
 		multiPlayButton = new Button("multi", 220, 210, textures);
+		mpStartButton = new Button("mpstart", 170, 180, textures);
+		mpJoinButton = new Button("mpjoin", 280, 180, textures);
+		mpBackButton = new Button("mpback", 220, 220, textures);
 	}
 
     private void drawTitleScreenBackground(Graphics g) {
@@ -38,11 +44,20 @@ public class Menu {
 	}
 
 	public Button getButton(String buttonName) {
-        if (buttonName.equals("play")) {
-            return playButton;
-        }else if (buttonName.equals("multi")) {
-        	return multiPlayButton;
-        }
-		return new Button("BAD", 0, 0, textures);
+		switch(buttonName) {
+			case "play": return playButton;
+			case "multi": return multiPlayButton;
+			case "mpstart": return mpStartButton;
+			case "mpjoin": return mpJoinButton;
+			case "mpback": return mpBackButton;
+			default: return null;
+		}
+	}
+
+	public void mprender(Graphics g) {
+		drawTitleScreenBackground(g);
+		mpStartButton.render(g);
+		mpJoinButton.render(g);
+		mpBackButton.render(g);
 	}
 }
