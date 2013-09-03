@@ -136,7 +136,9 @@ public class Grid {
                 		Bear.setSleeped(false);
                 		continue;
                 	}
-                	//cell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+                	if (Bear.neighborsNotMoved(cell)) {
+                		cell.setElement( ElementsFactory.getElement( ElementTypesCollection.getTypeById("grave_base") ) );
+                	}
                 }
             }
 		}

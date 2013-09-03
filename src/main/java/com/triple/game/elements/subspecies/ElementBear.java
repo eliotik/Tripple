@@ -216,4 +216,21 @@ public class ElementBear extends Element {
 		this.sleeped = sleeped;
 	}
 
+	public boolean neighborsNotMoved(Cell currentCell) {
+		ArrayList<String> directions = new ArrayList<String>();
+		HashMap<String, Cell> cells = getEmptyNeighbors(currentCell, directions);
+		String[] keys = cells.keySet().toArray(new String[0]);
+		boolean noBears = true;
+		for (int i = 0, l = keys.length; i < l; ++i) {
+			Cell cell = cells.get(keys[i]);
+			if (cell != null) {
+				Element el = cell.getElement();
+				if (el != null && el.getType().getSubspecies().equalsIgnoreCase("bear")) {
+					noBears = false;
+				}
+			}
+		}
+		return (noBears) ? true : false;
+	}
+
 }
