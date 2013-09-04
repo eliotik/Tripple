@@ -12,6 +12,7 @@ import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
 import com.triple.network.Client;
+import com.triple.network.DataSerialise;
 import com.triple.network.Server;
 
 import java.awt.*;
@@ -136,13 +137,12 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     	}
     	
     	if (Game.getGameState() == 4) {
-	        List<String> dataList = new ArrayList<String>();
-	        dataList.add("Test");
-	        dataList.add("Test1");
-	        dataList.add("Test2");
+            DataSerialise dataSerialise = new DataSerialise();
+            byte[] data = dataSerialise.getSerialiseData(Game.getPlayerPanel().getPlayer(0), Game.grid.getCell(x, y), Game.getPlayerPanel().getPlayer(0).getHand().getElement());
 	       // Game.server.setData((java.awt.List) dataList);
 	//        server.sendData("tratata".getBytes());
-	        Game.getClient().sendData("tra".getBytes());
+	        Game.getClient().sendData(data);
+//	        Game.getClient().sendData("tra".getBytes());
     	}
     }
 
