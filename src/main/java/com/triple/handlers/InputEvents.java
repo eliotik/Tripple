@@ -165,7 +165,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
         //System.out.println("Test mouseExited");
     }
-    
+
     public void mouseMoved(MouseEvent e) {
     	if (Game.getGameState() == 1 || Game.getGameState() == 4) {
     	
