@@ -3,7 +3,10 @@ package com.triple.network;
 import com.triple.game.Game;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 
 public class Server extends Thread{
     private int port = 1444;
@@ -25,7 +28,7 @@ public class Server extends Thread{
         if (isRunning) return;
         isRunning = true;
         while (true) {
-            byte[] data = new byte[1024];
+            byte[] data = new byte[2048];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
@@ -33,10 +36,10 @@ public class Server extends Thread{
                 e.printStackTrace();
             }
             String message = new String(packet.getData());
-            if (message.trim().equals("tetete")){
-                sendData("test".getBytes(), packet.getAddress(), packet.getPort());
-            }
+            DataSerialise dataSerialise = new DataSerialise();
+//            List dataList = dataSerialise.getUnSerialiseData(message.trim());
             System.out.println(message.toString());
+//            System.out.println(dataList);
         }
     }
 

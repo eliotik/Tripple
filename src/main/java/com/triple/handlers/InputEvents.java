@@ -11,22 +11,18 @@ import com.triple.game.grid.Grid;
 import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
-import com.triple.network.Client;
 import com.triple.network.DataSerialise;
-import com.triple.network.Server;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
 
     private Cell focusedCell;
-
+    private DataSerialise dataSerialise = new DataSerialise();
 	private Game game;
 	private Button hoveredButton;
     
@@ -135,15 +131,27 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        }
 	        }
     	}
-    	
+
+        if (Game.getGameState() == 2) {
+//            byte[] playerData = dataSerialise.getSerialisePlayer(Game.getPlayerPanel().getPlayer(0));
+//            byte[] gridData = dataSerialise.getSerialiseGrid(Game.grid);
+//            Game.getClient().sendData(playerData);
+//            Game.getClient().sendData(gridData);
+        }
+
     	if (Game.getGameState() == 4) {
-            DataSerialise dataSerialise = new DataSerialise();
-            byte[] data = dataSerialise.getSerialiseData(Game.getPlayerPanel().getPlayer(0), Game.grid.getCell(x, y), Game.getPlayerPanel().getPlayer(0).getHand().getElement());
-	       // Game.server.setData((java.awt.List) dataList);
-	//        server.sendData("tratata".getBytes());
-	        Game.getClient().sendData(data);
-//	        Game.getClient().sendData("tra".getBytes());
-    	}
+
+                //System.out.println(InetAddress.getByName("localhost"));
+                //byte[] data = dataSerialise.getSerialiseData(Game.getPlayerPanel().getPlayer(0), Game.grid.getCell(x, y), Game.getPlayerPanel().getPlayer(0).getHand().getElement());
+
+               // byte[] playerData = dataSerialise.getSerialisePlayer(Game.getPlayerPanel().getPlayer(0));
+                System.out.println(Game.grid.toString());
+                byte[] gridData = dataSerialise.getSerialiseGrid(Game.grid);
+                //Game.getClient().sendData(playerData);
+                Game.getClient().sendData(gridData);
+                //Game.getServer().sendData(data, InetAddress.getByName("localhost"), 1444);
+
+        }
     }
 
     public void mouseReleased(MouseEvent e) {

@@ -25,13 +25,14 @@ public class Client extends Thread {
 
     public void run() {
         while (true) {
-            byte[] data = new byte[1024];
+            byte[] data = new byte[2048];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println("test from client");
         }
     }
 
