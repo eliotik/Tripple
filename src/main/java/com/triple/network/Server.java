@@ -7,6 +7,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.HashMap;
 
 public class Server extends Thread{
     private int port = 1444;
@@ -28,7 +29,7 @@ public class Server extends Thread{
         if (isRunning) return;
         isRunning = true;
         while (true) {
-            byte[] data = new byte[2048];
+            byte[] data = new byte[20048];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
@@ -37,9 +38,10 @@ public class Server extends Thread{
             }
             String message = new String(packet.getData());
             DataSerialise dataSerialise = new DataSerialise();
-//            List dataList = dataSerialise.getUnSerialiseData(message.trim());
-            System.out.println(message.toString());
-//            System.out.println(dataList);
+            HashMap<String, HashMap<String, Object>> dataList = dataSerialise.getUnSerialiseData(message.trim());
+//            Player player = (Player) dataList.get("player").get("player");
+            System.out.println(dataList.get("player").toString());
+            System.out.println(dataList.getClass());
         }
     }
 

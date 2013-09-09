@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 
 public class InputEvents implements MouseListener, MouseMotionListener {
     public Cell[][] cells = new Cell[Grid.cellsAmount][Grid.cellsAmount];
@@ -140,16 +141,14 @@ public class InputEvents implements MouseListener, MouseMotionListener {
         }
 
     	if (Game.getGameState() == 4) {
-
-                //System.out.println(InetAddress.getByName("localhost"));
-                //byte[] data = dataSerialise.getSerialiseData(Game.getPlayerPanel().getPlayer(0), Game.grid.getCell(x, y), Game.getPlayerPanel().getPlayer(0).getHand().getElement());
-
-               // byte[] playerData = dataSerialise.getSerialisePlayer(Game.getPlayerPanel().getPlayer(0));
-                System.out.println(Game.grid.toString());
-                byte[] gridData = dataSerialise.getSerialiseGrid(Game.grid);
-                //Game.getClient().sendData(playerData);
-                Game.getClient().sendData(gridData);
-                //Game.getServer().sendData(data, InetAddress.getByName("localhost"), 1444);
+            HashMap<String, HashMap<String, Object>> sendData = new HashMap<String, HashMap<String, Object>>();
+            HashMap<String, Object> player = new HashMap<String, Object>();
+            player.put("player", Game.getPlayerPanel().getPlayer(0));
+            HashMap<String, Object> elements = Game.grid.getElements();
+            sendData.put("player", player);
+            sendData.put("elements", elements);
+            byte[] data = dataSerialise.getSerialiseData(sendData);
+            Game.getClient().sendData(data);
 
         }
     }

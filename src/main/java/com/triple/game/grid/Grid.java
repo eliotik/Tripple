@@ -152,4 +152,17 @@ public class Grid {
 	public void setBearMoved(boolean bearMoved) {
 		this.bearMoved = bearMoved;
 	}
+
+    public HashMap<String, Object> getElements(){
+        HashMap<String, Object> elements = new HashMap<String, Object>();
+        for (int x = 0, l = cells.length; x < l; ++x) {
+            for (int y = 0, c = cells[x].length; y < c; ++y) {
+                if (cells[x][y].getElement() != null) {
+                    elements.put("[ " + x + ", " + y + " ]", cells[x][y].getElement());
+                }
+            }
+        }
+        return elements;
+    }
+
 }
