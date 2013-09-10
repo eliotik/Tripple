@@ -12,6 +12,7 @@ import com.triple.game.player.Player;
 import com.triple.menu.Button;
 import com.triple.menu.Menu;
 import com.triple.network.DataSerialise;
+import com.triple.network.NetworkCollection;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -142,12 +143,12 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 
     	if (Game.getGameState() == 4) {
             HashMap<String, HashMap<String, Object>> sendData = new HashMap<String, HashMap<String, Object>>();
-            HashMap<String, Object> player = new HashMap<String, Object>();
-            player.put("player", Game.getPlayerPanel().getPlayer(0));
-            HashMap<String, Object> elements = Game.grid.getElements();
-            sendData.put("player", player);
-            sendData.put("elements", elements);
-            byte[] data = dataSerialise.getSerialiseData(sendData);
+//            HashMap<String, Element> elements = Game.grid.getElements();
+            System.out.println(Game.grid.getElements().toString());
+            NetworkCollection networkCollection = new NetworkCollection(Game.getPlayerPanel().getPlayer(0), Game.grid.getElements());
+
+            byte[] data = dataSerialise.getSerialisedNetworkCollection(networkCollection);
+
             Game.getClient().sendData(data);
 
         }

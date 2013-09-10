@@ -153,8 +153,8 @@ public class Grid {
 		this.bearMoved = bearMoved;
 	}
 
-    public HashMap<String, Object> getElements(){
-        HashMap<String, Object> elements = new HashMap<String, Object>();
+    public HashMap<String, Element> getElements(){
+        HashMap<String, Element> elements = new HashMap<String, Element>();
         for (int x = 0, l = cells.length; x < l; ++x) {
             for (int y = 0, c = cells[x].length; y < c; ++y) {
                 if (cells[x][y].getElement() != null) {
