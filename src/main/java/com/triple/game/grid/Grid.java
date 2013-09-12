@@ -153,12 +153,12 @@ public class Grid {
 		this.bearMoved = bearMoved;
 	}
 
-    public HashMap<String, Element> getElements(){
-        HashMap<String, Element> elements = new HashMap<String, Element>();
+    public HashMap<String, Object> getElements(){
+        HashMap<String, Object> elements = new HashMap<String, Object>();
         for (int x = 0, l = cells.length; x < l; ++x) {
             for (int y = 0, c = cells[x].length; y < c; ++y) {
                 if (cells[x][y].getElement() != null) {
-                    elements.put("[ " + x + ", " + y + " ]", cells[x][y].getElement());
+                    elements.put("[ " + x + ", " + y + " ]", cells[x][y].getElement().getType());
                 }
             }
         }

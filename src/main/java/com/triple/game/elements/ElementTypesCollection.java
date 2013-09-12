@@ -108,6 +108,10 @@ public class ElementTypesCollection {
 		List<ElementType> eTs = filter(having(on(ElementType.class).getId(), Matchers.equalTo(id)), elementMap);		
 		if (eTs == null || eTs.size() == 0) return null;//new ElementType();
 		return eTs.get(0);		
-	}	
+	}
+
+    public void add(ElementType elementType) {
+        elementMap.add(elementType);
+    }
 	
 }

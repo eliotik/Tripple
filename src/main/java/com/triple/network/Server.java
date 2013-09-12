@@ -1,12 +1,16 @@
 package com.triple.network;
 
 import com.triple.game.Game;
+import com.triple.game.elements.ElementTypesCollection;
+import com.triple.game.player.Player;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Server extends Thread{
     private int port = 1444;
@@ -37,12 +41,10 @@ public class Server extends Thread{
             }
             String message = new String(packet.getData());
             DataSerialise dataSerialise = new DataSerialise();
-//            HashMap<String, HashMap<String, Object>> dataList = dataSerialise.getUnSerialisedData(message.trim());
-//            Player player = (Player) dataList.get("player").get("player");
-//            System.out.println(dataList.get("player").toString());
-//            System.out.println(dataList.get("player").get("player").getClass());
-            NetworkCollection networkCollection = dataSerialise.getUnSerialisedNetworkCollection(message.trim());
-//            System.out.println(networkCollection.toString());
+            ArrayList<HashMap<String, Object>> networkCollection = dataSerialise.getUnSerialisedList(message.trim());
+            Player player = dataSerialise.getPlayer(message.trim());
+            ElementTypesCollection elementTypesCollection = dataSerialise.getElementTypesCollection(message.trim());
+            System.out.println(player);
         }
     }
 
