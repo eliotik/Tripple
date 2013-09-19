@@ -8,7 +8,7 @@ public class Player {
 	private String name = "";
 	private PlayerHand hand = new PlayerHand();
 	private PlayerScore score = new PlayerScore();
-	
+
 	public Player(String name, Element element) {
 		this.id = 0;
 		this.name = name;
