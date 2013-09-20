@@ -34,7 +34,7 @@ public class Server extends Thread{
         if (isRunning) return;
         isRunning = true;
         while (true) {
-            byte[] data = new byte[20048];
+            byte[] data = new byte[2048];
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
@@ -43,10 +43,8 @@ public class Server extends Thread{
             }
             String message = new String(packet.getData());
             DataSerialise dataSerialise = new DataSerialise();
-            ArrayList<HashMap<String, Object>> networkCollection = dataSerialise.getUnSerialisedList(message.trim());
-            Player player = dataSerialise.getPlayer(message.trim());
-            List<Element> elementCollection = dataSerialise.getElementList(message.trim());
-            System.out.println(elementCollection);
+            HashMap<String, Element> gridElements = dataSerialise.getGridElements(message.trim());
+            System.out.println(gridElements);
         }
     }
 

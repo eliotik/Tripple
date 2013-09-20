@@ -142,9 +142,12 @@ public class InputEvents implements MouseListener, MouseMotionListener {
         }
 
     	if (Game.getGameState() == 4) {
-            ArrayList<HashMap<String, Object>> networkCollection = new ArrayList<HashMap<String, Object>>();
-            HashMap<String, Object> player = new HashMap<String, Object>();
-            player.put("player", Game.getPlayerPanel().getPlayer(0));
+            ArrayList<HashMap<String, String>> networkCollection = new ArrayList<HashMap<String, String>>();
+            HashMap<String, String> player = new HashMap<String, String>();
+            player.put("name", Game.getPlayerPanel().getPlayer(0).getName());
+            player.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
+            player.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
+            player.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
 
 
             networkCollection.add(Game.grid.getElements());
