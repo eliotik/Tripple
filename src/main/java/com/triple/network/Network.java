@@ -20,6 +20,7 @@ public class Network {
 
     public void setGrid(HashMap<String, Element> elements){
         Game.grid.setElements(elements);
+        Game.grid.refreshJoinableCells();
     }
 
 

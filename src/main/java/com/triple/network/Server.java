@@ -2,7 +2,6 @@ package com.triple.network;
 
 import com.triple.game.Game;
 import com.triple.game.elements.Element;
-import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.player.Player;
 
 import java.io.IOException;
@@ -10,9 +9,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Server extends Thread{
     private int port = 1444;
@@ -43,21 +40,10 @@ public class Server extends Thread{
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String message = new String(packet.getData());
-            DataSerialise dataSerialise = new DataSerialise();
-            HashMap<String, Element> gridElements = dataSerialise.getGridElements(message.trim());
-            Player player = dataSerialise.getPlayer(message.trim());
-            player.setInetAddress(packet.getAddress());
-            network.addPlayer(player);
-            network.setGrid(gridElements);
-//            sendData(message.getBytes(), player.getInetAddress(), 1444);
-
-
-
+            handler(packet);
         }
     }
 
@@ -68,5 +54,18 @@ public class Server extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handler(DatagramPacket packet) {
+        String message = new String(packet.getData());
+        DataSerialise dataSerialise = new DataSerialise();
+        HashMap<String, Element> gridElements = dataSerialise.getGridElements(message.trim());
+        Player player = dataSerialise.getPlayer(message.trim());
+        player.setInetAddress(packet.getAddress());
+        network.addPlayer(Game.getPlayerPanel().getPlayer(0));
+        network.addPlayer(player);
+        network.setGrid(gridElements);
+        System.out.println(network.getPlayers().count());
+//      sendData(message.getBytes(), player.getInetAddress(), 1444);
     }
 }

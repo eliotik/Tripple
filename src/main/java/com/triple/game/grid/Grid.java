@@ -162,11 +162,10 @@ public class Grid {
             coordinates = key.split(", ");
             x = Integer.parseInt(coordinates[0]);
             y = Integer.parseInt(coordinates[1]);
-//            System.out.println("setElements=");
-//            System.out.println(elements.get(key));
             cells[x][y].setElement(elements.get(key));
-            cells[x][y].checkJoinables();
+            refreshJoinableCells();
         }
+
 
     }
 

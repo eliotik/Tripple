@@ -96,6 +96,9 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	        		!player.getHand().getElement().getType().getSubspecies().equals("robot")) {
 		        	
 		        	cell.setElement(player.getHand().getElement());
+                    if (Game.getGameState() == 4) {
+                        sendData();
+                    }
 		        	player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        	if (cell.getElement().getType().getJoinable()) {
 		        		cell.checkJoinables();
@@ -107,6 +110,9 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        	Game.grid.moveBears();
 		        } else {
 		        	if (cell.getElement() != null) {
+                        if (Game.getGameState() == 4) {
+                            sendData();
+                        }
 		        		if ( cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 		        		{
 			        		if (cell.getTemporaryElement() == null)
@@ -140,21 +146,21 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 //            Game.getClient().sendData(playerData);
 //            Game.getClient().sendData(gridData);
         }
-
-    	if (Game.getGameState() == 4) {
-            ArrayList<HashMap<String, String>> networkCollection = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> player = new HashMap<String, String>();
-            player.put("name", Game.getPlayerPanel().getPlayer(0).getName());
-            player.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
-            player.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
-            player.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
-            networkCollection.add(Game.grid.getElements());
-            networkCollection.add(player);
-            byte[] data = dataSerialise.getSerialisedList(networkCollection);
-
-            Game.getClient().sendData(data);
-
-        }
+//        if (Game.getGameState() == 4) {
+//            sendData();
+//        }
+//    	if (Game.getGameState() == 4) {
+//            ArrayList<HashMap<String, String>> networkCollection = new ArrayList<HashMap<String, String>>();
+//            HashMap<String, String> player = new HashMap<String, String>();
+//            player.put("name", Game.getPlayerPanel().getPlayer(0).getName());
+//            player.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
+//            player.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
+//            player.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
+//            networkCollection.add(Game.grid.getElements());
+//            networkCollection.add(player);
+//            byte[] data = dataSerialise.getSerialisedList(networkCollection);
+//            Game.getClient().sendData(data);
+//        }
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -203,5 +209,18 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		
 	}
+
+    private void sendData() {
+        ArrayList<HashMap<String, String>> networkCollection = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> playerToSend = new HashMap<String, String>();
+        playerToSend.put("name", Game.getPlayerPanel().getPlayer(0).getName());
+        playerToSend.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
+        playerToSend.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
+        playerToSend.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
+        networkCollection.add(Game.grid.getElements());
+        networkCollection.add(playerToSend);
+        byte[] data = dataSerialise.getSerialisedList(networkCollection);
+        Game.getClient().sendData(data);
+    }
 
 }
