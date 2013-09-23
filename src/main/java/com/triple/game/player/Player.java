@@ -2,12 +2,15 @@ package com.triple.game.player;
 
 import com.triple.game.elements.Element;
 
+import java.net.InetAddress;
+
 public class Player {
 
 	private int id;
 	private String name = "";
 	private PlayerHand hand = new PlayerHand();
 	private PlayerScore score = new PlayerScore();
+	private InetAddress inetAddress;
 
 	public Player(String name, Element element) {
 		this.id = 0;
@@ -55,9 +58,18 @@ public class Player {
 		this.id = id;
 		return this;
 	}
-	
-	public int getId() {
+
+    public int getId() {
+
 		return id;
 	}
+
+    public InetAddress getInetAddress() {
+        return inetAddress;
+    }
+
+    public void setInetAddress(InetAddress inetAddress) {
+        this.inetAddress = inetAddress;
+    }
 	
 }

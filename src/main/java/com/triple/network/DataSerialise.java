@@ -23,7 +23,6 @@ public class DataSerialise {
         byte[] byteData = new byte[2048];
         String jsonData = gson.toJson(data);
         byteData = jsonData.getBytes();
-
         return byteData;
     }
 
@@ -42,6 +41,7 @@ public class DataSerialise {
     }
 
     private ArrayList<HashMap<String, String>> getUnSerialisedList(String serialisedData) {
+//        System.out.println(serialisedData);
         Type type = new TypeToken<ArrayList<HashMap<String, String>>>() {}.getType();
         ArrayList<HashMap<String, String>> data = gson.fromJson(serialisedData, type);
         return data;
@@ -60,81 +60,18 @@ public class DataSerialise {
     }
 
     public HashMap<String, Element> getGridElements(String serialisedData) {
+
         HashMap<String, String> elementsInfo = elementsInfo(serialisedData);
         HashMap<String, Element> gridElements = new HashMap<String, Element>();
         for (String key : elementsInfo.keySet()) {
-            ElementType elementType = new ElementType();
-            elementType.setName(elementsInfo.get(key).split(", ")[0]);
-            elementType.setSubspecies(elementsInfo.get(key).split(", ")[1]);
+            if (elementsInfo.get(key) == "") {
+                gridElements.put(key, null);
+                continue;
+            }
+            ElementType elementType = ElementTypesCollection.getTypeById(elementsInfo.get(key));
             Element element = ElementsFactory.getElement(elementType);
             gridElements.put(key, element);
         }
         return gridElements;
     }
-
-//    public Player getPlayer(String serialisedData) {
-//        HashMap<String, Object> playerInfo = playerInfo(serialisedData);
-//        LinkedTreeMap playerFromData = (LinkedTreeMap) playerInfo.get("player");
-//        LinkedTreeMap playerHandFromData = (LinkedTreeMap) playerFromData.get("hand");
-//        LinkedTreeMap playerHandElement = (LinkedTreeMap) playerHandFromData.get("element");
-//        ElementType elementTypeHand = getElementType((LinkedTreeMap)playerHandElement.get("type"));
-//        Element elementInHand = ElementsFactory.getElement(elementTypeHand);
-//        LinkedTreeMap playerScoreFromData = (LinkedTreeMap) playerFromData.get("score");
-//
-//        Player player = new Player((String) playerFromData.get("name"));
-//        PlayerScore score = new PlayerScore();
-//        score.setScore((int) ((double) playerScoreFromData.get("score")));
-//        score.setMultiplier((double) playerScoreFromData.get("multiplier"));
-//        player.setScore(score);
-//
-//        PlayerHand playerHand = new PlayerHand();
-//        playerHand.setElement(elementInHand);
-//        player.setHand(playerHand);
-//
-//        return player;
-//    }
-//
-//    public List<Element> getElementList(String serialisedData) {
-//        List<ElementType> elementTypesCollection = getElementTypesCollection(serialisedData);
-//        List<Element> elementList = new ArrayList<Element>();
-//        for (ElementType elementType : elementTypesCollection) {
-//            Element element = ElementsFactory.getElement(elementType);
-//            elementList.add(element);
-//        }
-//        return elementList;
-//    }
-//
-//    public List<ElementType> getElementTypesCollection(String serialisedData){
-//        HashMap<String, Object> elementTypes = elementsInfo(serialisedData);
-//        List<ElementType> elementTypesCollection = new ArrayList<ElementType>();
-//        for (String key : elementTypes.keySet()) {
-//            LinkedTreeMap elementTypeFromData = (LinkedTreeMap)elementTypes.get(key);
-//            ElementType elementType = getElementType(elementTypeFromData);
-//            elementTypesCollection.add(elementType);
-//        }
-//        return elementTypesCollection;
-//    }
-//
-//    private ElementType getElementType(LinkedTreeMap elementTypeFromData) {
-//        ElementType elementType = new ElementType();
-//        elementType.setName((String)elementTypeFromData.get("name"));
-//        elementType.setType((String) elementTypeFromData.get("type"));
-//        elementType.setPlayable((Boolean) elementTypeFromData.get("playable"));
-//        elementType.setContainer((Boolean) elementTypeFromData.get("container"));
-//        elementType.setId((String) elementTypeFromData.get("id"));
-//        elementType.setChance((int) ((double) elementTypeFromData.get("chance")));
-//        elementType.setTile_x((int) ((double) elementTypeFromData.get("tile_x")));
-//        elementType.setTile_y((int) ((double)elementTypeFromData.get("tile_y")));
-//        elementType.setJoinResult((String) elementTypeFromData.get("joinResult"));
-//        elementType.setSubspecies((String) elementTypeFromData.get("subspecies"));
-//        elementType.setScore((int) ((double)elementTypeFromData.get("score")));
-//        elementType.setJoinScoreMultiplier((double) elementTypeFromData.get("joinScoreMultiplier"));
-//        elementType.setShowBackground((Boolean) elementTypeFromData.get("show_background"));
-//        elementType.setPenalty((int) ((double)elementTypeFromData.get("penalty")));
-//
-//        return elementType;
-//    }
-
-
-
 }

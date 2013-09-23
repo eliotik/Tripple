@@ -148,8 +148,6 @@ public class InputEvents implements MouseListener, MouseMotionListener {
             player.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
             player.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
             player.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
-
-
             networkCollection.add(Game.grid.getElements());
             networkCollection.add(player);
             byte[] data = dataSerialise.getSerialisedList(networkCollection);

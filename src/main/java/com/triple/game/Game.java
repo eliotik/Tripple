@@ -37,7 +37,6 @@ public class Game extends Canvas implements Runnable {
     public static Grid grid;
     private static PlayerPanel playerPanel;
     public static ElementTypesCollection elementTypesCollection;
-    public static Server server;
 
     public static double currentDelta;
     

@@ -153,13 +153,30 @@ public class Grid {
 		this.bearMoved = bearMoved;
 	}
 
+    public void setElements(HashMap<String, Element> elements) {
+        int x, y;
+        String[] coordinates;
+        for (String key : elements.keySet()) {
+//            if (key == "0, 0")
+//                continue;
+            coordinates = key.split(", ");
+            x = Integer.parseInt(coordinates[0]);
+            y = Integer.parseInt(coordinates[1]);
+//            System.out.println("setElements=");
+//            System.out.println(elements.get(key));
+            cells[x][y].setElement(elements.get(key));
+        }
+
+    }
+
     public HashMap<String, String> getElements(){
         HashMap<String, String> elements = new HashMap<String, String>();
         for (int x = 0, l = cells.length; x < l; ++x) {
             for (int y = 0, c = cells[x].length; y < c; ++y) {
-                if (cells[x][y].getElement() != null) {
-                    elements.put("[ " + x + ", " + y + " ]", cells[x][y].getElement().getType().getName() + ", " + cells[x][y].getElement().getType().getSubspecies());
-                }
+//                if (cells[x][y].getElement() != null) {
+                    elements.put( x + ", " + y, (cells[x][y].getElement() != null) ? cells[x][y].getElement().getType().getId() : "");
+//                    elements.put( x + ", " + y, cells[x][y].getElement().getType().getName() + ", " + cells[x][y].getElement().getType().getSubspecies());
+//                }
             }
         }
         return elements;
