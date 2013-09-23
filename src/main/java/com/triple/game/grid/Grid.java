@@ -165,6 +165,7 @@ public class Grid {
 //            System.out.println("setElements=");
 //            System.out.println(elements.get(key));
             cells[x][y].setElement(elements.get(key));
+            cells[x][y].checkJoinables();
         }
 
     }
