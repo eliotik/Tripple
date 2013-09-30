@@ -4,6 +4,7 @@ import com.triple.game.Game;
 import com.triple.game.elements.Element;
 import com.triple.game.player.Player;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -43,7 +44,7 @@ public class Server extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            handler(packet);
+            reformer(packet);
         }
     }
 
@@ -56,16 +57,21 @@ public class Server extends Thread{
         }
     }
 
-    private void handler(DatagramPacket packet) {
+    private void reformer(DatagramPacket packet) {
         String message = new String(packet.getData());
         DataSerialise dataSerialise = new DataSerialise();
         HashMap<String, Element> gridElements = dataSerialise.getGridElements(message.trim());
         Player player = dataSerialise.getPlayer(message.trim());
         player.setInetAddress(packet.getAddress());
+        String coordinates = dataSerialise.getClickedCellCoordinates(message.trim());
+//        JOptionPane.showMessageDialog(null, Game.grid.getElements());
         network.addPlayer(Game.getPlayerPanel().getPlayer(0));
         network.addPlayer(player);
-        network.setGrid(gridElements);
-        System.out.println(network.getPlayers().count());
-//      sendData(message.getBytes(), player.getInetAddress(), 1444);
+        network.setGrid(gridElements, coordinates);
+//        network.joinCells(coordinates);
+
+//        sendData(message.getBytes(), iteratedPlayer.getInetAddress(), 1444);
+
     }
 }
+

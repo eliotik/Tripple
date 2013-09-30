@@ -10,7 +10,7 @@ import java.util.List;
 import org.hamcrest.Matchers;
 
 public class Players {
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> players = new ArrayList<>();
 	
 	public void add(Player player) {
 		players.add(player.setId(players.size()));
@@ -27,8 +27,8 @@ public class Players {
 				players);
 		return (player.size() > 0) ? player.get(0) : null;
 	}
-	
-	public int count() {
+
+    public int count() {
 		return players.size();
 	}
 	

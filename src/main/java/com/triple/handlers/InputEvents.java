@@ -97,7 +97,7 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        	
 		        	cell.setElement(player.getHand().getElement());
                     if (Game.getGameState() == 4) {
-                        sendData();
+                        sendData(cell);
                     }
 		        	player.getHand().setElement(ElementTypesCollection.getRandomForHand());
 		        	if (cell.getElement().getType().getJoinable()) {
@@ -108,11 +108,11 @@ public class InputEvents implements MouseListener, MouseMotionListener {
                 		Bear.changeDislocation(cell);
 		        	}
 		        	Game.grid.moveBears();
+                    if (Game.getGameState() == 4) {
+                        sendData(cell);
+                    }
 		        } else {
 		        	if (cell.getElement() != null) {
-                        if (Game.getGameState() == 4) {
-                            sendData();
-                        }
 		        		if ( cell.getElement().getType().getContainer() && cell.getElement().getType().getId().equals("inventory"))
 		        		{
 			        		if (cell.getTemporaryElement() == null)
@@ -134,18 +134,21 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		        			}
 		        			Game.grid.moveBears();		        			
 		        			player.getHand().setElement(ElementTypesCollection.getRandomForHand());
+                            if (Game.getGameState() == 4) {
+                                sendData(cell);
+                            }
 		        		}
 		        	}
 		        }
 	        }
     	}
 
-        if (Game.getGameState() == 2) {
+//        if (Game.getGameState() == 2) {
 //            byte[] playerData = dataSerialise.getSerialisePlayer(Game.getPlayerPanel().getPlayer(0));
 //            byte[] gridData = dataSerialise.getSerialiseGrid(Game.grid);
 //            Game.getClient().sendData(playerData);
 //            Game.getClient().sendData(gridData);
-        }
+//        }
 //        if (Game.getGameState() == 4) {
 //            sendData();
 //        }
@@ -210,15 +213,18 @@ public class InputEvents implements MouseListener, MouseMotionListener {
 		
 	}
 
-    private void sendData() {
-        ArrayList<HashMap<String, String>> networkCollection = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> playerToSend = new HashMap<String, String>();
+    private void sendData(Cell cell) {
+        ArrayList<HashMap<String, String>> networkCollection = new ArrayList<>();
+        HashMap<String, String> playerToSend = new HashMap<>();
+        HashMap<String, String> cellToSend = new HashMap<>();
         playerToSend.put("name", Game.getPlayerPanel().getPlayer(0).getName());
         playerToSend.put("hand", Game.getPlayerPanel().getPlayer(0).getHand().getElement().getType().getName());
         playerToSend.put("score", Integer.toString(Game.getPlayerPanel().getPlayer(0).getScore().getScore()));
         playerToSend.put("multiplier", Double.toString(Game.getPlayerPanel().getPlayer(0).getScore().getMultiplier()));
+        cellToSend.put("coordinates", cell.getX()/Game.pixelSize/Config.cellSizeX + ", " + cell.getY()/Game.pixelSize/Config.cellSizeY) ;
         networkCollection.add(Game.grid.getElements());
         networkCollection.add(playerToSend);
+        networkCollection.add(cellToSend);
         byte[] data = dataSerialise.getSerialisedList(networkCollection);
         Game.getClient().sendData(data);
     }

@@ -212,8 +212,10 @@ public class Game extends Canvas implements Runnable {
 				getMenu().mprender(g);
 			break;
 			case 4:
-				if (getPlayerPanel() == null)
-					setPlayerPanel(new PlayerPanel(new Player("Player", ElementTypesCollection.getRandom())));
+				if (getPlayerPanel() == null) {
+                    String playerName = JOptionPane.showInputDialog("Please input your name: ");
+					setPlayerPanel(new PlayerPanel(new Player(playerName, ElementTypesCollection.getRandom())));
+                }
 
 				sg.setColor(new Color(100,100,100));
 				sg.fillRect(0, 0, pixel.width, pixel.height);

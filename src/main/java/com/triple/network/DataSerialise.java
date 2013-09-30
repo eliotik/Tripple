@@ -1,14 +1,12 @@
 package com.triple.network;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.triple.game.elements.Element;
 import com.triple.game.elements.ElementType;
 import com.triple.game.elements.ElementTypesCollection;
 import com.triple.game.elements.ElementsFactory;
 import com.triple.game.player.Player;
-import com.triple.game.player.PlayerHand;
 import com.triple.game.player.PlayerScore;
 
 import java.lang.reflect.Type;
@@ -38,6 +36,13 @@ public class DataSerialise {
         HashMap<String, String> playerInfo = result.get(1);
 
         return playerInfo;
+    }
+
+    private HashMap<String, String> cellInfo(String serialisedData) {
+        ArrayList<HashMap<String, String>> result = getUnSerialisedList(serialisedData);
+        HashMap<String, String> clickedCell = result.get(2);
+
+        return clickedCell;
     }
 
     private ArrayList<HashMap<String, String>> getUnSerialisedList(String serialisedData) {
@@ -74,4 +79,14 @@ public class DataSerialise {
         }
         return gridElements;
     }
+
+    public String getClickedCellCoordinates(String serialisedData) {
+        String coordinates = "";
+        HashMap<String, String> cellInfo = cellInfo(serialisedData);
+        for (String key : cellInfo.keySet()) {
+            coordinates = cellInfo.get(key);
+        }
+        return coordinates;
+    }
+
 }
